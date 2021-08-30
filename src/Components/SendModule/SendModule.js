@@ -1,7 +1,8 @@
 import React from "react";
+import FileSystem from "./FileSystem";
 
 function SendModule() {
-  return <div>send</div>;
+  return <FileSystem />;
 }
 
 export default SendModule;

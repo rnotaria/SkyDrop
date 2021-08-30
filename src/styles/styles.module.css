@@ -1,4 +1,5 @@
 .centeredDiv {
+  margin: 24px;
   display: flex;
   justify-content: center;
 }

@@ -6,6 +6,7 @@ import Box from "@material-ui/core/Box";
 
 const moduleContainerStyle = {
   minWidth: "400px",
+  minHeight: "400px",
   width: "40vw",
   height: "60vh",
   display: "flex",
@@ -13,9 +14,12 @@ const moduleContainerStyle = {
 };
 
 const moduleContentStyle = {
-  boxShadow: 1,
-  bgcolor: "background.paper",
   padding: 1,
+  boxShadow: 2,
+  bgcolor: "background.paper",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
   flexGrow: 1,
 };
 
