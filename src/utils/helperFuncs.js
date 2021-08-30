@@ -1,5 +1,3 @@
-import constants from "./constants";
-
 export function convertToMB(bytes) {
   return bytes / 1024 / 1024;
 }

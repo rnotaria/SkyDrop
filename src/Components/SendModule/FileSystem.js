@@ -34,7 +34,7 @@ function FileSystem() {
 
   const onDrop = useCallback(
     (acceptedFiles) => {
-      setFiles(addNewFiles(files, acceptedFiles, handleSetError));
+      setFiles(addNewFiles([...files], acceptedFiles, handleSetError));
     },
     [files]
   );
@@ -48,7 +48,9 @@ function FileSystem() {
     <React.Fragment>
       <FileSystemContainer {...getRootProps()}>
         <input {...getInputProps()} />
-        hi
+        {files.map((f) => (
+          <div key={f.name}>{f.name}</div>
+        ))}
       </FileSystemContainer>
       <Alert error={error} handleSetError={handleSetError} />
     </React.Fragment>
