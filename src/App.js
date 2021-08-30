@@ -1,21 +1,11 @@
-import { Switch, Route } from "react-router-dom";
-import Home from "./Components/Home";
-import SendModule from "./Components/SendModule/SendModule";
-import ReceiveModule from "./Components/ReceiveModule/ReceiveModule";
+import ModuleContainer from "./Components/ModuleContainer";
+import styles from "./styles/styles.module.css";
 
 function App() {
   return (
-    <Switch>
-      <Route path="/send">
-        <SendModule />
-      </Route>
-      <Route path="/receive">
-        <ReceiveModule />
-      </Route>
-      <Route path="/">
-        <Home />
-      </Route>
-    </Switch>
+    <div className={styles.centeredDiv}>
+      <ModuleContainer />
+    </div>
   );
 }
 

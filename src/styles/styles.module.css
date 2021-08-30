@@ -1,0 +1,8 @@
+.centeredDiv {
+  display: flex;
+  justify-content: center;
+}
+
+.moduleContainer {
+  width: 600px;
+}

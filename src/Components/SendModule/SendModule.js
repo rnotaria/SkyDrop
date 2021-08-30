@@ -1,7 +1,7 @@
 import React from "react";
 
 function SendModule() {
-  return <div>send</div>;
+  return <div></div>;
 }
 
 export default SendModule;
