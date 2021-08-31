@@ -1,8 +1,7 @@
-import React, { useState, useCallback } from "react";
-import Alert from "../Alert";
+import React, { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import styled from "styled-components";
-import { addNewFiles } from "../../utils/helperFuncs";
+import { addNewFiles, removeFile } from "../../utils/helperFuncs";
 
 // Need to use styled component because Material-Ui Box does not support pointer: cursor?
 const FileSystemContainer = styled.div`
@@ -15,6 +14,7 @@ const FileSystemContainer = styled.div`
   filter: brightness(100%);
   background-color: white;
   transition: 0.3s;
+  margin-bottom: 24px;
 
   &:hover {
     filter: brightness(90%);
@@ -22,38 +22,32 @@ const FileSystemContainer = styled.div`
   }
 `;
 
-function FileSystem() {
-  const [files, setFiles] = useState([]);
-  const [error, setError] = useState();
-
-  console.log(files);
-
-  const handleSetError = (e) => {
-    setError(e);
-  };
-
+function FileSystem({ files, setFiles, setError }) {
+  //#region Dropzone
   const onDrop = useCallback(
     (acceptedFiles) => {
-      setFiles(addNewFiles([...files], acceptedFiles, handleSetError));
+      setFiles(addNewFiles([...files], acceptedFiles, setError));
     },
-    [files]
+    [files, setFiles, setError]
   );
 
   const { getRootProps, getInputProps } = useDropzone({
     noClick: true,
     onDrop,
   });
+  //#endregion
 
   return (
-    <React.Fragment>
-      <FileSystemContainer {...getRootProps()}>
-        <input {...getInputProps()} />
-        {files.map((f) => (
-          <div key={f.name}>{f.name}</div>
-        ))}
-      </FileSystemContainer>
-      <Alert error={error} handleSetError={handleSetError} />
-    </React.Fragment>
+    <FileSystemContainer {...getRootProps()}>
+      <input {...getInputProps()} />
+      {files.map((f) => (
+        <div key={f.name}>
+          <button onClick={() => setFiles(removeFile(files, f.name))}>
+            {f.name}
+          </button>
+        </div>
+      ))}
+    </FileSystemContainer>
   );
 }
 
