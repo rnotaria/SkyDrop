@@ -1,25 +1,21 @@
 import React, { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import styled from "styled-components";
-import { addNewFiles, removeFile } from "../../utils/helperFuncs";
+import { addNewFiles } from "../../utils/helperFuncs";
+import FileList from "./FileList";
 
 // Need to use styled component because Material-Ui Box does not support pointer: cursor?
 const FileSystemContainer = styled.div`
   margin-top: 24px;
   width: 80%;
-  height: 40%;
-  cursor: pointer;
+  height: 50%;
   border: 1px solid #aaaaaa;
-  border-radius: 4px;
   filter: brightness(100%);
   background-color: white;
   transition: 0.3s;
   margin-bottom: 24px;
-
-  &:hover {
-    filter: brightness(90%);
-    transition: 0.3s;
-  }
+  overflow-y: auto;
+  user-select: none;
 `;
 
 function FileSystem({ files, setFiles, setError }) {
@@ -31,7 +27,7 @@ function FileSystem({ files, setFiles, setError }) {
     [files, setFiles, setError]
   );
 
-  const { getRootProps, getInputProps } = useDropzone({
+  const { getRootProps, getInputProps, open } = useDropzone({
     noClick: true,
     onDrop,
   });
@@ -40,13 +36,7 @@ function FileSystem({ files, setFiles, setError }) {
   return (
     <FileSystemContainer {...getRootProps()}>
       <input {...getInputProps()} />
-      {files.map((f) => (
-        <div key={f.name}>
-          <button onClick={() => setFiles(removeFile(files, f.name))}>
-            {f.name}
-          </button>
-        </div>
-      ))}
+      <FileList files={files} setFiles={setFiles} openFileDialog={open} />
     </FileSystemContainer>
   );
 }

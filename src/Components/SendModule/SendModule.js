@@ -22,14 +22,20 @@ function SendModule() {
     setError(e);
   };
 
-  const sizeBarProps = {
+  const sizeProgressProps = {
     title: "Size",
     label:
       convertToMB(size).toFixed(2) +
       "/" +
       convertToMB(constants.MAX_UPLOAD_SIZE).toFixed(2) +
-      "MB",
+      " MB",
     value: (size / constants.MAX_UPLOAD_SIZE) * 100,
+  };
+
+  const fileCountProgressProps = {
+    title: "File Count",
+    label: files.length + "/" + constants.MAX_NUM_OF_FILES,
+    value: (files.length / constants.MAX_NUM_OF_FILES) * 100,
   };
 
   return (
@@ -40,7 +46,8 @@ function SendModule() {
         setError={handleSetError}
       />
       <Alert error={error} handleSetError={handleSetError} />
-      <ProgressBar {...sizeBarProps} />
+      <ProgressBar {...sizeProgressProps} />
+      <ProgressBar {...fileCountProgressProps} />
     </React.Fragment>
   );
 }
