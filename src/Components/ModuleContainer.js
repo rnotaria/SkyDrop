@@ -8,7 +8,7 @@ const moduleContainerStyle = {
   minWidth: "400px",
   minHeight: "400px",
   width: "40vw",
-  height: "80vh",
+  height: "60vh",
   display: "flex",
   flexDirection: "column",
 };

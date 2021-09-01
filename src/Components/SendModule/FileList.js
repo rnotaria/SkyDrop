@@ -1,5 +1,5 @@
 import React from "react";
-import { convertToMB, removeFile } from "../../utils/helperFuncs";
+import { convertToMB } from "../../utils/helperFuncs";
 
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -20,9 +20,7 @@ function AddFile({ openFileDialog }) {
       <ListItem
         button
         style={{ alignItems: "center", justifyContent: "center" }}
-        onClick={() => {
-          openFileDialog();
-        }}
+        onClick={openFileDialog}
       >
         <ListItemAvatar style={{ minWidth: 0 }}>
           <Avatar style={{ background: "#32de84" }}>
@@ -46,6 +44,12 @@ const useStyles = makeStyles({
 function FileList({ files, setFiles, openFileDialog }) {
   const classes = useStyles();
 
+  const removeFile = (name) => {
+    setTimeout(() => {
+      setFiles(files.filter((f) => f.name !== name));
+    }, 350);
+  };
+
   return (
     <List dense={true}>
       <AddFile openFileDialog={openFileDialog} />
@@ -65,11 +69,9 @@ function FileList({ files, setFiles, openFileDialog }) {
               <IconButton
                 edge="end"
                 aria-label="delete"
-                onClick={() => {
-                  setFiles(removeFile(files, file.name));
-                }}
+                onClick={() => removeFile(file.name)}
               >
-                <DeleteIcon />
+                <DeleteIcon color="secondary" />
               </IconButton>
             </ListItemSecondaryAction>
           </ListItem>

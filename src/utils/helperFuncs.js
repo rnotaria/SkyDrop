@@ -31,7 +31,3 @@ export function addNewFiles(files, newFiles, setError) {
 
   return files;
 }
-
-export function removeFile(files, name) {
-  return files.filter((f) => f.name !== name);
-}

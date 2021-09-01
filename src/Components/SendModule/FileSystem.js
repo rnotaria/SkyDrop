@@ -5,17 +5,34 @@ import { addNewFiles } from "../../utils/helperFuncs";
 import FileList from "./FileList";
 
 // Need to use styled component because Material-Ui Box does not support pointer: cursor?
-const FileSystemContainer = styled.div`
+const Container = styled.div`
+  position: relative;
   margin-top: 24px;
   width: 80%;
-  height: 50%;
+  height: 60%;
   border: 1px solid #aaaaaa;
-  filter: brightness(100%);
   background-color: white;
-  transition: 0.3s;
   margin-bottom: 24px;
   overflow-y: auto;
   user-select: none;
+  transition: 0.3s;
+  ${(props) => (props.isDragActive ? { filter: "brightness(90%)" } : null)};
+`;
+
+const Inner = styled.div`
+  position: relative;
+  height: 100%;
+  width: 100%;
+`;
+
+const DropFilesHere = styled.div`
+  position: absolute;
+  z-index: 1;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 function FileSystem({ files, setFiles, setError }) {
@@ -27,18 +44,22 @@ function FileSystem({ files, setFiles, setError }) {
     [files, setFiles, setError]
   );
 
-  const { getRootProps, getInputProps, open } = useDropzone({
+  const { getRootProps, getInputProps, isDragActive, open } = useDropzone({
     noClick: true,
     onDrop,
   });
   //#endregion
 
   return (
-    <FileSystemContainer {...getRootProps()}>
+    <Container isDragActive={isDragActive} {...getRootProps()}>
       <input {...getInputProps()} />
       <FileList files={files} setFiles={setFiles} openFileDialog={open} />
-    </FileSystemContainer>
+    </Container>
   );
 }
+
+// function DropFilesHere() {
+//   return <DropFilesHereContainer>Drop Files Here</DropFilesHereContainer>;
+// }
 
 export default FileSystem;
