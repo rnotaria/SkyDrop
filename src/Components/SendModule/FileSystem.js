@@ -9,7 +9,8 @@ const Container = styled.div`
   position: relative;
   margin-top: 24px;
   width: 80%;
-  height: 50%;
+  flex: 1 1 auto;
+  overflow-y: auto;
   border: 1px solid #aaaaaa;
   background-color: white;
   margin-bottom: 24px;
@@ -18,11 +19,7 @@ const Container = styled.div`
   ${(props) => (props.isDragActive ? { filter: "brightness(70%)" } : null)};
 `;
 
-const FileListContainer = styled.div`
-  height: 100%;
-  width: 100%;
-  overflow-y: auto;
-`;
+const FileListContainer = styled.div``;
 
 function FileSystem({ files, setFiles, setError }) {
   //#region Dropzone
