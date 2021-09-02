@@ -4,6 +4,7 @@ import ProgressBar from "../ProgressBar";
 import Alert from "../Alert";
 import { getTotalSize, convertToMB } from "../../utils/helperFuncs";
 import constants from "../../utils/constants";
+import SendButton from "./SendButton";
 
 function SendModule() {
   const [files, setFiles] = useState([]);
@@ -48,6 +49,7 @@ function SendModule() {
       <Alert error={error} handleSetError={handleSetError} />
       <ProgressBar {...sizeProgressProps} />
       <ProgressBar {...fileCountProgressProps} />
+      <SendButton />
     </React.Fragment>
   );
 }
