@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import FileSystem from "./FileSystem";
 import ProgressBar from "../ProgressBar";
-import Alert from "../Alert";
 import { getTotalSize, convertToMB } from "../../utils/helperFuncs";
 import constants from "../../utils/constants";
 import SendButton from "./SendButton";
@@ -9,7 +8,6 @@ import SendButton from "./SendButton";
 function SendModule() {
   const [files, setFiles] = useState([]);
   const [size, setSize] = useState(0);
-  const [error, setError] = useState();
 
   useEffect(() => {
     setSize(getTotalSize([...files]));
@@ -17,10 +15,6 @@ function SendModule() {
 
   const handleSetFiles = (e) => {
     setFiles(e);
-  };
-
-  const handleSetError = (e) => {
-    setError(e);
   };
 
   const sizeProgressProps = {
@@ -41,12 +35,7 @@ function SendModule() {
 
   return (
     <React.Fragment>
-      <FileSystem
-        files={files}
-        setFiles={handleSetFiles}
-        setError={handleSetError}
-      />
-      <Alert error={error} handleSetError={handleSetError} />
+      <FileSystem files={files} setFiles={handleSetFiles} />
       <ProgressBar {...sizeProgressProps} />
       <ProgressBar {...fileCountProgressProps} />
       <SendButton />

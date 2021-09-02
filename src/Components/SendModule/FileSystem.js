@@ -4,6 +4,8 @@ import styled from "styled-components";
 import FileList from "./FileList";
 import DropFilesHere from "./DropFilesHere";
 import { addNewFiles } from "../../utils/helperFuncs";
+import { useDispatch } from "react-redux";
+import { duplicateFileError } from "../../reducers/alertReducer";
 
 const Container = styled.div`
   position: relative;
@@ -21,13 +23,17 @@ const Container = styled.div`
 
 const FileListContainer = styled.div``;
 
-function FileSystem({ files, setFiles, setError }) {
+function FileSystem({ files, setFiles }) {
+  const dispatch = useDispatch();
+
   //#region Dropzone
   const onDrop = useCallback(
     (acceptedFiles) => {
-      setFiles(addNewFiles([...files], acceptedFiles, setError));
+      const { errors, newFileList } = addNewFiles(files, acceptedFiles);
+      setFiles(newFileList);
+      if (errors != null) dispatch(duplicateFileError());
     },
-    [files, setFiles, setError]
+    [files, setFiles, dispatch]
   );
 
   const { getRootProps, getInputProps, isDragActive, open } = useDropzone({

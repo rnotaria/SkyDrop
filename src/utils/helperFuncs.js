@@ -10,8 +10,10 @@ export function getTotalSize(files) {
   return size;
 }
 
-export function addNewFiles(files, newFiles, setError) {
+export function addNewFiles(files, newFiles) {
   let fileNames = new Set();
+  let newFileList = [...files];
+  let errors = null;
 
   files.forEach((f) => {
     fileNames.add(f.name);
@@ -19,15 +21,11 @@ export function addNewFiles(files, newFiles, setError) {
 
   newFiles.forEach((f) => {
     if (fileNames.has(f.name)) {
-      setError({
-        type: "DuplicateFileName",
-        message: "File names must be unique!",
-        severity: "error",
-      });
+      errors = "DUPLICATE_FILE_NAME";
     } else {
-      files.push(f);
+      newFileList.push(f);
     }
   });
 
-  return files;
+  return { errors, newFileList };
 }

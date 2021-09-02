@@ -1,25 +1,35 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import Slide from "@material-ui/core/Slide";
+import { useStore, useDispatch } from "react-redux";
+import { reset } from "../reducers/alertReducer";
 
-function Alert({ error, handleSetError }) {
+function Alert() {
   const [open, setOpen] = useState(false);
+  const [data, setData] = useState(null);
 
-  useEffect(() => {
-    if (error) {
+  const store = useStore();
+  const dispatch = useDispatch();
+
+  store.subscribe(() => {
+    console.log(store.getState().alerts);
+    if (store.getState().alerts != null) {
       setOpen(true);
+      setData({ ...store.getState().alerts });
+    } else {
+      setData(null);
     }
-  }, [error]);
+  });
 
   const onClose = () => {
     setOpen(false);
     setTimeout(() => {
-      handleSetError(null);
+      dispatch(reset());
     }, 500);
   };
 
-  if (!error) return null;
+  if (data == null) return null;
 
   return (
     <Snackbar
@@ -28,8 +38,8 @@ function Alert({ error, handleSetError }) {
       autoHideDuration={5000}
       TransitionComponent={Slide}
     >
-      <MuiAlert elevation={6} variant="filled" severity={error.severity}>
-        <span style={{ userSelect: "none" }}>{error.message}</span>
+      <MuiAlert elevation={6} variant="filled" severity={data.severity}>
+        <span style={{ userSelect: "none" }}>{data.message}</span>
       </MuiAlert>
     </Snackbar>
   );
