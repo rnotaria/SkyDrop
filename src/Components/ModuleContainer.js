@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import SendModule from "./SendModule/SendModule";
 import ReceiveModule from "./ReceiveModule/ReceiveModule";
-import TabPanel from "./TabPanel";
+import ModuleSelector from "./ModuleSelector";
 import Box from "@material-ui/core/Box";
 
 const containerStyle = {
+  minHeight: "500px",
   width: "40%",
   height: "80%",
   display: "flex",
@@ -32,7 +33,7 @@ function ModuleContainer() {
 
   return (
     <Box {...containerStyle}>
-      <TabPanel value={value} handleChangeValue={handleChangeValue} />
+      <ModuleSelector value={value} handleChangeValue={handleChangeValue} />
       <Box {...contentStyle}>{module}</Box>
     </Box>
   );

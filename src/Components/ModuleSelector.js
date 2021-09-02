@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function TabPanel({ value, handleChangeValue }) {
+function ModuleSelector({ value, handleChangeValue }) {
   const classes = useStyles();
 
   return (
@@ -32,4 +32,4 @@ function TabPanel({ value, handleChangeValue }) {
   );
 }
 
-export default TabPanel;
+export default ModuleSelector;
