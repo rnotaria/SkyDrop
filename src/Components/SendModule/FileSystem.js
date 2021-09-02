@@ -13,19 +13,18 @@ const Container = styled.div`
   border: 1px solid #aaaaaa;
   background-color: white;
   margin-bottom: 24px;
-  overflow-y: auto;
   user-select: none;
   transition: 0.3s;
   ${(props) => (props.isDragActive ? { filter: "brightness(90%)" } : null)};
 `;
 
-const Inner = styled.div`
-  position: relative;
+const FileListContainer = styled.div`
   height: 100%;
   width: 100%;
+  overflow-y: auto;
 `;
 
-const DropFilesHere = styled.div`
+const DropFilesHereContainer = styled.div`
   position: absolute;
   z-index: 1;
   height: 100%;
@@ -53,13 +52,20 @@ function FileSystem({ files, setFiles, setError }) {
   return (
     <Container isDragActive={isDragActive} {...getRootProps()}>
       <input {...getInputProps()} />
-      <FileList files={files} setFiles={setFiles} openFileDialog={open} />
+      {isDragActive ? <DropFilesHere /> : null}
+      <FileListContainer>
+        <FileList files={files} setFiles={setFiles} openFileDialog={open} />
+      </FileListContainer>
     </Container>
   );
 }
 
-// function DropFilesHere() {
-//   return <DropFilesHereContainer>Drop Files Here</DropFilesHereContainer>;
-// }
+function DropFilesHere() {
+  return (
+    <DropFilesHereContainer>
+      <div>Drop Files Here</div>
+    </DropFilesHereContainer>
+  );
+}
 
 export default FileSystem;
