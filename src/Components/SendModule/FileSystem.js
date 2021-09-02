@@ -9,7 +9,7 @@ const Container = styled.div`
   position: relative;
   margin-top: 24px;
   width: 80%;
-  height: 60%;
+  height: 50%;
   border: 1px solid #aaaaaa;
   background-color: white;
   margin-bottom: 24px;

@@ -8,12 +8,13 @@ const moduleContainerStyle = {
   minWidth: "400px",
   minHeight: "400px",
   width: "40vw",
-  height: "60vh",
+  height: "80vh",
   display: "flex",
   flexDirection: "column",
 };
 
 const moduleContentStyle = {
+  height: "100%",
   padding: 1,
   boxShadow: 2,
   bgcolor: "background.paper",
