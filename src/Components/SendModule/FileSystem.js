@@ -3,6 +3,8 @@ import { useDropzone } from "react-dropzone";
 import styled from "styled-components";
 import { addNewFiles } from "../../utils/helperFuncs";
 import FileList from "./FileList";
+import Zoom from "@material-ui/core/Zoom";
+import Typography from "@material-ui/core/Typography";
 
 // Need to use styled component because Material-Ui Box does not support pointer: cursor?
 const Container = styled.div`
@@ -14,8 +16,8 @@ const Container = styled.div`
   background-color: white;
   margin-bottom: 24px;
   user-select: none;
-  transition: 0.3s;
-  ${(props) => (props.isDragActive ? { filter: "brightness(90%)" } : null)};
+  transition: 0.5s;
+  ${(props) => (props.isDragActive ? { filter: "brightness(70%)" } : null)};
 `;
 
 const FileListContainer = styled.div`
@@ -26,7 +28,7 @@ const FileListContainer = styled.div`
 
 const DropFilesHereContainer = styled.div`
   position: absolute;
-  z-index: 1;
+  z-index: 10;
   height: 100%;
   width: 100%;
   display: flex;
@@ -52,7 +54,7 @@ function FileSystem({ files, setFiles, setError }) {
   return (
     <Container isDragActive={isDragActive} {...getRootProps()}>
       <input {...getInputProps()} />
-      {isDragActive ? <DropFilesHere /> : null}
+      <DropFilesHere isDragActive={isDragActive} />
       <FileListContainer>
         <FileList files={files} setFiles={setFiles} openFileDialog={open} />
       </FileListContainer>
@@ -60,10 +62,15 @@ function FileSystem({ files, setFiles, setError }) {
   );
 }
 
-function DropFilesHere() {
+function DropFilesHere({ isDragActive }) {
+  if (!isDragActive) return null;
   return (
     <DropFilesHereContainer>
-      <div>Drop Files Here</div>
+      <Zoom in={isDragActive} timeout={{ enter: 250, exit: 250 }}>
+        <Typography variant="h5" style={{ color: "#aaa" }}>
+          Drop files here
+        </Typography>
+      </Zoom>
     </DropFilesHereContainer>
   );
 }
