@@ -10,22 +10,29 @@ export function getTotalSize(files) {
   return size;
 }
 
-export function addNewFiles(files, newFiles) {
-  let fileNames = new Set();
-  let newFileList = [...files];
-  let errors = null;
+export function filterDupes(files, newFiles) {
+  let fileNames = new Set(files.map((f) => f.name));
 
-  files.forEach((f) => {
-    fileNames.add(f.name);
-  });
-
-  newFiles.forEach((f) => {
-    if (fileNames.has(f.name)) {
-      errors = "DUPLICATE_FILE_NAME";
-    } else {
-      newFileList.push(f);
+  newFiles.forEach((file) => {
+    if (!fileNames.has(file.name)) {
+      fileNames.add(file.name);
+      files.push(file);
     }
   });
 
-  return { errors, newFileList };
+  return files;
+}
+
+export function containsDupes(files, newFiles) {
+  let fileNames = new Set(files.map((f) => f.name));
+  let dupes = false;
+
+  newFiles.forEach((file) => {
+    if (fileNames.has(file.name)) {
+      dupes = true;
+    }
+    fileNames.add(file.name);
+  });
+
+  return dupes;
 }

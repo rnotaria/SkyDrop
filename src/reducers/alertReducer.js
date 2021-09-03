@@ -1,4 +1,4 @@
-const alertReducer = (state = "test", action) => {
+const alertReducer = (state = null, action) => {
   switch (action.type) {
     case "DUPLICATE_FILE_NAME":
       return { ...action.data };

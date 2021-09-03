@@ -1,5 +1,7 @@
 import React from "react";
 import { convertToMB } from "../../utils/helperFuncs";
+import { useDispatch } from "react-redux";
+import { removeFileToSend } from "../../reducers/filesToSendReducer";
 
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -41,12 +43,13 @@ const useStyles = makeStyles({
   },
 });
 
-function FileList({ files, setFiles, openFileDialog }) {
+function FileList({ files, openFileDialog }) {
+  const dispatch = useDispatch();
   const classes = useStyles();
 
   const removeFile = (name) => {
     setTimeout(() => {
-      setFiles(files.filter((f) => f.name !== name));
+      dispatch(removeFileToSend(name));
     }, 350);
   };
 

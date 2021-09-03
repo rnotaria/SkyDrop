@@ -3,9 +3,10 @@ import { useDropzone } from "react-dropzone";
 import styled from "styled-components";
 import FileList from "./FileList";
 import DropFilesHere from "./DropFilesHere";
-import { addNewFiles } from "../../utils/helperFuncs";
+import { containsDupes } from "../../utils/helperFuncs";
 import { useDispatch } from "react-redux";
 import { duplicateFileError } from "../../reducers/alertReducer";
+import { addFilesToSend } from "../../reducers/filesToSendReducer";
 
 const Container = styled.div`
   position: relative;
@@ -23,17 +24,18 @@ const Container = styled.div`
 
 const FileListContainer = styled.div``;
 
-function FileSystem({ files, setFiles }) {
+function FileSystem({ files }) {
   const dispatch = useDispatch();
 
   //#region Dropzone
   const onDrop = useCallback(
-    (acceptedFiles) => {
-      const { errors, newFileList } = addNewFiles(files, acceptedFiles);
-      setFiles(newFileList);
-      if (errors != null) dispatch(duplicateFileError());
+    (newFiles) => {
+      if (containsDupes(files, newFiles)) {
+        dispatch(duplicateFileError());
+      }
+      dispatch(addFilesToSend(newFiles));
     },
-    [files, setFiles, dispatch]
+    [files, dispatch]
   );
 
   const { getRootProps, getInputProps, isDragActive, open } = useDropzone({
@@ -47,7 +49,7 @@ function FileSystem({ files, setFiles }) {
       <input {...getInputProps()} />
       <DropFilesHere isDragActive={isDragActive} />
       <FileListContainer>
-        <FileList files={files} setFiles={setFiles} openFileDialog={open} />
+        <FileList files={files} openFileDialog={open} />
       </FileListContainer>
     </Container>
   );
