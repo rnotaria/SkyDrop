@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import Slide from "@material-ui/core/Slide";
@@ -11,15 +11,16 @@ function Alert() {
 
   const store = useStore();
   const dispatch = useDispatch();
+  const alerts = store.getState().alerts;
 
-  store.subscribe(() => {
-    if (store.getState().alerts != null) {
+  useEffect(() => {
+    if (alerts != null) {
       setOpen(true);
-      setData({ ...store.getState().alerts });
+      setData(alerts);
     } else {
       setData(null);
     }
-  });
+  }, [alerts, setOpen, setData]);
 
   const onClose = () => {
     setOpen(false);

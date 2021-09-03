@@ -1,4 +1,5 @@
 import { createStore, combineReducers } from "redux";
+import { composeWithDevTools } from "redux-devtools-extension";
 import alertReducer from "./reducers/alertReducer";
 import filesToSendReducer from "./reducers/filesToSendReducer";
 
@@ -7,6 +8,6 @@ const reducer = combineReducers({
   filesToSend: filesToSendReducer,
 });
 
-const store = createStore(reducer);
+const store = createStore(reducer, composeWithDevTools());
 
 export default store;
