@@ -13,7 +13,6 @@ function Alert() {
   const dispatch = useDispatch();
 
   store.subscribe(() => {
-    console.log(store.getState().alerts);
     if (store.getState().alerts != null) {
       setOpen(true);
       setData({ ...store.getState().alerts });
