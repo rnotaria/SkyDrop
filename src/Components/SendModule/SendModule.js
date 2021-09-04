@@ -32,7 +32,7 @@ function SendModule() {
       <FileSystem files={files} />
       <ProgressBar {...sizeProgressProps} />
       <ProgressBar {...fileCountProgressProps} />
-      <SendButton />
+      <SendButton files={files} />
     </React.Fragment>
   );
 }
