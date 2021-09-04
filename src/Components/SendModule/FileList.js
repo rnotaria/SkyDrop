@@ -1,5 +1,5 @@
 import React from "react";
-import { convertToMB } from "../../utils/helperFuncs";
+import { convertToMB, sanitizeName } from "../../utils/helperFuncs";
 import { useDispatch } from "react-redux";
 import { removeFileToSend } from "../../reducers/filesToSendReducer";
 
@@ -65,7 +65,7 @@ function FileList({ files, openFileDialog }) {
               </Avatar>
             </ListItemAvatar>
             <ListItemText
-              primary={file.name}
+              primary={sanitizeName(file.name)}
               secondary={convertToMB(file.size).toFixed(2) + " MB"}
             />
             <ListItemSecondaryAction>

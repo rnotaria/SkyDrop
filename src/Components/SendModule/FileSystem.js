@@ -27,7 +27,7 @@ const FileListContainer = styled.div``;
 function FileSystem({ files }) {
   const dispatch = useDispatch();
 
-  //#region Dropzone
+  //#region react-dropzone
   const onDrop = useCallback(
     (newFiles) => {
       if (containsDupes(files, newFiles)) {

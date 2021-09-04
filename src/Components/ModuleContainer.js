@@ -6,8 +6,9 @@ import Box from "@material-ui/core/Box";
 
 const containerStyle = {
   minHeight: "500px",
-  width: "40%",
-  height: "80%",
+  minWidth: "400px",
+  width: "40vw",
+  height: "80vh",
   display: "flex",
   flexDirection: "column",
 };

@@ -36,3 +36,10 @@ export function containsDupes(files, newFiles) {
 
   return dupes;
 }
+
+export function sanitizeName(name, maxLength = 15) {
+  if (name.length - 3 > maxLength) {
+    return name.substring(0, maxLength) + "...";
+  }
+  return name;
+}
