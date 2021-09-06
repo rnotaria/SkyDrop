@@ -10,6 +10,7 @@ import {
   sizeTooLarge,
   tooManyFiles,
 } from "../../reducers/alertReducer";
+import sendService from "../../services/sendService";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -22,6 +23,10 @@ function SendButton({ files }) {
   const dispatch = useDispatch();
 
   const send = () => {
+    sendService.testGet().then((res) => {
+      console.log(res);
+    });
+
     if (files.length < 1) {
       dispatch(missingFiles());
       return;
