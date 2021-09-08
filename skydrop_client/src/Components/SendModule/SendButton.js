@@ -11,6 +11,7 @@ import {
   tooManyFiles,
   generalError,
 } from "../../reducers/alertReducer";
+import { removeAllFilesToSend } from "../../reducers/filesToSendReducer";
 import sendService from "../../services/sendService";
 
 const useStyles = makeStyles((theme) => ({
@@ -43,7 +44,10 @@ function SendButton({ files }) {
     sendService.send(files).then((res) => {
       if (res.error) {
         dispatch(generalError());
+        return;
       }
+      dispatch(removeAllFilesToSend());
+      console.log(res);
     });
   };
 

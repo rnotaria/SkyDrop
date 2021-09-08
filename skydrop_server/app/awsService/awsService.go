@@ -1,6 +1,7 @@
 package awsService
 
 import (
+	"fmt"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/s3"
@@ -28,6 +29,7 @@ func (awsSession *Session) Init(config *config.Config) {
 }
 
 func (awsSession *Session) UploadFile(file *multipart.FileHeader) (resp *s3.PutObjectOutput, err error) {
+	fmt.Println("Uploading", file.Filename, "to AWS")
 	openedFile, err := file.Open()
 	defer openedFile.Close()
 	if err != nil {
