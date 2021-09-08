@@ -23,7 +23,11 @@ function SendButton({ files }) {
   const dispatch = useDispatch();
 
   const send = () => {
-    sendService.testGet().then((res) => {
+    // sendService.testGet().then((res) => {
+    //   console.log(res);
+    // });
+
+    sendService.testPost(files).then((res) => {
       console.log(res);
     });
 

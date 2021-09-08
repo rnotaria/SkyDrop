@@ -18,7 +18,9 @@ func (app *App) Init() {
 }
 
 func (app *App) setRouters() {
-	app.Router.HandleFunc("/send", app.SendHandler.GetTest).Methods("GET", "OPTIONS")
+	app.Router.HandleFunc("/test", app.SendHandler.TestGet).Methods("GET", "OPTIONS")
+	app.Router.HandleFunc("/test", app.SendHandler.TestPost).Methods("POST", "OPTIONS")
+
 }
 
 func (app *App) Run(port string) {
