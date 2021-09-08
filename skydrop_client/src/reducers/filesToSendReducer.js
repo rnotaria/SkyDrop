@@ -6,6 +6,8 @@ const filesToSendReducer = (state = [], action) => {
       return filterDupes(state, action.data);
     case "REMOVE_FILE_TO_SEND":
       return state.filter((f) => f.name !== action.data);
+    case "REMOVE_ALL_FILES_TO_SEND":
+      return [];
     default:
       return state;
   }
@@ -22,6 +24,12 @@ export const removeFileToSend = (name) => {
   return {
     type: "REMOVE_FILE_TO_SEND",
     data: name,
+  };
+};
+
+export const removeAllFilesToSend = () => {
+  return {
+    type: "REMOVE_ALL_FILES_TO_SEND",
   };
 };
 

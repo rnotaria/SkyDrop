@@ -9,7 +9,9 @@ import {
   missingFiles,
   sizeTooLarge,
   tooManyFiles,
+  generalError,
 } from "../../reducers/alertReducer";
+import { removeAllFilesToSend } from "../../reducers/filesToSendReducer";
 import sendService from "../../services/sendService";
 
 const useStyles = makeStyles((theme) => ({
@@ -23,10 +25,6 @@ function SendButton({ files }) {
   const dispatch = useDispatch();
 
   const send = () => {
-    sendService.testGet().then((res) => {
-      console.log(res);
-    });
-
     if (files.length < 1) {
       dispatch(missingFiles());
       return;
@@ -42,6 +40,15 @@ function SendButton({ files }) {
       dispatch(tooManyFiles());
       return;
     }
+
+    sendService.send(files).then((res) => {
+      if (res.error) {
+        dispatch(generalError());
+        return;
+      }
+      dispatch(removeAllFilesToSend());
+      console.log(res);
+    });
   };
 
   return (
