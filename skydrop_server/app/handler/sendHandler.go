@@ -1,26 +1,18 @@
 package handler
 
 import (
-	"fmt"
+	"github.com/rnotaria/SkyDrop/app/awsService"
 	"github.com/rnotaria/SkyDrop/utils"
 	"mime/multipart"
 	"net/http"
 )
 
 type SendHandler struct {
-	files []*multipart.FileHeader
+	AwsSession *awsService.Session
+	files      []*multipart.FileHeader
 }
 
-func (sendHandler *SendHandler) TestGet(w http.ResponseWriter, r *http.Request) {
-	//Allow CORS here By * or specific origin
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
-
-	w.Write([]byte("test"))
-}
-
-func (sendHandler *SendHandler) TestPost(w http.ResponseWriter, r *http.Request) {
-	//Allow CORS here By * or specific origin
+func (sendHandler *SendHandler) Send(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 
@@ -33,15 +25,18 @@ func (sendHandler *SendHandler) TestPost(w http.ResponseWriter, r *http.Request)
 
 	if !utils.IsFileCountValid(sendHandler.files) {
 		http.Error(w, "Bad Request", http.StatusBadRequest)
-		fmt.Println("FileCountNot Valud")
 		return
 	}
-
 	if !utils.IsFileSizeValid(sendHandler.files) {
 		http.Error(w, "Bad Request", http.StatusBadRequest)
-		fmt.Println("IsFileSizeValid")
 		return
 	}
 
-	fmt.Println(sendHandler.files)
+	for _, file := range sendHandler.files {
+		_, err := sendHandler.AwsSession.UploadFile(file)
+		if err != nil {
+			http.Error(w, "Bad Request", http.StatusBadRequest)
+			return
+		}
+	}
 }
