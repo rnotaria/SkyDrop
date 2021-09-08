@@ -2,6 +2,7 @@ package handler
 
 import (
 	"fmt"
+	"github.com/rnotaria/SkyDrop/utils"
 	"mime/multipart"
 	"net/http"
 )
@@ -23,15 +24,24 @@ func (sendHandler *SendHandler) TestPost(w http.ResponseWriter, r *http.Request)
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 
-
-	err := r.ParseMultipartForm(10 << 20)
+	err := r.ParseMultipartForm(utils.MaxUploadSize)
 	if err != nil {
 		http.Error(w, "Bad Request", http.StatusBadRequest)
 		return
 	}
-	// r.MultipartForm is now set.
-	formdata :=  r.MultipartForm
-	sendHandler.files = formdata.File["files"]
+	sendHandler.files = r.MultipartForm.File["files"]
+
+	if !utils.IsFileCountValid(sendHandler.files) {
+		http.Error(w, "Bad Request", http.StatusBadRequest)
+		fmt.Println("FileCountNot Valud")
+		return
+	}
+
+	if !utils.IsFileSizeValid(sendHandler.files) {
+		http.Error(w, "Bad Request", http.StatusBadRequest)
+		fmt.Println("IsFileSizeValid")
+		return
+	}
 
 	fmt.Println(sendHandler.files)
 }
