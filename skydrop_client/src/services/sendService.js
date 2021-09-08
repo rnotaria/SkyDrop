@@ -8,25 +8,29 @@ const testGet = async () => {
   return res.data;
 };
 
-const testPost = async (files) => {
+const send = async (files) => {
   let formData = new FormData();
 
   files.forEach((file) => {
     formData.append("files", file);
   });
 
-  const res = await axios({
-    method: "POST",
-    url: baseUrl,
-    data: formData,
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-  });
+  try {
+    const res = await axios({
+      method: "POST",
+      url: baseUrl,
+      data: formData,
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
 
-  return res;
+    return res;
+  } catch (error) {
+    return { error };
+  }
 };
 
-const sendService = { testGet, testPost };
+const sendService = { testGet, send };
 
 export default sendService;

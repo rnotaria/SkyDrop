@@ -11,6 +11,8 @@ const alertReducer = (state = null, action) => {
       return { ...action.data };
     case "TOO_MANY_FILES":
       return { ...action.data };
+    case "GENERAL_ERROR":
+      return { ...action.data };
     case "RESET":
       return null;
     default:
@@ -57,6 +59,16 @@ export const tooManyFiles = () => {
         "The max number of files you can send is " +
         constants.MAX_NUM_OF_FILES +
         "!",
+      severity: "error",
+    },
+  };
+};
+
+export const generalError = () => {
+  return {
+    type: "GENERAL_ERROR",
+    data: {
+      message: "An error has occured",
       severity: "error",
     },
   };
