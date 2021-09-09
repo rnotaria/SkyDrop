@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function SendButton({ files }) {
+function SendButton({ files, setShowAddress }) {
   const classes = useStyles();
   const dispatch = useDispatch();
 
@@ -46,7 +46,10 @@ function SendButton({ files }) {
     //     dispatch(generalError());
     //     return;
     //   }
-    dispatch(removeAllFilesToSend());
+    setTimeout(() => {
+      dispatch(removeAllFilesToSend());
+    }, 500);
+    setShowAddress(true);
 
     //   console.log(res);
     // });

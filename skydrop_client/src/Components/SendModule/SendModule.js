@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import FileSystem from "./FileSystem";
 import ProgressBar from "../ProgressBar";
 import SendButton from "./SendButton";
@@ -8,6 +8,12 @@ import constants from "../../utils/constants";
 import { useStore } from "react-redux";
 
 function SendModule() {
+  const [showAddress, setShowAddress] = useState(false);
+
+  const handleShowAddress = (val) => {
+    setShowAddress(val);
+  };
+
   const store = useStore();
   const files = store.getState().filesToSend;
   const size = getTotalSize(files);
@@ -30,11 +36,11 @@ function SendModule() {
 
   return (
     <React.Fragment>
-      {/* <FileSystem files={files} />
+      <FileSystem files={files} />
       <ProgressBar {...sizeProgressProps} />
       <ProgressBar {...fileCountProgressProps} />
-      <SendButton files={files} /> */}
-      <Address />
+      <SendButton files={files} setShowAddress={setShowAddress} />
+      <Address active={showAddress} setActive={handleShowAddress} />
     </React.Fragment>
   );
 }

@@ -14,6 +14,7 @@ const containerStyle = {
 };
 
 const contentStyle = {
+  position: "relative",
   height: "calc(100% - 100px)", // account for TabPanel
   padding: 1,
   boxShadow: 2,

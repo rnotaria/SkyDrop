@@ -7,6 +7,7 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 
 const Container = styled.div`
+  position: absolute;
   height: 100%;
   width: 100%;
   display: flex;
@@ -14,6 +15,8 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background: white;
+  margin: -8px;
 `;
 
 const QRContainer = styled.div`
@@ -30,9 +33,9 @@ const TextContainer = styled.div`
   margin: 50px;
 `;
 
-function Address() {
+function Address({ active, setActive }) {
   return (
-    <Slide in={true} direction="up">
+    <Slide in={active} direction="up">
       <Container>
         <QRContainer>
           <img src={sampleQR} alt="QR" />{" "}
@@ -56,6 +59,7 @@ function Address() {
             <TextWrapper>3. stadium</TextWrapper>
           </Typography>
         </TextContainer>
+        <button onClick={() => setActive(false)}>Temp</button>
       </Container>
     </Slide>
   );
