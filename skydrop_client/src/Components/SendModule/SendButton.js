@@ -41,14 +41,15 @@ function SendButton({ files }) {
       return;
     }
 
-    sendService.send(files).then((res) => {
-      if (res.error) {
-        dispatch(generalError());
-        return;
-      }
-      dispatch(removeAllFilesToSend());
-      console.log(res);
-    });
+    // sendService.send(files).then((res) => {
+    //   if (res.error) {
+    //     dispatch(generalError());
+    //     return;
+    //   }
+    dispatch(removeAllFilesToSend());
+
+    //   console.log(res);
+    // });
   };
 
   return (
