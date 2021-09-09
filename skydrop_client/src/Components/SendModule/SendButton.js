@@ -46,12 +46,13 @@ function SendButton({ files, setShowAddress }) {
     //     dispatch(generalError());
     //     return;
     //   }
+
     setTimeout(() => {
       dispatch(removeAllFilesToSend());
     }, 500);
     setShowAddress(true);
 
-    //   console.log(res);
+    // console.log(res);
     // });
   };
 

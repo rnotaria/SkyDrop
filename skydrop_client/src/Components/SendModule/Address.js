@@ -1,10 +1,12 @@
 import React from "react";
 import sampleQR from "../../utils/sampleQR.png";
 import styled from "styled-components";
-import Collapse from "@material-ui/core/Collapse";
 import Slide from "@material-ui/core/Slide";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
+import Button from "@material-ui/core/Button";
+import LoopIcon from "@material-ui/icons/Loop";
+import { makeStyles } from "@material-ui/core/styles";
 
 const Container = styled.div`
   position: absolute;
@@ -33,7 +35,15 @@ const TextContainer = styled.div`
   margin: 50px;
 `;
 
+const useStyles = makeStyles((theme) => ({
+  button: {
+    margin: theme.spacing(1),
+  },
+}));
+
 function Address({ active, setActive }) {
+  const classes = useStyles();
+
   return (
     <Slide in={active} direction="up">
       <Container>
@@ -59,7 +69,16 @@ function Address({ active, setActive }) {
             <TextWrapper>3. stadium</TextWrapper>
           </Typography>
         </TextContainer>
-        <button onClick={() => setActive(false)}>Temp</button>
+        <Button
+          style={{ margin: "24px" }}
+          variant="contained"
+          color="default"
+          className={classes.button}
+          startIcon={<LoopIcon />}
+          onClick={() => setActive(false)}
+        >
+          Restart
+        </Button>
       </Container>
     </Slide>
   );
