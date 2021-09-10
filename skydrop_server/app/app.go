@@ -3,16 +3,16 @@ package app
 import (
 	"github.com/gorilla/mux"
 	"github.com/rnotaria/SkyDrop/app/awsServices"
-	"github.com/rnotaria/SkyDrop/app/handler"
+	"github.com/rnotaria/SkyDrop/app/handlers"
 	"github.com/rnotaria/SkyDrop/config"
 	"log"
 	"net/http"
 )
 
 type App struct {
-	Port string
+	Port        string
 	s3Service   *awsServices.S3Service
-	SendHandler handler.SendHandler
+	SendHandler handlers.SendHandler
 	Router      *mux.Router
 }
 

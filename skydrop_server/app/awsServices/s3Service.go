@@ -20,15 +20,24 @@ func GetS3Service(bucketName *string) *S3Service {
 	}
 	client := s3.NewFromConfig(cfg)
 
-	return &S3Service{bucket: bucketName, client : client}
+	return &S3Service{bucket: bucketName, client: client}
 }
 
-func (s3Service *S3Service) PutFile(filename *string, file io.Reader) (*s3.PutObjectOutput, error) {
+func (s3Service *S3Service) PutObject(key *string, file io.Reader) (*s3.PutObjectOutput, error) {
 	input := &s3.PutObjectInput{
 		Bucket: s3Service.bucket,
-		Key:  filename,
-		Body: file,
+		Key:    key,
+		Body:   file,
 	}
 
 	return s3Service.client.PutObject(context.TODO(), input)
+}
+
+func (s3Service *S3Service) GetObject(key *string) (*s3.GetObjectOutput, error) {
+	input := &s3.GetObjectInput{
+		Bucket: s3Service.bucket,
+		Key:    key,
+	}
+
+	return s3Service.client.GetObject(context.TODO(), input)
 }

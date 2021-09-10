@@ -1,8 +1,9 @@
-package handler
+package handlers
 
 import (
 	"fmt"
 	"github.com/rnotaria/SkyDrop/app/awsServices"
+	"github.com/rnotaria/SkyDrop/app/tools"
 	"github.com/rnotaria/SkyDrop/utils"
 	"mime/multipart"
 	"net/http"
@@ -33,12 +34,15 @@ func (sendHandler *SendHandler) Send(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	address := tools.GenerateAddress(utils.NumberOfWords)
+
 	for i := range sendHandler.files {
-		fmt.Println("Uploading", sendHandler.files[i].Filename)
+		filename := sendHandler.files[i].Filename
+		key := address + "/" + filename
+
+		fmt.Println("Uploading", filename)
 
 		err := func() error {
-			filename := sendHandler.files[i].Filename
-
 			file, err := sendHandler.files[i].Open()
 			if err != nil {
 				return err
@@ -46,7 +50,7 @@ func (sendHandler *SendHandler) Send(w http.ResponseWriter, r *http.Request) {
 
 			defer file.Close()
 
-			_, err = sendHandler.S3Service.PutFile(&filename, file)
+			_, err = sendHandler.S3Service.PutObject(&key, file)
 			if err != nil {
 				return err
 			}
@@ -62,5 +66,6 @@ func (sendHandler *SendHandler) Send(w http.ResponseWriter, r *http.Request) {
 	}
 
 	fmt.Println("All files successfully uploaded!")
-	_,_ = w.Write([]byte("All files successfully uploaded!"))
+	fmt.Println("Address:", address)
+	_, _ = w.Write([]byte("All files successfully uploaded!"))
 }

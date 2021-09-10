@@ -41,19 +41,19 @@ function SendButton({ files, setShowAddress }) {
       return;
     }
 
-    // sendService.send(files).then((res) => {
-    //   if (res.error) {
-    //     dispatch(generalError());
-    //     return;
-    //   }
+    sendService.send(files).then((res) => {
+      if (res.error) {
+        dispatch(generalError());
+        return;
+      }
 
-    setTimeout(() => {
-      dispatch(removeAllFilesToSend());
-    }, 500);
-    setShowAddress(true);
+      setTimeout(() => {
+        dispatch(removeAllFilesToSend());
+      }, 500);
+      setShowAddress(true);
 
-    // console.log(res);
-    // });
+      console.log(res);
+    });
   };
 
   return (
