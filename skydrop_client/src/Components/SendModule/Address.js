@@ -67,6 +67,7 @@ function Address({ active, setActive }) {
             <TextWrapper>1. weather</TextWrapper>
             <TextWrapper>2. volume</TextWrapper>
             <TextWrapper>3. stadium</TextWrapper>
+            <TextWrapper>4. zebra</TextWrapper>
           </Typography>
         </TextContainer>
         <Button

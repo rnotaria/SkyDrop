@@ -33,6 +33,7 @@ func (sendHandler *SendHandler) Send(w http.ResponseWriter, r *http.Request) {
 	}
 	sendHandler.files = r.MultipartForm.File["files"]
 
+	fmt.Println("Validating files...")
 	if !utils.IsFileCountValid(sendHandler.files) {
 		http.Error(w, "Bad Request", http.StatusBadRequest)
 		return
@@ -42,11 +43,12 @@ func (sendHandler *SendHandler) Send(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	fmt.Println("Generating address...")
 	address := tools.GenerateAddress(utils.NumberOfWords)
 
 	for i := range sendHandler.files {
 		filename := sendHandler.files[i].Filename
-		key := address + "/" + filename
+		key := *address + "/" + filename
 
 		fmt.Println("Uploading", filename)
 
@@ -73,12 +75,9 @@ func (sendHandler *SendHandler) Send(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	fmt.Println("All files successfully uploaded!")
-	fmt.Println("Address:", address)
-
 	resp := responseData{
 		Success: true,
-		Address: address,
+		Address: *address,
 	}
 
 	respJson, _ := json.Marshal(resp)
@@ -89,4 +88,6 @@ func (sendHandler *SendHandler) Send(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Add("content-type", "application/json")
 	_, _ = w.Write(respJson)
+
+	fmt.Println("\nAll files successfully uploaded to", *address)
 }

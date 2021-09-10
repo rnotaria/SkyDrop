@@ -51,8 +51,6 @@ function SendButton({ files, setShowAddress }) {
         dispatch(removeAllFilesToSend());
       }, 500);
       setShowAddress(true);
-
-      console.log(res);
     });
   };
 

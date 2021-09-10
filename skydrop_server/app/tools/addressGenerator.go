@@ -5,7 +5,7 @@ import (
 	"math/big"
 )
 
-func GenerateAddress(n int) string {
+func GenerateAddress(n int) *string {
 	var address string
 
 	for i := 0; i < n; i++ {
@@ -18,5 +18,6 @@ func GenerateAddress(n int) string {
 		}
 		address += prefix + word
 	}
-	return address
+
+	return &address
 }
