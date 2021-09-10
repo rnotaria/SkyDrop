@@ -1,6 +1,8 @@
+import React, { useState } from "react";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import SendIcon from "@material-ui/icons/SendRounded";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import { makeStyles } from "@material-ui/core/styles";
 import { getTotalSize } from "../../utils/helperFuncs";
 import constants from "../../utils/constants";
@@ -24,6 +26,8 @@ function SendButton({ files, setAddress, openAddress }) {
   const classes = useStyles();
   const dispatch = useDispatch();
 
+  const [loading, setLoading] = useState(false);
+
   const send = () => {
     if (files.length < 1) {
       dispatch(missingFiles());
@@ -41,31 +45,46 @@ function SendButton({ files, setAddress, openAddress }) {
       return;
     }
 
-    sendService.send(files).then((res) => {
-      if (res.error) {
+    setLoading(true);
+    sendService
+      .send(files)
+      .then((res) => {
+        setAddress(res.data.Address);
+        openAddress();
+        setLoading(false);
+        // setTimeout(() => {
+        //   dispatch(removeAllFilesToSend());
+        // }, 500);
+      })
+      .catch((e) => {
         dispatch(generalError());
+        setLoading(false);
         return;
-      }
-
-      setAddress(res.data.Address);
-      // setTimeout(() => {
-      //   dispatch(removeAllFilesToSend());
-      // }, 500);
-      openAddress();
-    });
+      });
   };
 
   return (
-    <Box style={{ margin: "24px" }}>
-      <Button
-        variant="contained"
-        color="primary"
-        className={classes.button}
-        endIcon={<SendIcon />}
-        onClick={send}
-      >
-        Send
-      </Button>
+    <Box
+      style={{
+        height: "50px",
+        margin: "24px",
+        display: "flex",
+        alignItems: "center",
+      }}
+    >
+      {loading ? (
+        <CircularProgress />
+      ) : (
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.button}
+          endIcon={<SendIcon />}
+          onClick={send}
+        >
+          Send
+        </Button>
+      )}
     </Box>
   );
 }

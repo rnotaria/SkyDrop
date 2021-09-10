@@ -46,6 +46,8 @@ func (sendHandler *SendHandler) Send(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Generating address...")
 	address := tools.GenerateAddress(utils.NumberOfWords)
 
+
+	// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 	//for i := range sendHandler.files {
 	//	filename := sendHandler.files[i].Filename
 	//	key := *address + "/" + filename
@@ -74,6 +76,7 @@ func (sendHandler *SendHandler) Send(w http.ResponseWriter, r *http.Request) {
 	//		return
 	//	}
 	//}
+	// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 	resp := responseData{
 		Success: true,

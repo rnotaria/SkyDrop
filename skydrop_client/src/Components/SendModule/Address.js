@@ -74,7 +74,7 @@ function Address({ address, isActive, close }) {
           </Typography>
         </TextContainer>
         <Button
-          style={{ margin: "24px" }}
+          style={{ margin: "24px", marginBottom: "48px" }}
           variant="contained"
           color="default"
           className={classes.button}
