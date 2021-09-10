@@ -44,10 +44,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Address({ address, isActive, close }) {
   const classes = useStyles();
-
   const words = getWords(address);
-
-  console.log(words);
 
   return (
     <Slide in={isActive} direction="up">
@@ -69,10 +66,11 @@ function Address({ address, isActive, close }) {
             </Box>
           </Typography>
           <Typography variant="h4">
-            <TextWrapper>1. weather</TextWrapper>
-            <TextWrapper>2. volume</TextWrapper>
-            <TextWrapper>3. stadium</TextWrapper>
-            <TextWrapper>4. zebra</TextWrapper>
+            {words.map((w, i) => (
+              <TextWrapper key={i}>
+                {i + 1}. {w}
+              </TextWrapper>
+            ))}
           </Typography>
         </TextContainer>
         <Button

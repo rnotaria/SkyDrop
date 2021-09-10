@@ -51,7 +51,7 @@ function SendButton({ files, setAddress, openAddress }) {
       // setTimeout(() => {
       //   dispatch(removeAllFilesToSend());
       // }, 500);
-      // openAddress();
+      openAddress();
     });
   };
 
