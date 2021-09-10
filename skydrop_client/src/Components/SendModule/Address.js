@@ -41,11 +41,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Address({ active, setActive }) {
+function Address({ isActive, close }) {
   const classes = useStyles();
 
   return (
-    <Slide in={active} direction="up">
+    <Slide in={isActive} direction="up">
       <Container>
         <QRContainer>
           <img src={sampleQR} alt="QR" />{" "}
@@ -76,7 +76,7 @@ function Address({ active, setActive }) {
           color="default"
           className={classes.button}
           startIcon={<LoopIcon />}
-          onClick={() => setActive(false)}
+          onClick={() => close()}
         >
           Restart
         </Button>

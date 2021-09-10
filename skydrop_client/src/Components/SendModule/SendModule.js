@@ -10,10 +10,6 @@ import { useStore } from "react-redux";
 function SendModule() {
   const [showAddress, setShowAddress] = useState(false);
 
-  const handleShowAddress = (val) => {
-    setShowAddress(val);
-  };
-
   const store = useStore();
   const files = store.getState().filesToSend;
   const size = getTotalSize(files);
@@ -39,8 +35,8 @@ function SendModule() {
       <FileSystem files={files} />
       <ProgressBar {...sizeProgressProps} />
       <ProgressBar {...fileCountProgressProps} />
-      <SendButton files={files} setShowAddress={setShowAddress} />
-      <Address active={showAddress} setActive={handleShowAddress} />
+      <SendButton files={files} openAddress={() => setShowAddress(true)} />
+      <Address isActive={showAddress} close={() => setShowAddress(false)} />
     </React.Fragment>
   );
 }

@@ -46,34 +46,34 @@ func (sendHandler *SendHandler) Send(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Generating address...")
 	address := tools.GenerateAddress(utils.NumberOfWords)
 
-	for i := range sendHandler.files {
-		filename := sendHandler.files[i].Filename
-		key := *address + "/" + filename
-
-		fmt.Println("Uploading", filename)
-
-		err := func() error {
-			file, err := sendHandler.files[i].Open()
-			if err != nil {
-				return err
-			}
-
-			defer file.Close()
-
-			_, err = sendHandler.S3Service.PutObject(&key, file)
-			if err != nil {
-				return err
-			}
-
-			return nil
-		}()
-
-		if err != nil {
-			fmt.Println(err)
-			http.Error(w, "Bad Request", http.StatusBadRequest)
-			return
-		}
-	}
+	//for i := range sendHandler.files {
+	//	filename := sendHandler.files[i].Filename
+	//	key := *address + "/" + filename
+	//
+	//	fmt.Println("Uploading", filename)
+	//
+	//	err := func() error {
+	//		file, err := sendHandler.files[i].Open()
+	//		if err != nil {
+	//			return err
+	//		}
+	//
+	//		defer file.Close()
+	//
+	//		_, err = sendHandler.S3Service.PutObject(&key, file)
+	//		if err != nil {
+	//			return err
+	//		}
+	//
+	//		return nil
+	//	}()
+	//
+	//	if err != nil {
+	//		fmt.Println(err)
+	//		http.Error(w, "Bad Request", http.StatusBadRequest)
+	//		return
+	//	}
+	//}
 
 	resp := responseData{
 		Success: true,
