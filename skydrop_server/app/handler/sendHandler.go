@@ -1,15 +1,16 @@
 package handler
 
 import (
-	"github.com/rnotaria/SkyDrop/app/awsService"
+	"fmt"
+	"github.com/rnotaria/SkyDrop/app/awsServices"
 	"github.com/rnotaria/SkyDrop/utils"
 	"mime/multipart"
 	"net/http"
 )
 
 type SendHandler struct {
-	AwsSession *awsService.Session
-	files      []*multipart.FileHeader
+	S3Service *awsServices.S3Service
+	files     []*multipart.FileHeader
 }
 
 func (sendHandler *SendHandler) Send(w http.ResponseWriter, r *http.Request) {
@@ -32,11 +33,34 @@ func (sendHandler *SendHandler) Send(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	for _, file := range sendHandler.files {
-		_, err := sendHandler.AwsSession.UploadFile(file)
+	for i := range sendHandler.files {
+		fmt.Println("Uploading", sendHandler.files[i].Filename)
+
+		err := func() error {
+			filename := sendHandler.files[i].Filename
+
+			file, err := sendHandler.files[i].Open()
+			if err != nil {
+				return err
+			}
+
+			defer file.Close()
+
+			_, err = sendHandler.S3Service.PutFile(&filename, file)
+			if err != nil {
+				return err
+			}
+
+			return nil
+		}()
+
 		if err != nil {
+			fmt.Println(err)
 			http.Error(w, "Bad Request", http.StatusBadRequest)
 			return
 		}
 	}
+
+	fmt.Println("All files successfully uploaded!")
+	_,_ = w.Write([]byte("All files successfully uploaded!"))
 }

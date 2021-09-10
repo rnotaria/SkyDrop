@@ -2,7 +2,7 @@ package app
 
 import (
 	"github.com/gorilla/mux"
-	"github.com/rnotaria/SkyDrop/app/awsService"
+	"github.com/rnotaria/SkyDrop/app/awsServices"
 	"github.com/rnotaria/SkyDrop/app/handler"
 	"github.com/rnotaria/SkyDrop/config"
 	"log"
@@ -10,17 +10,16 @@ import (
 )
 
 type App struct {
-	Port        string
-	awsSession  *awsService.Session
+	Port string
+	s3Service   *awsServices.S3Service
 	SendHandler handler.SendHandler
 	Router      *mux.Router
 }
 
 func (app *App) Init(config *config.Config) {
 	app.Port = config.Port
-	app.awsSession = awsService.NewAwsSession()
-	app.awsSession.Init(config)
-	app.SendHandler.AwsSession = app.awsSession
+	app.s3Service = awsServices.GetS3Service(&config.AWSBucket)
+	app.SendHandler.S3Service = app.s3Service
 	app.Router = mux.NewRouter()
 	app.setRouters()
 }
