@@ -12,7 +12,6 @@ import {
   generalError,
 } from "../../reducers/alertReducer";
 import { removeAllFilesToSend } from "../../reducers/filesToSendReducer";
-import { setAddress } from "../../reducers/dataReducer";
 import sendService from "../../services/sendService";
 
 const useStyles = makeStyles((theme) => ({
@@ -21,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function SendButton({ files, openAddress }) {
+function SendButton({ files, setAddress, openAddress }) {
   const classes = useStyles();
   const dispatch = useDispatch();
 
@@ -48,7 +47,7 @@ function SendButton({ files, openAddress }) {
         return;
       }
 
-      dispatch(setAddress(res.data.Address));
+      setAddress(res.data.Address);
       // setTimeout(() => {
       //   dispatch(removeAllFilesToSend());
       // }, 500);

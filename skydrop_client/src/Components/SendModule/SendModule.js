@@ -9,6 +9,7 @@ import { useStore } from "react-redux";
 
 function SendModule() {
   const [showAddress, setShowAddress] = useState(false);
+  const [address, setAddress] = useState(null);
 
   const store = useStore();
   const files = store.getState().filesToSend;
@@ -35,8 +36,16 @@ function SendModule() {
       <FileSystem files={files} />
       <ProgressBar {...sizeProgressProps} />
       <ProgressBar {...fileCountProgressProps} />
-      <SendButton files={files} openAddress={() => setShowAddress(true)} />
-      <Address isActive={showAddress} close={() => setShowAddress(false)} />
+      <SendButton
+        files={files}
+        openAddress={() => setShowAddress(true)}
+        setAddress={(v) => setAddress(v)}
+      />
+      <Address
+        address={address}
+        isActive={showAddress}
+        close={() => setShowAddress(false)}
+      />
     </React.Fragment>
   );
 }

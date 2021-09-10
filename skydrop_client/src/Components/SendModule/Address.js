@@ -1,4 +1,5 @@
 import React from "react";
+import { getWords } from "../../utils/addressGenerator";
 import sampleQR from "../../utils/sampleQR.png";
 import styled from "styled-components";
 import Slide from "@material-ui/core/Slide";
@@ -41,8 +42,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Address({ isActive, close }) {
+function Address({ address, isActive, close }) {
   const classes = useStyles();
+
+  const words = getWords(address);
+
+  console.log(words);
 
   return (
     <Slide in={isActive} direction="up">
