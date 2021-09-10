@@ -23,6 +23,7 @@ const Container = styled.div`
 `;
 
 const QRContainer = styled.div`
+  user-select: none;
   width: 80%;
   overflow: hidden;
   img {
@@ -54,22 +55,20 @@ function Address({ address, isActive, close }) {
         </QRContainer>
         <hr style={{ width: "80%" }} />
         <TextContainer>
-          <Typography component={"span"}>
+          <Typography component={"span"} variant="h5" color="textSecondary">
             <Box
               letterSpacing={2}
-              fontFamily="sans-serif"
-              textAlign="center"
-              fontSize="h5.fontSize"
               fontWeight="fontWeightBold"
+              style={{ userSelect: "none" }}
             >
-              Address
+              ADDRESS
             </Box>
           </Typography>
-          <Typography variant="h4">
+          <Typography component={"span"} variant="body2" color="textSecondary">
             {words.map((w, i) => (
-              <TextWrapper key={i}>
+              <WordWrapper key={i}>
                 {i + 1}. {w}
-              </TextWrapper>
+              </WordWrapper>
             ))}
           </Typography>
         </TextContainer>
@@ -88,11 +87,10 @@ function Address({ address, isActive, close }) {
   );
 }
 
-function TextWrapper({ children }) {
+function WordWrapper({ children }) {
   return (
     <Box
-      fontFamily="sans-serif"
-      m={1}
+      mx={2}
       fontSize="h6.fontSize"
       fontWeight="fontWeightBold"
       textAlign="left"

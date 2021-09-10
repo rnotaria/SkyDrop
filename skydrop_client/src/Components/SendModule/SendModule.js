@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import FileSystem from "./FileSystem";
-import ProgressBar from "../ProgressBar";
+import ProgressBar from "./ProgressBar";
 import SendButton from "./SendButton";
 import Address from "./Address";
 import { getTotalSize, convertToMB } from "../../utils/helperFuncs";
