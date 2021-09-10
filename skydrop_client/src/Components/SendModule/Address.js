@@ -34,17 +34,10 @@ const QRContainer = styled.div`
 `;
 
 const TextContainer = styled.div`
-  margin: 50px;
+  margin: 24px;
 `;
 
-const useStyles = makeStyles((theme) => ({
-  button: {
-    margin: theme.spacing(1),
-  },
-}));
-
 function Address({ address, isActive, close }) {
-  const classes = useStyles();
   const words = getWords(address);
 
   return (
@@ -72,16 +65,7 @@ function Address({ address, isActive, close }) {
             ))}
           </Typography>
         </TextContainer>
-        <Button
-          style={{ margin: "24px", marginBottom: "48px" }}
-          variant="contained"
-          color="default"
-          className={classes.button}
-          startIcon={<LoopIcon />}
-          onClick={() => close()}
-        >
-          Restart
-        </Button>
+        <Restart close={close} />
       </Container>
     </Slide>
   );
@@ -97,6 +81,20 @@ function WordWrapper({ children }) {
     >
       {children}
     </Box>
+  );
+}
+
+function Restart({ close }) {
+  return (
+    <Button
+      style={{ margin: "24px", marginBottom: "48px" }}
+      variant="contained"
+      color="default"
+      startIcon={<LoopIcon />}
+      onClick={() => close()}
+    >
+      Restart
+    </Button>
   );
 }
 

@@ -16,14 +16,7 @@ import {
 import { removeAllFilesToSend } from "../../reducers/filesToSendReducer";
 import sendService from "../../services/sendService";
 
-const useStyles = makeStyles((theme) => ({
-  button: {
-    margin: theme.spacing(1),
-  },
-}));
-
 function SendButton({ files, setAddress, openAddress }) {
-  const classes = useStyles();
   const dispatch = useDispatch();
 
   const [loading, setLoading] = useState(false);
@@ -78,7 +71,6 @@ function SendButton({ files, setAddress, openAddress }) {
         <Button
           variant="contained"
           color="primary"
-          className={classes.button}
           endIcon={<SendIcon />}
           onClick={send}
         >

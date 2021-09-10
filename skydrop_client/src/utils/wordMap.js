@@ -7,11 +7,17 @@ class bidirectionalMap {
       this.reverseMap[value] = key;
     }
   }
+
   get(key) {
     return this.map[key];
   }
+
   revGet(key) {
     return this.reverseMap[key];
+  }
+
+  keys() {
+    return [...Object.keys(this.map)];
   }
 }
 
