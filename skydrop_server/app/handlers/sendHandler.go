@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/rnotaria/SkyDrop/app/awsServices"
 	"github.com/rnotaria/SkyDrop/app/tools"
@@ -12,6 +13,13 @@ import (
 type SendHandler struct {
 	S3Service *awsServices.S3Service
 	files     []*multipart.FileHeader
+}
+
+type responseData struct {
+	Success bool
+	Address string
+	//filenames  string
+	//numOfFiles int
 }
 
 func (sendHandler *SendHandler) Send(w http.ResponseWriter, r *http.Request) {
@@ -67,5 +75,18 @@ func (sendHandler *SendHandler) Send(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Println("All files successfully uploaded!")
 	fmt.Println("Address:", address)
-	_, _ = w.Write([]byte("All files successfully uploaded!"))
+
+	resp := responseData{
+		Success: true,
+		Address: address,
+	}
+
+	respJson, _ := json.Marshal(resp)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		_, _ = w.Write([]byte(err.Error()))
+	}
+
+	w.Header().Add("content-type", "application/json")
+	_, _ = w.Write(respJson)
 }
