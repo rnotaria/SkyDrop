@@ -42,6 +42,10 @@ function AddressForm() {
   const [value2, setValue2] = useState(null);
   const [value3, setValue3] = useState(null);
   const [value4, setValue4] = useState(null);
+  // const [value1,... ]
+
+  console.log(value1);
+  console.log(!(value1 && value2));
 
   return (
     <Container>
@@ -51,24 +55,28 @@ function AddressForm() {
           label={"Word 1"}
           value={value1}
           handleChange={(_e, newV) => setValue1(newV)}
+          focus={!value1}
         />
         <InputField
           label={"Word 2"}
           value={value2}
           handleChange={(_e, newV) => setValue2(newV)}
+          focus={value1 && !value2}
         />
         <InputField
           label={"Word 3"}
           value={value3}
           handleChange={(_e, newV) => setValue3(newV)}
+          focus={value1 && value2 && !value3}
         />
         <InputField
           label={"Word 4"}
           value={value4}
           handleChange={(_e, newV) => setValue4(newV)}
+          focus={value1 && value2 && value3 && !value4}
         />
       </InputContainer>
-      <FetchButton />
+      <FetchButton disabled={!(value1 && value2 && value3 && value4)} />
     </Container>
   );
 }

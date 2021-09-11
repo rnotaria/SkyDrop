@@ -7,7 +7,6 @@ import { getTotalSize } from "../../utils/helperFuncs";
 import constants from "../../utils/constants";
 import { useDispatch } from "react-redux";
 import {
-  missingFiles,
   sizeTooLarge,
   tooManyFiles,
   generalError,
@@ -21,11 +20,6 @@ function SendButton({ files, setAddress, openAddress }) {
   const [loading, setLoading] = useState(false);
 
   const send = () => {
-    if (files.length < 1) {
-      dispatch(missingFiles());
-      return;
-    }
-
     const size = getTotalSize(files);
     if (size > constants.MAX_UPLOAD_SIZE) {
       dispatch(sizeTooLarge());
@@ -68,6 +62,7 @@ function SendButton({ files, setAddress, openAddress }) {
         <CircularProgress />
       ) : (
         <Button
+          disabled={files.length === 0}
           variant="contained"
           color="primary"
           endIcon={<SendIcon />}

@@ -14,3 +14,9 @@ export function getWords(addr) {
 
   return words;
 }
+
+export function getAddress(words) {
+  let addr = "";
+  words.forEach((w) => (addr += wordMap.get(w)));
+  return addr;
+}

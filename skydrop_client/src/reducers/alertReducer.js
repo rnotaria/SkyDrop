@@ -5,8 +5,6 @@ const alertReducer = (state = null, action) => {
   switch (action.type) {
     case "DUPLICATE_FILE_NAME":
       return { ...action.data };
-    case "MISSING_FILES":
-      return { ...action.data };
     case "SIZE_TOO_LARGE":
       return { ...action.data };
     case "TOO_MANY_FILES":
@@ -25,16 +23,6 @@ export const duplicateFileError = () => {
     type: "DUPLICATE_FILE_NAME",
     data: {
       message: "File names must be unique!",
-      severity: "error",
-    },
-  };
-};
-
-export const missingFiles = () => {
-  return {
-    type: "MISSING_FILES",
-    data: {
-      message: "Please add a file!",
       severity: "error",
     },
   };

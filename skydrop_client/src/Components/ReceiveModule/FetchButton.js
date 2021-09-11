@@ -2,9 +2,14 @@ import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import SearchIcon from "@material-ui/icons/Search";
 
-function FetchButton() {
+function FetchButton({ disabled }) {
   return (
-    <Button variant="contained" color="primary" endIcon={<SearchIcon />}>
+    <Button
+      variant="contained"
+      disabled={disabled}
+      color="primary"
+      endIcon={<SearchIcon />}
+    >
       Fetch
     </Button>
   );
