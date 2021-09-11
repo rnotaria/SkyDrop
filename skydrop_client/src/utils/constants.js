@@ -1,5 +1,5 @@
-const NUMBER_OF_WORDS = 3;
-const MAX_UPLOAD_SIZE = 10 * 1024 * 1024; // bytes
+const NUMBER_OF_WORDS = 4;
+const MAX_UPLOAD_SIZE = 10 << 20; // bytes
 const MAX_NUM_OF_FILES = 5;
 
 const constants = {

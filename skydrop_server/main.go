@@ -7,8 +7,7 @@ import (
 
 func main() {
 	config := config.GetConfig()
-
 	app := &app.App{}
-	app.Init()
-	app.Run(config.Port)
+	app.Init(config)
+	app.Run()
 }

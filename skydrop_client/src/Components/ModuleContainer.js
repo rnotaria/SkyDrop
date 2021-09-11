@@ -5,7 +5,7 @@ import ModuleSelector from "./ModuleSelector";
 import Box from "@material-ui/core/Box";
 
 const containerStyle = {
-  minHeight: "500px",
+  minHeight: "600px",
   minWidth: "400px",
   width: "40vw",
   height: "80vh",
@@ -14,6 +14,7 @@ const containerStyle = {
 };
 
 const contentStyle = {
+  position: "relative",
   height: "calc(100% - 100px)", // account for TabPanel
   padding: 1,
   boxShadow: 2,
@@ -24,7 +25,7 @@ const contentStyle = {
 };
 
 function ModuleContainer() {
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState(1);
 
   const handleChangeValue = (e, newValue) => {
     setValue(newValue);

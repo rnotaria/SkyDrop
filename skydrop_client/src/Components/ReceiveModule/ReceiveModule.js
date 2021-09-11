@@ -1,7 +1,8 @@
 import React from "react";
+import AddressForm from "./AddressForm";
 
 function ReceiveModule() {
-  return <div>receive</div>;
+  return <AddressForm />;
 }
 
 export default ReceiveModule;

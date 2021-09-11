@@ -5,11 +5,11 @@ const alertReducer = (state = null, action) => {
   switch (action.type) {
     case "DUPLICATE_FILE_NAME":
       return { ...action.data };
-    case "MISSING_FILES":
-      return { ...action.data };
     case "SIZE_TOO_LARGE":
       return { ...action.data };
     case "TOO_MANY_FILES":
+      return { ...action.data };
+    case "GENERAL_ERROR":
       return { ...action.data };
     case "RESET":
       return null;
@@ -23,16 +23,6 @@ export const duplicateFileError = () => {
     type: "DUPLICATE_FILE_NAME",
     data: {
       message: "File names must be unique!",
-      severity: "error",
-    },
-  };
-};
-
-export const missingFiles = () => {
-  return {
-    type: "MISSING_FILES",
-    data: {
-      message: "Please add a file!",
       severity: "error",
     },
   };
@@ -57,6 +47,16 @@ export const tooManyFiles = () => {
         "The max number of files you can send is " +
         constants.MAX_NUM_OF_FILES +
         "!",
+      severity: "error",
+    },
+  };
+};
+
+export const generalError = () => {
+  return {
+    type: "GENERAL_ERROR",
+    data: {
+      message: "An error has occured",
       severity: "error",
     },
   };
