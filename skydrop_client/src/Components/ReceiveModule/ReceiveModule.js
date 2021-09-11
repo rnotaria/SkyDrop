@@ -3,7 +3,7 @@ import AddressForm from "./AddressForm";
 import FileSystem from "./FileSystem";
 
 function ReceiveModule() {
-  return <FileSystem />;
+  return <AddressForm />;
 }
 
 export default ReceiveModule;

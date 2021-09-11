@@ -15,13 +15,6 @@ type SendHandler struct {
 	files     []*multipart.FileHeader
 }
 
-type responseData struct {
-	Success bool
-	Address string
-	//filenames  string
-	//numOfFiles int
-}
-
 func (sendHandler *SendHandler) Send(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
@@ -77,7 +70,7 @@ func (sendHandler *SendHandler) Send(w http.ResponseWriter, r *http.Request) {
 	//}
 	// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
-	resp := responseData{
+	resp := ResponseData{
 		Success: true,
 		Address: *address,
 	}

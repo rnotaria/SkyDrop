@@ -41,3 +41,12 @@ func (s3Service *S3Service) GetObject(key *string) (*s3.GetObjectOutput, error) 
 
 	return s3Service.client.GetObject(context.TODO(), input)
 }
+
+func (s3Service *S3Service) ListObjects(key *string) (*s3.ListObjectsV2Output, error) {
+	input := &s3.ListObjectsV2Input{
+		Bucket: s3Service.bucket,
+		Prefix: nil,
+	}
+
+	return s3Service.client.ListObjectsV2(context.TODO(), input)
+}

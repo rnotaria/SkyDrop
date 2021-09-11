@@ -9,7 +9,7 @@ const receive = async () => {
       url: baseUrl,
       responseType: "blob",
     });
-    console.log(res);
+    return res;
   } catch (error) {
     return error;
   }

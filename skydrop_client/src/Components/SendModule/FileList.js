@@ -25,7 +25,7 @@ function AddFile({ openFileDialog }) {
         onClick={openFileDialog}
       >
         <ListItemAvatar style={{ minWidth: 0 }}>
-          <Avatar style={{ background: "#32de84" }}>
+          <Avatar style={{ background: "#03C03C" }}>
             <AddIcon />
           </Avatar>
         </ListItemAvatar>
