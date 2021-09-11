@@ -42,10 +42,6 @@ function AddressForm() {
   const [value2, setValue2] = useState(null);
   const [value3, setValue3] = useState(null);
   const [value4, setValue4] = useState(null);
-  // const [value1,... ]
-
-  console.log(value1);
-  console.log(!(value1 && value2));
 
   return (
     <Container>
