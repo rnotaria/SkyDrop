@@ -1,12 +1,6 @@
 import axios from "axios";
 
-const baseUrl = "http://localhost:8080/test";
-
-// delete later - not needed
-const testGet = async () => {
-  const res = await axios.get(baseUrl);
-  return res.data;
-};
+const baseUrl = "http://localhost:8080/api/send";
 
 const send = async (files) => {
   let formData = new FormData();
@@ -31,6 +25,6 @@ const send = async (files) => {
   }
 };
 
-const sendService = { testGet, send };
+const sendService = { send };
 
 export default sendService;

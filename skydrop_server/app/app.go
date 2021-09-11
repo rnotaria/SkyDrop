@@ -25,7 +25,7 @@ func (app *App) Init(config *config.Config) {
 }
 
 func (app *App) setRouters() {
-	app.Router.HandleFunc("/test", app.SendHandler.Send).Methods("POST", "OPTIONS")
+	app.Router.HandleFunc("/api/send", app.SendHandler.Send).Methods("POST", "OPTIONS")
 }
 
 func (app *App) Run() {
