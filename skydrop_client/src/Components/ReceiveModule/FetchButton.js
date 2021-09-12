@@ -24,7 +24,8 @@ function FetchButton({ disabled, words, openFileSystem }) {
         // TODO handle errors
         if (error.response && error.response.status === 400) {
           dispatch(addressNotFound());
-          return;
+        } else {
+          dispatch(generalError());
         }
       });
   };
