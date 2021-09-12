@@ -29,7 +29,6 @@ func (app *App) Init(config *config.Config) {
 }
 
 func (app *App) setRouters() {
-	fmt.Println("Setting Routers")
 	app.Router.HandleFunc("/api/send", app.SendHandler.Send).Methods("POST", "OPTIONS")
 	app.Router.HandleFunc("/api/receive", app.ReceiveHandler.Receive).Methods("GET", "OPTIONS")
 }

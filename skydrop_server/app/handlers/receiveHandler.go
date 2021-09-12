@@ -28,7 +28,8 @@ type file struct {
 func (receiveHandler *ReceiveHandler) Receive(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type, address")
-	fmt.Println("Receive")
+
+	fmt.Println("\nRequest made to receiveHandler")
 
 	if r.Method == "OPTIONS" {
 		//TODO?
@@ -41,23 +42,23 @@ func (receiveHandler *ReceiveHandler) Receive(w http.ResponseWriter, r *http.Req
 		return
 	}
 
-	//Uncomment this when ready (double check pointers)
+	//Uncomment this when ready
 	//fileList, err := receiveHandler.getFileList(&address)
 	//if err != nil {
 	//	http.Error(w, err.Error(), http.StatusBadRequest)
 	//	return
 	//}
 
-	// debug for above:
-	var fileList []file
-	var err error
-	fileList = append(fileList, file{address: "0000000000000000", filename: "gopher1.png", size: 34156})
-	fileList = append(fileList, file{address: "0000000000000000", filename: "gopher2.png", size: 34156})
-	//// end debug
+	//// debug for above:
+	//var fileList []file
+	//var err error
+	//fileList = append(fileList, file{address: "0000000000000000", filename: "gopher1.png", size: 34156})
+	//fileList = append(fileList, file{address: "0000000000000000", filename: "gopher2.png", size: 34156})
+	////// end debug
 
 	//fileList, err = receiveHandler.getFileData(&fileList)
 	//if err != nil {
-	//	http.Error(w, err.Error(), http.StatusNotFound)
+	//	http.Error(w, err.Error(), http.StatusInternalServerError)
 	//	return
 	//}
 	//
@@ -70,24 +71,24 @@ func (receiveHandler *ReceiveHandler) Receive(w http.ResponseWriter, r *http.Req
 	zipFile, err := os.Open("data/" + address + ".zip")
 	defer zipFile.Close()
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusNotFound)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
 	fileStat, _ := zipFile.Stat()
 	fileSize := fileStat.Size()
 
-	fmt.Println(fileSize)
-
 	w.Header().Set("Content-Disposition", "attachment; filename=data/"+address)
 	w.Header().Set("Content-Type", "application/zip")
 	w.Header().Set("Content-Length", strconv.FormatInt(fileSize, 10))
 
-	// Send the file:
-	zipFile.Seek(0,0)
+	fmt.Println("Sending zip archive")
+	_, err = zipFile.Seek(0, 0)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
 	io.Copy(w, zipFile)
-
-	fmt.Println(fileList)
 
 	fmt.Println("Done")
 }
@@ -101,7 +102,7 @@ func (receiveHandler *ReceiveHandler) getFileList(address *string) ([]file, erro
 		return fileList, err
 	}
 	if res.KeyCount == 0 {
-		return fileList, errors.New("address does not exist")
+		return fileList, errors.New("address exists but no items in it")
 	}
 
 	for _, obj := range res.Contents {
@@ -120,6 +121,8 @@ func (receiveHandler *ReceiveHandler) getFileList(address *string) ([]file, erro
 }
 
 func (receiveHandler *ReceiveHandler) getFileData(fileList *[]file) ([]file, error) {
+	fmt.Println("Retreiving file data")
+
 	for i := range *fileList {
 		key := (*fileList)[i].address + "/" + (*fileList)[i].filename
 		obj, err := receiveHandler.S3Service.GetObject(&key)
@@ -132,7 +135,7 @@ func (receiveHandler *ReceiveHandler) getFileData(fileList *[]file) ([]file, err
 }
 
 func makeZipFile(fileList *[]file) error {
-	fmt.Println("Creating zip file...")
+	fmt.Println("Creating zip file")
 
 	buffer := new(bytes.Buffer)
 	address := (*fileList)[0].address
@@ -154,13 +157,12 @@ func makeZipFile(fileList *[]file) error {
 
 	err := zipWriter.Close()
 	if err != nil {
-		//TODO
 		return err
 	}
 
 	ioutil.WriteFile("data/"+address+".zip", buffer.Bytes(), 0777)
 
-	//delete zip file
+	// TODO delete zip file
 
 	return nil
 }
