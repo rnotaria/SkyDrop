@@ -1,6 +1,7 @@
 package app
 
 import (
+	"fmt"
 	"github.com/gorilla/mux"
 	"github.com/rnotaria/SkyDrop/app/awsServices"
 	"github.com/rnotaria/SkyDrop/app/handlers"
@@ -18,6 +19,7 @@ type App struct {
 }
 
 func (app *App) Init(config *config.Config) {
+	fmt.Println("Initializing App")
 	app.Port = config.Port
 	app.s3Service = awsServices.GetS3Service(&config.AWSBucket)
 	app.SendHandler.S3Service = app.s3Service
@@ -27,6 +29,7 @@ func (app *App) Init(config *config.Config) {
 }
 
 func (app *App) setRouters() {
+	fmt.Println("Setting Routers")
 	app.Router.HandleFunc("/api/send", app.SendHandler.Send).Methods("POST", "OPTIONS")
 	app.Router.HandleFunc("/api/receive", app.ReceiveHandler.Receive).Methods("GET", "OPTIONS")
 }

@@ -21,7 +21,7 @@ const send = async (files) => {
 
     return res;
   } catch (error) {
-    return error;
+    throw error;
   }
 };
 

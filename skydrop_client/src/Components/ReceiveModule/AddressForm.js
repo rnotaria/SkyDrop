@@ -42,6 +42,7 @@ function AddressForm() {
   const [value2, setValue2] = useState(null);
   const [value3, setValue3] = useState(null);
   const [value4, setValue4] = useState(null);
+  const words = [value1, value2, value3, value4];
 
   return (
     <Container>
@@ -72,7 +73,10 @@ function AddressForm() {
           focus={value1 && value2 && value3 && !value4}
         />
       </InputContainer>
-      <FetchButton disabled={!(value1 && value2 && value3 && value4)} />
+      <FetchButton
+        disabled={!(value1 && value2 && value3 && value4)}
+        words={words}
+      />
     </Container>
   );
 }
