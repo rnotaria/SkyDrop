@@ -14,12 +14,11 @@ function FetchButton({ disabled, words }) {
     receiveService
       .receive(address)
       .then((res) => {
-        console.log(res);
+        //TODO
       })
       .catch((error) => {
         // TODO handle errors
-        console.log(error.response.status);
-        if (error.response.status === 400) {
+        if (error.response && error.response.status === 400) {
           dispatch(addressNotFound());
         }
       });
