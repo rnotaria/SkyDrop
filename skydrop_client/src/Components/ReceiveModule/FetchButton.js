@@ -12,14 +12,13 @@ function FetchButton({ disabled, words }) {
 
   const fetch = () => {
     receiveService
-      .receive(address)
-      .then((res) => {
-        //TODO
-      })
+      .fetchData(address)
+      .then((res) => {})
       .catch((error) => {
         // TODO handle errors
         if (error.response && error.response.status === 400) {
           dispatch(addressNotFound());
+          return;
         }
       });
   };

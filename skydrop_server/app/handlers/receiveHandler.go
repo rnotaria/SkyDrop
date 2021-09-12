@@ -9,6 +9,8 @@ import (
 	"io"
 	"io/ioutil"
 	"net/http"
+	"os"
+	"strconv"
 	"strings"
 )
 
@@ -53,16 +55,37 @@ func (receiveHandler *ReceiveHandler) Receive(w http.ResponseWriter, r *http.Req
 	fileList = append(fileList, file{address: "0000000000000000", filename: "gopher2.png", size: 34156})
 	//// end debug
 
-	fileList, err = receiveHandler.getFileData(&fileList)
+	//fileList, err = receiveHandler.getFileData(&fileList)
+	//if err != nil {
+	//	http.Error(w, err.Error(), http.StatusNotFound)
+	//	return
+	//}
+	//
+	//err = makeZipFile(&fileList)
+	//if err != nil {
+	//	http.Error(w, err.Error(), http.StatusInternalServerError)
+	//	return
+	//}
+
+	zipFile, err := os.Open("data/" + address + ".zip")
+	defer zipFile.Close()
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusNotFound)
 		return
 	}
 
-	err = makeZipFile(&fileList)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-	}
+	fileStat, _ := zipFile.Stat()
+	fileSize := fileStat.Size()
+
+	fmt.Println(fileSize)
+
+	w.Header().Set("Content-Disposition", "attachment; filename=data/"+address)
+	w.Header().Set("Content-Type", "application/zip")
+	w.Header().Set("Content-Length", strconv.FormatInt(fileSize, 10))
+
+	// Send the file:
+	zipFile.Seek(0,0)
+	io.Copy(w, zipFile)
 
 	fmt.Println(fileList)
 
@@ -108,7 +131,7 @@ func (receiveHandler *ReceiveHandler) getFileData(fileList *[]file) ([]file, err
 	return *fileList, nil
 }
 
-func makeZipFile(fileList *[]file) (error) {
+func makeZipFile(fileList *[]file) error {
 	fmt.Println("Creating zip file...")
 
 	buffer := new(bytes.Buffer)
@@ -118,8 +141,6 @@ func makeZipFile(fileList *[]file) (error) {
 	for _, file := range *fileList {
 		zipFile, err := zipWriter.Create(file.filename)
 		if err != nil {
-			//TODO
-			panic(err)
 			return err
 		}
 
@@ -127,8 +148,6 @@ func makeZipFile(fileList *[]file) (error) {
 
 		_, err = zipFile.Write(bodyBytes)
 		if err != nil {
-			//TODO
-			panic(err)
 			return err
 		}
 	}
@@ -136,11 +155,12 @@ func makeZipFile(fileList *[]file) (error) {
 	err := zipWriter.Close()
 	if err != nil {
 		//TODO
-		panic(err)
 		return err
 	}
 
-	ioutil.WriteFile(address+".zip", buffer.Bytes(), 0777)
+	ioutil.WriteFile("data/"+address+".zip", buffer.Bytes(), 0777)
+
+	//delete zip file
 
 	return nil
 }
