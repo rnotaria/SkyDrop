@@ -1,11 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import FileList from "./FileList";
 import styled from "styled-components";
 import Button from "@material-ui/core/Button";
 import LoopIcon from "@material-ui/icons/Loop";
 import DownloadAll from "./DownloadAll";
+import Slide from "@material-ui/core/Slide";
 
 const tempFileList = [{ name: "file1", size: 11485760 }];
+
+const Container = styled.div`
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background: white;
+
+  z-index: 0;
+`;
 
 const FileListContainer = styled.div`
   position: relative;
@@ -19,15 +33,17 @@ const FileListContainer = styled.div`
   user-select: none;
 `;
 
-function FileSystem() {
+function FileSystem({ files, isActive, close }) {
   return (
-    <React.Fragment>
-      <FileListContainer>
-        <FileList files={tempFileList} />
-      </FileListContainer>
-      <DownloadAll />
-      <Restart />
-    </React.Fragment>
+    <Slide in={isActive} direction="up">
+      <Container>
+        <FileListContainer>
+          <FileList files={tempFileList} />
+        </FileListContainer>
+        <DownloadAll zipFile={files.zipFile} />
+        <Restart close={close} />
+      </Container>
+    </Slide>
   );
 }
 
@@ -38,6 +54,7 @@ function Restart({ close }) {
       variant="contained"
       color="default"
       startIcon={<LoopIcon />}
+      onClick={close}
     >
       Restart
     </Button>

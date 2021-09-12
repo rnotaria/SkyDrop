@@ -2,6 +2,7 @@ import React from "react";
 import Button from "@material-ui/core/Button";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import { withStyles } from "@material-ui/core/styles";
+import { saveAs } from "file-saver";
 
 const DownloadAllButton = withStyles((theme) => ({
   root: {
@@ -13,13 +14,14 @@ const DownloadAllButton = withStyles((theme) => ({
   },
 }))(Button);
 
-function DownloadAll() {
+function DownloadAll({ zipFile }) {
   return (
     <DownloadAllButton
       style={{ margin: "8px" }}
       variant="contained"
       color="primary"
       startIcon={<GetAppIcon />}
+      onClick={() => saveAs(zipFile)}
     >
       Download All
     </DownloadAllButton>

@@ -37,7 +37,7 @@ function Title() {
   );
 }
 
-function AddressForm() {
+function AddressForm({ openFileSystem }) {
   const [value1, setValue1] = useState(null);
   const [value2, setValue2] = useState(null);
   const [value3, setValue3] = useState(null);
@@ -76,6 +76,7 @@ function AddressForm() {
       <FetchButton
         disabled={!(value1 && value2 && value3 && value4)}
         words={words}
+        openFileSystem={openFileSystem}
       />
     </Container>
   );
