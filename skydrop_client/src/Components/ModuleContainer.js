@@ -3,15 +3,17 @@ import SendModule from "./SendModule/SendModule";
 import ReceiveModule from "./ReceiveModule/ReceiveModule";
 import ModuleSelector from "./ModuleSelector";
 import Box from "@material-ui/core/Box";
+import styled from "styled-components";
 
-const containerStyle = {
-  minHeight: "600px",
-  minWidth: "400px",
-  width: "40vw",
-  height: "80vh",
-  display: "flex",
-  flexDirection: "column",
-};
+const Container = styled.div`
+  min-height: 600px;
+  min-width: 400px;
+  width: 60vw;
+  max-width: 800px;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+`;
 
 const contentStyle = {
   position: "relative",
@@ -25,19 +27,19 @@ const contentStyle = {
 };
 
 function ModuleContainer() {
-  const [value, setValue] = useState(1);
+  const [value, setValue] = useState(0);
 
-  const handleChangeValue = (e, newValue) => {
+  const handleChangeValue = (_e, newValue) => {
     setValue(newValue);
   };
 
   const module = value === 0 ? <SendModule /> : <ReceiveModule />;
 
   return (
-    <Box {...containerStyle}>
+    <Container>
       <ModuleSelector value={value} handleChangeValue={handleChangeValue} />
       <Box {...contentStyle}>{module}</Box>
-    </Box>
+    </Container>
   );
 }
 

@@ -38,9 +38,9 @@ function SendButton({ files, setAddress, openAddress }) {
         setAddress(res.data.Address);
         openAddress();
         setLoading(false);
-        // setTimeout(() => {
-        //   dispatch(removeAllFilesToSend());
-        // }, 500);
+        setTimeout(() => {
+          dispatch(removeAllFilesToSend());
+        }, 500);
       })
       .catch((e) => {
         dispatch(generalError());
