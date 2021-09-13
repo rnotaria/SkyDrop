@@ -1,7 +1,7 @@
 import React, { useState } from "react";
+import { useStore } from "react-redux";
 import FileSystem from "./FileSystem";
 import Address from "./Address";
-import { useStore } from "react-redux";
 
 function SendModule() {
   const [showAddress, setShowAddress] = useState(false);

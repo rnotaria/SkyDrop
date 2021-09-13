@@ -1,8 +1,7 @@
 import React from "react";
-import { convertToMB, sanitizeName } from "../../utils/helperFuncs";
 import { useDispatch } from "react-redux";
 import { removeFileToSend } from "../../reducers/filesToSendReducer";
-
+import { convertToMB, sanitizeName } from "../../utils/helperFuncs";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";

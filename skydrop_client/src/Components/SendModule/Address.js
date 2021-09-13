@@ -1,12 +1,12 @@
 import React from "react";
 import { getWords } from "../../utils/addressGenerator";
 import sampleQR from "../../utils/sampleQR.png";
-import styled from "styled-components";
 import Slide from "@material-ui/core/Slide";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import LoopIcon from "@material-ui/icons/Loop";
+import styled from "styled-components";
 
 const Container = styled.div`
   position: absolute;

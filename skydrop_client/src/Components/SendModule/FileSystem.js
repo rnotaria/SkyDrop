@@ -1,16 +1,19 @@
 import React, { useCallback } from "react";
-import { useDropzone } from "react-dropzone";
-import styled from "styled-components";
+import { useDispatch } from "react-redux";
 import FileList from "./FileList";
 import DropFilesHere from "./DropFilesHere";
-import { containsDupes } from "../../utils/helperFuncs";
-import { useDispatch } from "react-redux";
-import { duplicateFileError } from "../../reducers/alertReducer";
-import { addFilesToSend } from "../../reducers/filesToSendReducer";
 import ProgressBar from "./ProgressBar";
 import SendButton from "./SendButton";
 import constants from "../../utils/constants";
-import { getTotalSize, convertToMB } from "../../utils/helperFuncs";
+import {
+  containsDupes,
+  getTotalSize,
+  convertToMB,
+} from "../../utils/helperFuncs";
+import { duplicateFileError } from "../../reducers/alertReducer";
+import { addFilesToSend } from "../../reducers/filesToSendReducer";
+import { useDropzone } from "react-dropzone";
+import styled from "styled-components";
 
 const Container = styled.div`
   height: 100%;
