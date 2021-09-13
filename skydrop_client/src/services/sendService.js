@@ -18,7 +18,6 @@ const send = async (files) => {
         "Content-Type": "multipart/form-data",
       },
     });
-
     return res;
   } catch (error) {
     throw error;

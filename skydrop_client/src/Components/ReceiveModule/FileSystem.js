@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
+import { useDispatch } from "react-redux";
 import FileList from "./FileList";
+import { reset } from "../../reducers/receiveFilesReducer";
 import styled from "styled-components";
 import Button from "@material-ui/core/Button";
 import LoopIcon from "@material-ui/icons/Loop";
 import DownloadAll from "./DownloadAll";
 import Slide from "@material-ui/core/Slide";
-
-const tempFileList = [{ name: "file1", size: 11485760 }];
 
 const Container = styled.div`
   height: 100%;
@@ -38,7 +38,7 @@ function FileSystem({ files, isActive, close }) {
     <Slide in={isActive} direction="up">
       <Container>
         <FileListContainer>
-          <FileList files={tempFileList} />
+          <FileList files={files.files} />
         </FileListContainer>
         <DownloadAll zipFile={files.zipFile} />
         <Restart close={close} />
@@ -48,13 +48,20 @@ function FileSystem({ files, isActive, close }) {
 }
 
 function Restart({ close }) {
+  const dispatch = useDispatch();
+
+  const onClose = () => {
+    close();
+    dispatch(reset());
+  };
+
   return (
     <Button
       style={{ margin: "8px", marginBottom: "48px" }}
       variant="contained"
       color="default"
       startIcon={<LoopIcon />}
-      onClick={close}
+      onClick={onClose}
     >
       Restart
     </Button>

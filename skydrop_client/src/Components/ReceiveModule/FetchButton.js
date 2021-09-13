@@ -5,8 +5,8 @@ import receiveService from "../../services/receiveService";
 import { getAddress } from "../../utils/addressGenerator";
 import { useDispatch } from "react-redux";
 import { addressNotFound, generalError } from "../../reducers/alertReducer";
-import { getZipFromResponse } from "../../utils/fileUtils";
-import { addZip } from "../../reducers/receiveFilesReducer";
+import { getZipFromResponse, getFilesFromZip } from "../../utils/fileUtils";
+import { addZip, addFiles } from "../../reducers/receiveFilesReducer";
 
 function FetchButton({ disabled, words, openFileSystem }) {
   const dispatch = useDispatch();
@@ -18,10 +18,12 @@ function FetchButton({ disabled, words, openFileSystem }) {
       .then((res) => {
         const zipFile = getZipFromResponse(res);
         dispatch(addZip(zipFile));
-        openFileSystem();
+        getFilesFromZip(zipFile).then((files) => {
+          dispatch(addFiles(files));
+          openFileSystem();
+        });
       })
       .catch((error) => {
-        // TODO handle errors
         if (error.response && error.response.status === 400) {
           dispatch(addressNotFound());
         } else {

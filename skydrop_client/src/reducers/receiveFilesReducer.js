@@ -1,15 +1,22 @@
-const receiveFilesReducer = (state = [], action) => {
+const initialState = {
+  zipFile: null,
+  files: [],
+};
+
+const receiveFilesReducer = (state = initialState, action) => {
   switch (action.type) {
     case "ADD_ZIP":
       return {
         ...state,
         zipFile: action.data,
       };
-    case "ADD_FILEs":
+    case "ADD_FILES":
       return {
         ...state,
-        files: [...state.files, ...action.data],
+        files: action.data,
       };
+    case "RESET":
+      return initialState;
     default:
       return state;
   }
@@ -24,8 +31,14 @@ export const addZip = (zipFile) => {
 
 export const addFiles = (newFiles) => {
   return {
-    type: "ADD_FILE",
+    type: "ADD_FILES",
     data: newFiles,
+  };
+};
+
+export const reset = () => {
+  return {
+    type: "RESET",
   };
 };
 
