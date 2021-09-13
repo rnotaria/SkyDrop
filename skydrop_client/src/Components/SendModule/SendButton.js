@@ -8,7 +8,7 @@ import {
   tooManyFiles,
   generalError,
 } from "../../reducers/alertReducer";
-import { removeAllFilesToSend } from "../../reducers/filesToSendReducer";
+import { removeAllFiles } from "../../reducers/sendFilesReducer";
 import Button from "@material-ui/core/Button";
 import SendIcon from "@material-ui/icons/SendRounded";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -45,7 +45,7 @@ function SendButton({ files, setAddress, openAddress }) {
         openAddress();
         setLoading(false);
         setTimeout(() => {
-          dispatch(removeAllFilesToSend());
+          dispatch(removeAllFiles());
         }, 500);
       })
       .catch((e) => {

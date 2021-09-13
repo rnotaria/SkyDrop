@@ -11,7 +11,7 @@ import {
   convertToMB,
 } from "../../utils/helperFuncs";
 import { duplicateFileError } from "../../reducers/alertReducer";
-import { addFilesToSend } from "../../reducers/filesToSendReducer";
+import { addFiles } from "../../reducers/sendFilesReducer";
 import { useDropzone } from "react-dropzone";
 import styled from "styled-components";
 
@@ -56,7 +56,7 @@ function FileSystem({ files, openAddress, setAddress }) {
       if (containsDupes(files, newFiles)) {
         dispatch(duplicateFileError());
       }
-      dispatch(addFilesToSend(newFiles));
+      dispatch(addFiles(newFiles));
     },
     [files, dispatch]
   );

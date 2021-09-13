@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { removeFileToSend } from "../../reducers/filesToSendReducer";
+import { removeFile } from "../../reducers/sendFilesReducer";
 import { convertToMB, sanitizeName } from "../../utils/helperFuncs";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -46,9 +46,9 @@ function FileList({ files, openFileDialog }) {
   const dispatch = useDispatch();
   const classes = useStyles();
 
-  const removeFile = (name) => {
+  const removeFileByName = (name) => {
     setTimeout(() => {
-      dispatch(removeFileToSend(name));
+      dispatch(removeFile(name));
     }, 350);
   };
 
@@ -68,7 +68,10 @@ function FileList({ files, openFileDialog }) {
               secondary={convertToMB(file.size).toFixed(2) + " MB"}
             />
             <ListItemSecondaryAction>
-              <IconButton edge="end" onClick={() => removeFile(file.name)}>
+              <IconButton
+                edge="end"
+                onClick={() => removeFileByName(file.name)}
+              >
                 <DeleteIcon color="secondary" />
               </IconButton>
             </ListItemSecondaryAction>

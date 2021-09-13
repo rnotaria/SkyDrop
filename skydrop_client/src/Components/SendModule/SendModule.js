@@ -8,7 +8,7 @@ function SendModule() {
   const [address, setAddress] = useState(null);
 
   const store = useStore();
-  const files = store.getState().filesToSend;
+  const files = store.getState().sendFiles;
 
   return (
     <React.Fragment>
