@@ -40,9 +40,9 @@ func (sendHandler *SendHandler) Send(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Println("Generating address")
 	address := tools.GenerateAddress(utils.NumberOfWords)
-	fmt.Println("Address:", address)
+	fmt.Println("Address:", *address)
 
-	// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+	// # # # # # # # # # Comment below to bypass AWS # # # # # # # # # # #
 	//for i := range sendHandler.files {
 	//	filename := sendHandler.files[i].Filename
 	//	key := *address + "/" + filename

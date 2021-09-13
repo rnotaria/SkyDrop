@@ -11,25 +11,23 @@ import Slide from "@material-ui/core/Slide";
 const Container = styled.div`
   height: 100%;
   width: 100%;
-
+  background: white;
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  background: white;
 
   z-index: 0;
 `;
 
 const FileListContainer = styled.div`
   position: relative;
-  margin-top: 24px;
   width: 80%;
-  flex: 1 1 auto;
-  overflow-y: auto;
+  margin-top: 24px;
+  margin-bottom: 24px;
   border: 1px solid #aaaaaa;
   background-color: white;
-  margin-bottom: 24px;
+  flex: 1 1 auto;
+  overflow-y: auto;
   user-select: none;
 `;
 

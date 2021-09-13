@@ -42,20 +42,12 @@ func (receiveHandler *ReceiveHandler) Receive(w http.ResponseWriter, r *http.Req
 		return
 	}
 
-	//Uncomment this when ready
+	// # # # # # # # # # Comment below to bypass AWS # # # # # # # # # # #
 	//fileList, err := receiveHandler.getFileList(&address)
 	//if err != nil {
 	//	http.Error(w, err.Error(), http.StatusBadRequest)
 	//	return
 	//}
-
-	//// debug for above:
-	//var fileList []file
-	//var err error
-	//fileList = append(fileList, file{address: "0000000000000000", filename: "gopher1.png", size: 34156})
-	//fileList = append(fileList, file{address: "0000000000000000", filename: "gopher2.png", size: 34156})
-	////// end debug
-
 	//fileList, err = receiveHandler.getFileData(&fileList)
 	//if err != nil {
 	//	http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -67,6 +59,7 @@ func (receiveHandler *ReceiveHandler) Receive(w http.ResponseWriter, r *http.Req
 	//	http.Error(w, err.Error(), http.StatusInternalServerError)
 	//	return
 	//}
+	// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 	zipFile, err := os.Open("data/" + address + ".zip")
 	defer zipFile.Close()
@@ -114,10 +107,7 @@ func (receiveHandler *ReceiveHandler) getFileList(address *string) ([]file, erro
 		fileList = append(fileList, f)
 	}
 
-	fileList = fileList[1:]
-
 	return fileList, nil
-
 }
 
 func (receiveHandler *ReceiveHandler) getFileData(fileList *[]file) ([]file, error) {
