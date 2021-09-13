@@ -1,12 +1,9 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import FileList from "./FileList";
-import { reset } from "../../reducers/receiveFilesReducer";
-import styled from "styled-components";
-import Button from "@material-ui/core/Button";
-import LoopIcon from "@material-ui/icons/Loop";
-import DownloadAll from "./DownloadAll";
+import RestartButton from "./RestartButton";
+import DownloadAllButton from "./DownloadAllButton";
 import Slide from "@material-ui/core/Slide";
+import styled from "styled-components";
 
 const Container = styled.div`
   height: 100%;
@@ -38,31 +35,10 @@ function FileSystem({ files, isActive, close }) {
         <FileListContainer>
           <FileList files={files.files} />
         </FileListContainer>
-        <DownloadAll zipFile={files.zipFile} />
-        <Restart close={close} />
+        <DownloadAllButton zipFile={files.zipFile} />
+        <RestartButton close={close} />
       </Container>
     </Slide>
-  );
-}
-
-function Restart({ close }) {
-  const dispatch = useDispatch();
-
-  const onClose = () => {
-    close();
-    dispatch(reset());
-  };
-
-  return (
-    <Button
-      style={{ margin: "8px", marginBottom: "48px" }}
-      variant="contained"
-      color="default"
-      startIcon={<LoopIcon />}
-      onClick={onClose}
-    >
-      Restart
-    </Button>
   );
 }
 

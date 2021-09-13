@@ -4,7 +4,7 @@ import GetAppIcon from "@material-ui/icons/GetApp";
 import { withStyles } from "@material-ui/core/styles";
 import { saveAs } from "file-saver";
 
-const DownloadAllButton = withStyles((theme) => ({
+const DownloadAll = withStyles((theme) => ({
   root: {
     color: theme.palette.getContrastText("#03C03C"),
     backgroundColor: "#03C03C",
@@ -14,9 +14,9 @@ const DownloadAllButton = withStyles((theme) => ({
   },
 }))(Button);
 
-function DownloadAll({ zipFile }) {
+function DownloadAllButton({ zipFile }) {
   return (
-    <DownloadAllButton
+    <DownloadAll
       style={{ margin: "8px" }}
       variant="contained"
       color="primary"
@@ -24,8 +24,8 @@ function DownloadAll({ zipFile }) {
       onClick={() => saveAs(zipFile)}
     >
       Download All
-    </DownloadAllButton>
+    </DownloadAll>
   );
 }
 
-export default DownloadAll;
+export default DownloadAllButton;

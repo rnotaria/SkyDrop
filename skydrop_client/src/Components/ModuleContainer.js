@@ -27,7 +27,7 @@ const contentStyle = {
 };
 
 function ModuleContainer() {
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState(1);
 
   const handleChangeValue = (_e, newValue) => {
     setValue(newValue);

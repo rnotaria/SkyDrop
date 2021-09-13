@@ -1,9 +1,9 @@
 import React, { useState } from "react";
+import { wordList } from "./AddressForm";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete, {
   createFilterOptions,
 } from "@material-ui/lab/Autocomplete";
-import { wordList } from "./AddressForm";
 
 const filterOptions = createFilterOptions({
   matchFrom: "start",

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import FetchButton from "./FetchButton";
+import InputField from "./InputField";
+import { wordMap } from "../../utils/wordMap";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import styled from "styled-components";
-import { wordMap } from "../../utils/wordMap";
-import InputField from "./InputField";
 
 export const wordList = wordMap.keys();
 

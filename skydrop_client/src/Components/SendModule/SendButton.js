@@ -22,9 +22,8 @@ const Container = styled.div`
 `;
 
 function SendButton({ files, setAddress, openAddress }) {
-  const dispatch = useDispatch();
-
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
   const send = () => {
     const size = getTotalSize(files);

@@ -24,7 +24,7 @@ const useStyles = makeStyles({
 function FileList({ files }) {
   const classes = useStyles();
 
-  const dowloadFile = (name) => {
+  const downloadFile = (name) => {
     const file = files.find((f) => f.name === name);
     saveAs(file);
   };
@@ -44,7 +44,7 @@ function FileList({ files }) {
               secondary={convertToMB(file.size).toFixed(2) + " MB"}
             />
             <ListItemSecondaryAction>
-              <IconButton edge="end" onClick={() => dowloadFile(file.name)}>
+              <IconButton edge="end" onClick={() => downloadFile(file.name)}>
                 <GetAppIcon style={{ color: "#03C03C" }} />
               </IconButton>
             </ListItemSecondaryAction>
