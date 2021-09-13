@@ -69,11 +69,7 @@ function FileList({ files, openFileDialog }) {
               secondary={convertToMB(file.size).toFixed(2) + " MB"}
             />
             <ListItemSecondaryAction>
-              <IconButton
-                edge="end"
-                aria-label="delete"
-                onClick={() => removeFile(file.name)}
-              >
+              <IconButton edge="end" onClick={() => removeFile(file.name)}>
                 <DeleteIcon color="secondary" />
               </IconButton>
             </ListItemSecondaryAction>

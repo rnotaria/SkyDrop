@@ -11,6 +11,7 @@ import IconButton from "@material-ui/core/IconButton";
 import FolderIcon from "@material-ui/icons/Folder";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import { makeStyles } from "@material-ui/core/styles";
+import { saveAs } from "file-saver";
 
 const useStyles = makeStyles({
   root: {
@@ -22,6 +23,11 @@ const useStyles = makeStyles({
 
 function FileList({ files }) {
   const classes = useStyles();
+
+  const dowloadFile = (name) => {
+    const file = files.find((f) => f.name === name);
+    saveAs(file);
+  };
 
   return (
     <List dense={true}>
@@ -38,7 +44,7 @@ function FileList({ files }) {
               secondary={convertToMB(file.size).toFixed(2) + " MB"}
             />
             <ListItemSecondaryAction>
-              <IconButton edge="end">
+              <IconButton edge="end" onClick={() => dowloadFile(file.name)}>
                 <GetAppIcon style={{ color: "#03C03C" }} />
               </IconButton>
             </ListItemSecondaryAction>
