@@ -8,9 +8,9 @@ import styled from "styled-components";
 const Container = styled.div`
   min-height: 600px;
   min-width: 400px;
-  width: 60vw;
-  max-width: 800px;
+  width: 61.8vh;
   height: 80vh;
+  max-width: 80vw;
   display: flex;
   flex-direction: column;
 `;
