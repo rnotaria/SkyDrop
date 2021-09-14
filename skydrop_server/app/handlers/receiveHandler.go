@@ -43,22 +43,22 @@ func (receiveHandler *ReceiveHandler) Receive(w http.ResponseWriter, r *http.Req
 	}
 
 	// # # # # # # # # # Comment below to bypass AWS # # # # # # # # # # #
-	//fileList, err := receiveHandler.getFileList(&address)
-	//if err != nil {
-	//	http.Error(w, err.Error(), http.StatusBadRequest)
-	//	return
-	//}
-	//fileList, err = receiveHandler.getFileData(&fileList)
-	//if err != nil {
-	//	http.Error(w, err.Error(), http.StatusInternalServerError)
-	//	return
-	//}
-	//
-	//err = makeZipFile(&fileList)
-	//if err != nil {
-	//	http.Error(w, err.Error(), http.StatusInternalServerError)
-	//	return
-	//}
+	fileList, err := receiveHandler.getFileList(&address)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	fileList, err = receiveHandler.getFileData(&fileList)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	err = makeZipFile(&fileList)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
 	// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 	zipFile, err := os.Open("data/" + address + ".zip")
