@@ -17,7 +17,7 @@ const Container = styled.div`
 
 const contentStyle = {
   position: "relative",
-  height: "calc(100% - 100px)", // account for TabPanel
+  height: "calc(100% - 65px)", // account for TabPanel
   padding: 1,
   boxShadow: 2,
   bgcolor: "background.paper",

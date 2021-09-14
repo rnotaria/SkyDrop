@@ -19,13 +19,14 @@ type App struct {
 }
 
 func (app *App) Init(config *config.Config) {
-	fmt.Println("Initializing App")
+	fmt.Print("Initializing server...")
 	app.Port = config.Port
 	app.s3Service = awsServices.GetS3Service(&config.AWSBucket)
 	app.SendHandler.S3Service = app.s3Service
 	app.ReceiveHandler.S3Service = app.s3Service
 	app.Router = mux.NewRouter()
 	app.setRouters()
+	fmt.Println("Server ready")
 }
 
 func (app *App) setRouters() {
