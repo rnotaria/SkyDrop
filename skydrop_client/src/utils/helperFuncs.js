@@ -1,5 +1,5 @@
 export function convertToMB(bytes) {
-  return bytes >> 20;
+  return bytes / 1024 / 1024;
 }
 
 export function getTotalSize(files) {

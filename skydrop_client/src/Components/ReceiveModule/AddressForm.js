@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import FetchButton from "./FetchButton";
+import InputField from "./InputField";
+import { wordMap } from "../../utils/wordMap";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import styled from "styled-components";
-import { wordMap } from "../../utils/wordMap";
-import InputField from "./InputField";
 
 export const wordList = wordMap.keys();
 
@@ -37,11 +37,12 @@ function Title() {
   );
 }
 
-function AddressForm() {
+function AddressForm({ openFileSystem }) {
   const [value1, setValue1] = useState(null);
   const [value2, setValue2] = useState(null);
   const [value3, setValue3] = useState(null);
   const [value4, setValue4] = useState(null);
+  const words = [value1, value2, value3, value4];
 
   return (
     <Container>
@@ -72,7 +73,11 @@ function AddressForm() {
           focus={value1 && value2 && value3 && !value4}
         />
       </InputContainer>
-      <FetchButton disabled={!(value1 && value2 && value3 && value4)} />
+      <FetchButton
+        disabled={!(value1 && value2 && value3 && value4)}
+        words={words}
+        openFileSystem={openFileSystem}
+      />
     </Container>
   );
 }

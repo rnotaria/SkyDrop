@@ -1,23 +1,29 @@
 import React, { useState } from "react";
-import Box from "@material-ui/core/Box";
-import Button from "@material-ui/core/Button";
-import SendIcon from "@material-ui/icons/SendRounded";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import { getTotalSize } from "../../utils/helperFuncs";
-import constants from "../../utils/constants";
 import { useDispatch } from "react-redux";
+import sendService from "../../services/sendService";
+import constants from "../../utils/constants";
+import { getTotalSize } from "../../utils/helperFuncs";
 import {
   sizeTooLarge,
   tooManyFiles,
   generalError,
 } from "../../reducers/alertReducer";
-import { removeAllFilesToSend } from "../../reducers/filesToSendReducer";
-import sendService from "../../services/sendService";
+import { removeAllFiles } from "../../reducers/sendFilesReducer";
+import Button from "@material-ui/core/Button";
+import SendIcon from "@material-ui/icons/SendRounded";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import styled from "styled-components";
+
+const Container = styled.div`
+  height: 50px;
+  margin: 24px;
+  display: flex;
+  align-items: center;
+`;
 
 function SendButton({ files, setAddress, openAddress }) {
-  const dispatch = useDispatch();
-
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
   const send = () => {
     const size = getTotalSize(files);
@@ -38,9 +44,9 @@ function SendButton({ files, setAddress, openAddress }) {
         setAddress(res.data.Address);
         openAddress();
         setLoading(false);
-        // setTimeout(() => {
-        //   dispatch(removeAllFilesToSend());
-        // }, 500);
+        setTimeout(() => {
+          dispatch(removeAllFiles());
+        }, 500);
       })
       .catch((e) => {
         dispatch(generalError());
@@ -50,14 +56,7 @@ function SendButton({ files, setAddress, openAddress }) {
   };
 
   return (
-    <Box
-      style={{
-        height: "50px",
-        margin: "24px",
-        display: "flex",
-        alignItems: "center",
-      }}
-    >
+    <Container>
       {loading ? (
         <CircularProgress />
       ) : (
@@ -71,7 +70,7 @@ function SendButton({ files, setAddress, openAddress }) {
           Send
         </Button>
       )}
-    </Box>
+    </Container>
   );
 }
 

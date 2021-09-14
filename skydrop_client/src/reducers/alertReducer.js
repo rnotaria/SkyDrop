@@ -9,6 +9,8 @@ const alertReducer = (state = null, action) => {
       return { ...action.data };
     case "TOO_MANY_FILES":
       return { ...action.data };
+    case "ADDRESS_NOT_FOUND":
+      return { ...action.data };
     case "GENERAL_ERROR":
       return { ...action.data };
     case "RESET":
@@ -62,11 +64,11 @@ export const generalError = () => {
   };
 };
 
-export const test = () => {
+export const addressNotFound = () => {
   return {
-    type: "TEST",
+    type: "ADDRESS_NOT_FOUND",
     data: {
-      message: "TEST!",
+      message: "This address entered does not exist!",
       severity: "error",
     },
   };

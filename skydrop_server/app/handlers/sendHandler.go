@@ -15,69 +15,65 @@ type SendHandler struct {
 	files     []*multipart.FileHeader
 }
 
-type responseData struct {
-	Success bool
-	Address string
-	//filenames  string
-	//numOfFiles int
-}
-
 func (sendHandler *SendHandler) Send(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 
+	fmt.Println("\nRequest made to sendHandler")
+
 	err := r.ParseMultipartForm(utils.MaxUploadSize)
 	if err != nil {
-		http.Error(w, "Bad Request", http.StatusBadRequest)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 	sendHandler.files = r.MultipartForm.File["files"]
 
 	fmt.Println("Validating files...")
 	if !utils.IsFileCountValid(sendHandler.files) {
-		http.Error(w, "Bad Request", http.StatusBadRequest)
+		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 	if !utils.IsFileSizeValid(sendHandler.files) {
-		http.Error(w, "Bad Request", http.StatusBadRequest)
+		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 
-	fmt.Println("Generating address...")
+	fmt.Println("Generating address")
 	address := tools.GenerateAddress(utils.NumberOfWords)
+	fmt.Println("Address:", *address)
 
-	// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-	//for i := range sendHandler.files {
-	//	filename := sendHandler.files[i].Filename
-	//	key := *address + "/" + filename
-	//
-	//	fmt.Println("Uploading", filename)
-	//
-	//	err := func() error {
-	//		file, err := sendHandler.files[i].Open()
-	//		if err != nil {
-	//			return err
-	//		}
-	//
-	//		defer file.Close()
-	//
-	//		_, err = sendHandler.S3Service.PutObject(&key, file)
-	//		if err != nil {
-	//			return err
-	//		}
-	//
-	//		return nil
-	//	}()
-	//
-	//	if err != nil {
-	//		fmt.Println(err)
-	//		http.Error(w, "Bad Request", http.StatusBadRequest)
-	//		return
-	//	}
-	//}
+	// # # # # # # # # # Comment below to bypass AWS # # # # # # # # # # #
+	for i := range sendHandler.files {
+		filename := sendHandler.files[i].Filename
+		key := *address + "/" + filename
+
+		fmt.Println("Uploading", filename)
+
+		err := func() error {
+			file, err := sendHandler.files[i].Open()
+			if err != nil {
+				return err
+			}
+
+			defer file.Close()
+
+			_, err = sendHandler.S3Service.PutObject(&key, file)
+			if err != nil {
+				return err
+			}
+
+			return nil
+		}()
+
+		if err != nil {
+			fmt.Println(err)
+			http.Error(w, "Bad Request", http.StatusBadRequest)
+			return
+		}
+	}
 	// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
-	resp := responseData{
+	resp := ResponseData{
 		Success: true,
 		Address: *address,
 	}
@@ -91,5 +87,6 @@ func (sendHandler *SendHandler) Send(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("content-type", "application/json")
 	_, _ = w.Write(respJson)
 
-	fmt.Println("\nAll files successfully uploaded to", *address)
+	fmt.Println("All files successfully uploaded to", *address)
+	fmt.Println("Done")
 }

@@ -1,11 +1,13 @@
 import { createStore, combineReducers } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import alertReducer from "./reducers/alertReducer";
-import filesToSendReducer from "./reducers/filesToSendReducer";
+import sendFilesReducer from "./reducers/sendFilesReducer";
+import receiveFilesReducer from "./reducers/receiveFilesReducer";
 
 const reducer = combineReducers({
   alerts: alertReducer,
-  filesToSend: filesToSendReducer,
+  sendFiles: sendFilesReducer,
+  receiveFiles: receiveFilesReducer,
 });
 
 const store = createStore(reducer, composeWithDevTools());

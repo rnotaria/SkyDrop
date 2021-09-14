@@ -1,30 +1,53 @@
 import React, { useCallback } from "react";
-import { useDropzone } from "react-dropzone";
-import styled from "styled-components";
+import { useDispatch } from "react-redux";
 import FileList from "./FileList";
 import DropFilesHere from "./DropFilesHere";
-import { containsDupes } from "../../utils/helperFuncs";
-import { useDispatch } from "react-redux";
+import ProgressBar from "./ProgressBar";
+import SendButton from "./SendButton";
+import constants from "../../utils/constants";
+import {
+  containsDupes,
+  getTotalSize,
+  convertToMB,
+} from "../../utils/helperFuncs";
 import { duplicateFileError } from "../../reducers/alertReducer";
-import { addFilesToSend } from "../../reducers/filesToSendReducer";
+import { addFiles } from "../../reducers/sendFilesReducer";
+import { useDropzone } from "react-dropzone";
+import styled from "styled-components";
 
 const Container = styled.div`
-  position: relative;
-  margin-top: 24px;
-  width: 80%;
-  flex: 1 1 auto;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
   overflow-y: auto;
+`;
+
+const DragDropContainer = styled.div`
+  position: relative;
+  width: 80%;
+  margin-top: 24px;
+  margin-bottom: 24px;
   border: 1px solid #aaaaaa;
   background-color: white;
-  margin-bottom: 24px;
+  flex: 1 1 auto;
   user-select: none;
+  overflow-y: auto;
+
   transition: 0.5s;
   ${(props) => (props.isDragActive ? { filter: "brightness(70%)" } : null)};
 `;
 
-const FileListContainer = styled.div``;
+const FileListContainer = styled.div`
+  position: relative;
+  height: 100%;
+  width: 100%;
+  user-select: none;
+`;
 
-function FileSystem({ files }) {
+function FileSystem({ files, openAddress, setAddress }) {
   const dispatch = useDispatch();
 
   //#region react-dropzone
@@ -33,7 +56,7 @@ function FileSystem({ files }) {
       if (containsDupes(files, newFiles)) {
         dispatch(duplicateFileError());
       }
-      dispatch(addFilesToSend(newFiles));
+      dispatch(addFiles(newFiles));
     },
     [files, dispatch]
   );
@@ -44,13 +67,40 @@ function FileSystem({ files }) {
   });
   //#endregion
 
+  const size = getTotalSize(files);
+
+  const sizeProgressProps = {
+    title: "Size",
+    label:
+      convertToMB(size).toFixed(2) +
+      "/" +
+      convertToMB(constants.MAX_UPLOAD_SIZE).toFixed(2) +
+      " MB",
+    value: (size / constants.MAX_UPLOAD_SIZE) * 100,
+  };
+
+  const fileCountProgressProps = {
+    title: "File Count",
+    label: files.length + "/" + constants.MAX_NUM_OF_FILES,
+    value: (files.length / constants.MAX_NUM_OF_FILES) * 100,
+  };
+
   return (
-    <Container isDragActive={isDragActive} {...getRootProps()}>
-      <input {...getInputProps()} />
-      <DropFilesHere isDragActive={isDragActive} />
-      <FileListContainer>
-        <FileList files={files} openFileDialog={open} />
-      </FileListContainer>
+    <Container>
+      <DragDropContainer isDragActive={isDragActive} {...getRootProps()}>
+        <input {...getInputProps()} />
+        <DropFilesHere isDragActive={isDragActive} />
+        <FileListContainer>
+          <FileList files={files} openFileDialog={open} />
+        </FileListContainer>
+      </DragDropContainer>
+      <ProgressBar {...sizeProgressProps} />
+      <ProgressBar {...fileCountProgressProps} />
+      <SendButton
+        files={files}
+        openAddress={openAddress}
+        setAddress={setAddress}
+      />
     </Container>
   );
 }
