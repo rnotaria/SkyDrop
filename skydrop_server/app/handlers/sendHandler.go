@@ -11,6 +11,7 @@ import (
 	"io/ioutil"
 	"mime/multipart"
 	"net/http"
+	"os"
 )
 
 type SendHandler struct {
@@ -31,7 +32,7 @@ func (sendHandler *SendHandler) Send(w http.ResponseWriter, r *http.Request) {
 	}
 	sendHandler.files = r.MultipartForm.File["files"]
 
-	fmt.Println("Validating files...")
+	fmt.Println("Validating files")
 	if !utils.IsFileCountValid(sendHandler.files) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
@@ -43,30 +44,35 @@ func (sendHandler *SendHandler) Send(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Println("Generating address")
 	address := tools.GenerateAddress(utils.NumberOfWords)
-	fmt.Println("Address:", *address)
 
+	fmt.Println("Zipping files")
 	err = makeZipFile(&sendHandler.files, *address)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
+	zipFile, err := os.Open("data/" + *address)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
 	// # # # # # # # # # Comment below to bypass AWS # # # # # # # # # # #
-	//key := *address
-	//zipFile, err := os.Open("data/" + *address + ".zip")
-	//defer zipFile.Close()
-	//
-	//if err != nil {
-	//	http.Error(w, err.Error(), http.StatusInternalServerError)
-	//	return
-	//}
-	//
-	//_, err = sendHandler.S3Service.PutObject(&key, zipFile)
-	//if err != nil {
-	//	http.Error(w, err.Error(), http.StatusInternalServerError)
-	//	return
-	//}
+	_, err = sendHandler.S3Service.PutObject(address, zipFile)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
 	// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+	zipFile.Close()
+
+	fmt.Println("Removing zip")
+	err = os.Remove("data/" + *address)
+	if err != nil {
+		fmt.Print(err)
+	}
 
 	resp := ResponseData{
 		Success: true,
@@ -82,16 +88,12 @@ func (sendHandler *SendHandler) Send(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("content-type", "application/json")
 	_, _ = w.Write(respJson)
 
-	fmt.Println("All files successfully uploaded to", *address)
-
-	// TODO delete zip file
-
+	fmt.Println("All files successfully uploaded")
 
 	fmt.Println("Done")
 }
 
 func makeZipFile(fileList *[]*multipart.FileHeader, zipName string) error {
-	fmt.Println("Creating zip file")
 
 	buffer := new(bytes.Buffer)
 	zipWriter := zip.NewWriter(buffer)
@@ -119,8 +121,7 @@ func makeZipFile(fileList *[]*multipart.FileHeader, zipName string) error {
 		return err
 	}
 
-	ioutil.WriteFile("data/"+zipName+".zip", buffer.Bytes(), 0777)
-
+	ioutil.WriteFile("data/"+zipName, buffer.Bytes(), 0777)
 
 	return nil
 }

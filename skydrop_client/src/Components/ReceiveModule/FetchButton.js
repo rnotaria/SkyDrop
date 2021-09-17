@@ -38,7 +38,7 @@ function FetchButton({ disabled, words }) {
         });
       })
       .catch((error) => {
-        if (error.response && error.response.status === 400) {
+        if (error.response && error.response.status === 404) {
           dispatch(addressNotFound());
         } else {
           dispatch(generalError());
