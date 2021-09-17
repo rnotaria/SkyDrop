@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addZip, addFiles } from "../../reducers/receiveFilesReducer";
+import { resetReceiveWords } from "../../reducers/dataReducer";
 import { addressNotFound, generalError } from "../../reducers/alertReducer";
 import { getZipFromResponse, getFilesFromZip } from "../../utils/fileUtils";
 import receiveService from "../../services/receiveService";
@@ -28,6 +29,7 @@ function FetchButton({ disabled, words }) {
     receiveService
       .fetchData(address)
       .then((res) => {
+        dispatch(resetReceiveWords());
         const zipFile = getZipFromResponse(res);
         dispatch(addZip(zipFile));
         getFilesFromZip(zipFile).then((files) => {

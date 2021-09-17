@@ -6,10 +6,11 @@ import FileSystem from "./FileSystem";
 function ReceiveModule() {
   const store = useStore();
   const files = store.getState().receiveFiles;
+  const words = store.getState().data.receiveWords;
 
   return (
     <React.Fragment>
-      <AddressForm />
+      <AddressForm words={words} />
       <FileSystem files={files} />
     </React.Fragment>
   );

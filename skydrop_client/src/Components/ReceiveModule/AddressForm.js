@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
+import { useDispatch } from "react-redux";
+import { setReceiveWords } from "../../reducers/dataReducer";
 import FetchButton from "./FetchButton";
 import InputField from "./InputField";
 import { wordMap } from "../../utils/wordMap";
@@ -37,44 +39,39 @@ function Title() {
   );
 }
 
-function AddressForm() {
-  const [value1, setValue1] = useState(null);
-  const [value2, setValue2] = useState(null);
-  const [value3, setValue3] = useState(null);
-  const [value4, setValue4] = useState(null);
-  const words = [value1, value2, value3, value4];
-
+function AddressForm({ words }) {
+  const dispatch = useDispatch();
   return (
     <Container>
       <Title />
       <InputContainer>
         <InputField
           label={"Word 1"}
-          value={value1}
-          handleChange={(_e, newV) => setValue1(newV)}
-          focus={!value1}
+          value={words[0]}
+          handleChange={(_e, newV) => dispatch(setReceiveWords(newV, 0))}
+          focus={!words[0]}
         />
         <InputField
           label={"Word 2"}
-          value={value2}
-          handleChange={(_e, newV) => setValue2(newV)}
-          focus={value1 && !value2}
+          value={words[1]}
+          handleChange={(_e, newV) => dispatch(setReceiveWords(newV, 1))}
+          focus={words[0] && !words[1]}
         />
         <InputField
           label={"Word 3"}
-          value={value3}
-          handleChange={(_e, newV) => setValue3(newV)}
-          focus={value1 && value2 && !value3}
+          value={words[2]}
+          handleChange={(_e, newV) => dispatch(setReceiveWords(newV, 2))}
+          focus={words[0] && words[1] && !words[2]}
         />
         <InputField
           label={"Word 4"}
-          value={value4}
-          handleChange={(_e, newV) => setValue4(newV)}
-          focus={value1 && value2 && value3 && !value4}
+          value={words[3]}
+          handleChange={(_e, newV) => dispatch(setReceiveWords(newV, 3))}
+          focus={words[0] && words[1] && words[2] && !words[3]}
         />
       </InputContainer>
       <FetchButton
-        disabled={!(value1 && value2 && value3 && value4)}
+        disabled={!(words[0] && words[1] && words[2] && words[3])}
         words={words}
       />
     </Container>
