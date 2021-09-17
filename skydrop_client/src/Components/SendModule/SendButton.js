@@ -9,6 +9,7 @@ import {
   generalError,
 } from "../../reducers/alertReducer";
 import { removeAllFiles } from "../../reducers/sendFilesReducer";
+import { setSendAddress } from "../../reducers/dataReducer";
 import Button from "@material-ui/core/Button";
 import SendIcon from "@material-ui/icons/SendRounded";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -21,7 +22,7 @@ const Container = styled.div`
   align-items: center;
 `;
 
-function SendButton({ files, setAddress, openAddress }) {
+function SendButton({ files }) {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
@@ -41,8 +42,7 @@ function SendButton({ files, setAddress, openAddress }) {
     sendService
       .send(files)
       .then((res) => {
-        setAddress(res.data.Address);
-        openAddress();
+        dispatch(setSendAddress(res.data.Address));
         setLoading(false);
         setTimeout(() => {
           dispatch(removeAllFiles());
