@@ -9,6 +9,13 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     width: "100%",
   },
+  tabs: {
+    backgroundColor: "#F5F5F5",
+    transition: "0.2s",
+    "&:hover": {
+      backgroundColor: "#E5E5E5",
+    },
+  },
 }));
 
 function ModuleSelector({ value, handleChangeValue }) {
@@ -24,8 +31,8 @@ function ModuleSelector({ value, handleChangeValue }) {
           textColor="primary"
           variant="fullWidth"
         >
-          <Tab label="Send" />
-          <Tab label="Receive" />
+          <Tab label="Send" className={classes.tabs} />
+          <Tab label="Receive" className={classes.tabs} />
         </Tabs>
       </AppBar>
     </div>
