@@ -29,7 +29,6 @@ const FileListContainer = styled.div`
 `;
 
 function FileSystem({ files }) {
-  console.log(files.files.length > 0);
   return (
     <Slide in={files.files.length > 0} direction="up">
       <Container>
