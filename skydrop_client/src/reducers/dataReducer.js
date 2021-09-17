@@ -1,6 +1,5 @@
 const initialState = {
   sendAddress: null,
-  receiveAddress: null,
 };
 
 const sendFilesReducer = (state = initialState, action) => {
@@ -40,19 +39,6 @@ export const setSendAddress = (address) => {
 export const resetSendAddress = () => {
   return {
     type: "RESET_SEND_ADDRESS",
-  };
-};
-
-export const setReceiveAddress = (address) => {
-  return {
-    type: "SET_RECEIVE_ADDRESS",
-    data: address,
-  };
-};
-
-export const resetReceiveAddress = () => {
-  return {
-    type: "RESET_RECEIVE_ADDRESS",
   };
 };
 

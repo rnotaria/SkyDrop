@@ -17,9 +17,10 @@ const Container = styled.div`
   align-items: center;
 `;
 
-function FetchButton({ disabled, words, openFileSystem }) {
-  const [loading, setLoading] = useState(false);
+function FetchButton({ disabled, words }) {
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
+
   const address = getAddress(words);
 
   const fetch = () => {
@@ -31,7 +32,6 @@ function FetchButton({ disabled, words, openFileSystem }) {
         dispatch(addZip(zipFile));
         getFilesFromZip(zipFile).then((files) => {
           dispatch(addFiles(files));
-          openFileSystem();
           setLoading(false);
         });
       })

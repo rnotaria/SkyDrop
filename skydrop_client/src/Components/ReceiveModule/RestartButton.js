@@ -4,13 +4,8 @@ import { reset } from "../../reducers/receiveFilesReducer";
 import Button from "@material-ui/core/Button";
 import LoopIcon from "@material-ui/icons/Loop";
 
-function RestartButton({ close }) {
+function RestartButton() {
   const dispatch = useDispatch();
-
-  const onClose = () => {
-    close();
-    dispatch(reset());
-  };
 
   return (
     <Button
@@ -18,7 +13,7 @@ function RestartButton({ close }) {
       variant="contained"
       color="default"
       startIcon={<LoopIcon />}
-      onClick={onClose}
+      onClick={() => dispatch(reset())}
     >
       Restart
     </Button>
