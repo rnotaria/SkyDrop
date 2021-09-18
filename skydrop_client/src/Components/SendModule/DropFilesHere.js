@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Zoom from "@material-ui/core/Zoom";
-import Typography from "@material-ui/core/Typography";
+import Zoom from "@mui/material/Zoom";
+import Typography from "@mui/material/Typography";
 import styled from "styled-components";
 
 export const Container = styled.div`

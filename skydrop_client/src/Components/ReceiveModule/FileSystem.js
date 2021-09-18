@@ -2,7 +2,7 @@ import React from "react";
 import FileList from "./FileList";
 import RestartButton from "./RestartButton";
 import DownloadAllButton from "./DownloadAllButton";
-import Slide from "@material-ui/core/Slide";
+import Slide from "@mui/material/Slide";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -13,7 +13,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
 
-  z-index: 0;
+  z-index: 1;
 `;
 
 const FileListContainer = styled.div`

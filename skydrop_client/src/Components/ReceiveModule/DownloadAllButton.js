@@ -1,22 +1,20 @@
 import React from "react";
-import Button from "@material-ui/core/Button";
-import GetAppIcon from "@material-ui/icons/GetApp";
-import { withStyles } from "@material-ui/core/styles";
+import Button from "@mui/material/Button";
+import GetAppIcon from "@mui/icons-material/GetApp";
+import { styled as muiStyled } from "@mui/material/styles";
 import { saveAs } from "file-saver";
 
-const DownloadAll = withStyles((theme) => ({
-  root: {
-    color: theme.palette.getContrastText("#03C03C"),
-    backgroundColor: "#03C03C",
-    "&:hover": {
-      backgroundColor: "#00B02C",
-    },
+const StyledButton = muiStyled(Button)(({ theme }) => ({
+  color: theme.palette.getContrastText("#03C03C"),
+  backgroundColor: "#03C03C",
+  "&:hover": {
+    backgroundColor: "#00B02C",
   },
-}))(Button);
+}));
 
 function DownloadAllButton({ zipFile }) {
   return (
-    <DownloadAll
+    <StyledButton
       style={{ margin: "8px" }}
       variant="contained"
       color="primary"
@@ -24,7 +22,7 @@ function DownloadAllButton({ zipFile }) {
       onClick={() => saveAs(zipFile)}
     >
       Download All
-    </DownloadAll>
+    </StyledButton>
   );
 }
 

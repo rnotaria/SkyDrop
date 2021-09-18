@@ -1,14 +1,14 @@
 import React from "react";
-import LinearProgress from "@material-ui/core/LinearProgress";
-import Typography from "@material-ui/core/Typography";
-import Box from "@material-ui/core/Box";
+import LinearProgress from "@mui/material/LinearProgress";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 
 export default function ProgressBar({ title, label, value }) {
   var barColor = "primary";
 
   if (value > 100) {
     value = 100;
-    barColor = "secondary";
+    barColor = "error";
   }
 
   return (

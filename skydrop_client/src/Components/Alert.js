@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import Snackbar from "@material-ui/core/Snackbar";
-import MuiAlert from "@material-ui/lab/Alert";
-import Slide from "@material-ui/core/Slide";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
+import Slide from "@mui/material/Slide";
 import { useStore, useDispatch } from "react-redux";
 import { reset } from "../reducers/alertReducer";
 
@@ -33,6 +33,7 @@ function Alert() {
 
   return (
     <Snackbar
+      anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
       open={open}
       onClose={onClose}
       autoHideDuration={5000}

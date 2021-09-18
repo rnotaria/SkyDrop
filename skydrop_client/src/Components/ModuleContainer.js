@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import SendModule from "./SendModule/SendModule";
 import ReceiveModule from "./ReceiveModule/ReceiveModule";
 import ModuleSelector from "./ModuleSelector";
-import Box from "@material-ui/core/Box";
+import Box from "@mui/material/Box";
 import styled from "styled-components";
 
 const Container = styled.div`

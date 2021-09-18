@@ -2,18 +2,18 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { removeFile } from "../../reducers/sendFilesReducer";
 import { convertToMB, sanitizeName } from "../../utils/helperFuncs";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
-import ListItemText from "@material-ui/core/ListItemText";
-import Divider from "@material-ui/core/Divider";
-import Avatar from "@material-ui/core/Avatar";
-import IconButton from "@material-ui/core/IconButton";
-import FolderIcon from "@material-ui/icons/Folder";
-import DeleteIcon from "@material-ui/icons/Delete";
-import AddIcon from "@material-ui/icons/Add";
-import { makeStyles } from "@material-ui/core/styles";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import ListItemSecondaryAction from "@mui/material/ListItemSecondaryAction";
+import ListItemText from "@mui/material/ListItemText";
+import Divider from "@mui/material/Divider";
+import Avatar from "@mui/material/Avatar";
+import IconButton from "@mui/material/IconButton";
+import FolderIcon from "@mui/icons-material/Folder";
+import DeleteIcon from "@mui/icons-material/Delete";
+import AddIcon from "@mui/icons-material/Add";
+import { styled as muiStyled } from "@mui/material/styles";
 
 function AddFile({ openFileDialog }) {
   return (
@@ -34,17 +34,14 @@ function AddFile({ openFileDialog }) {
   );
 }
 
-const useStyles = makeStyles({
-  root: {
-    "&:hover": {
-      backgroundColor: "#F5F5F5",
-    },
+const StyledListItem = muiStyled(ListItem)({
+  "&:hover": {
+    backgroundColor: "#F5F5F5",
   },
 });
 
 function FileList({ files, openFileDialog }) {
   const dispatch = useDispatch();
-  const classes = useStyles();
 
   const removeFileByName = (name) => {
     setTimeout(() => {
@@ -57,7 +54,7 @@ function FileList({ files, openFileDialog }) {
       <AddFile openFileDialog={openFileDialog} />
       {files.map((file) => (
         <React.Fragment key={file.name}>
-          <ListItem className={classes.root}>
+          <StyledListItem>
             <ListItemAvatar>
               <Avatar>
                 <FolderIcon />
@@ -72,10 +69,10 @@ function FileList({ files, openFileDialog }) {
                 edge="end"
                 onClick={() => removeFileByName(file.name)}
               >
-                <DeleteIcon color="secondary" />
+                <DeleteIcon color="error" />
               </IconButton>
             </ListItemSecondaryAction>
-          </ListItem>
+          </StyledListItem>
           <Divider variant="fullWidth" component="li" light={true} />
         </React.Fragment>
       ))}
