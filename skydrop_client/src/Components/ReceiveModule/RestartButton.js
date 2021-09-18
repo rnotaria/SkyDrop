@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { reset } from "../../reducers/receiveFilesReducer";
 import Button from "@mui/material/Button";
-import LoopIcon from "@mui/icons-material/Loop";
+import RestartAltIcon from "@mui/icons-material/RestartAlt";
 
 function RestartButton() {
   const dispatch = useDispatch();
@@ -11,7 +11,7 @@ function RestartButton() {
     <Button
       style={{ margin: "8px", marginBottom: "48px" }}
       variant="contained"
-      startIcon={<LoopIcon />}
+      endIcon={<RestartAltIcon />}
       onClick={() => dispatch(reset())}
     >
       Restart

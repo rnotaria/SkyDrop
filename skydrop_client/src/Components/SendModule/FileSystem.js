@@ -47,7 +47,7 @@ const FileListContainer = styled.div`
   user-select: none;
 `;
 
-function FileSystem({ files }) {
+const FileSystem = React.forwardRef(({ files }, ref) => {
   const dispatch = useDispatch();
 
   //#region react-dropzone
@@ -86,7 +86,7 @@ function FileSystem({ files }) {
   };
 
   return (
-    <Container>
+    <Container ref={ref}>
       <DragDropContainer isDragActive={isDragActive} {...getRootProps()}>
         <input {...getInputProps()} />
         <DropFilesHere isDragActive={isDragActive} />
@@ -99,6 +99,6 @@ function FileSystem({ files }) {
       <SendButton files={files} />
     </Container>
   );
-}
+});
 
 export default FileSystem;

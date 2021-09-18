@@ -1,7 +1,6 @@
 import React from "react";
 import { getWords } from "../../utils/addressGenerator";
 import sampleQR from "../../utils/sampleQR.png";
-import Slide from "@mui/material/Slide";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import styled from "styled-components";
@@ -35,39 +34,37 @@ const TextContainer = styled.div`
   margin: 24px;
 `;
 
-function Address({ address }) {
-  const words = getWords(address);
+const Address = React.forwardRef(({ address }, ref) => {
+  const words = address ? getWords(address) : ["", "", "", ""];
 
   return (
-    <Slide in={address ? true : false} direction="right">
-      <Container>
-        <QRContainer>
-          <img src={sampleQR} alt="QR" />
-        </QRContainer>
-        <hr style={{ width: "80%" }} />
-        <TextContainer>
-          <Typography component={"span"} variant="h5" color="textSecondary">
-            <Box
-              letterSpacing={2}
-              fontWeight="fontWeightBold"
-              style={{ userSelect: "none" }}
-            >
-              ADDRESS
-            </Box>
-          </Typography>
-          <Typography component={"span"} variant="body2" color="textSecondary">
-            {words.map((w, i) => (
-              <WordWrapper key={i}>
-                {i + 1}. {w}
-              </WordWrapper>
-            ))}
-          </Typography>
-        </TextContainer>
-        <RestartButton />
-      </Container>
-    </Slide>
+    <Container ref={ref}>
+      <QRContainer>
+        <img src={sampleQR} alt="QR" />
+      </QRContainer>
+      <hr style={{ width: "80%" }} />
+      <TextContainer>
+        <Typography component={"span"} variant="h5" color="textSecondary">
+          <Box
+            letterSpacing={2}
+            fontWeight="fontWeightBold"
+            style={{ userSelect: "none" }}
+          >
+            ADDRESS
+          </Box>
+        </Typography>
+        <Typography component={"span"} variant="body2" color="textSecondary">
+          {words.map((w, i) => (
+            <WordWrapper key={i}>
+              {i + 1}. {w}
+            </WordWrapper>
+          ))}
+        </Typography>
+      </TextContainer>
+      <RestartButton />
+    </Container>
   );
-}
+});
 
 function WordWrapper({ children }) {
   return (
