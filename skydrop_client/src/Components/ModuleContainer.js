@@ -8,16 +8,16 @@ import styled from "styled-components";
 const Container = styled.div`
   min-height: 600px;
   min-width: 400px;
-  width: 60vw;
-  max-width: 800px;
+  width: 61.8vh;
   height: 80vh;
+  max-width: 80vw;
   display: flex;
   flex-direction: column;
 `;
 
 const contentStyle = {
   position: "relative",
-  height: "calc(100% - 100px)", // account for TabPanel
+  height: "calc(100% - 65px)", // account for TabPanel
   padding: 1,
   boxShadow: 2,
   bgcolor: "background.paper",

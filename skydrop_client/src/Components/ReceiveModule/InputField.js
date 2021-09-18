@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { wordList } from "./AddressForm";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete, {
@@ -11,11 +11,18 @@ const filterOptions = createFilterOptions({
 
 function InputField({ label, value, handleChange, focus }) {
   const [inputValue, setInputValue] = useState("");
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+
+  // To prevent opening autocomplete for all inputfields when switching tabs
+  const initialValue = useMemo(
+    () => value,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
 
   const handleInputChange = (_e, newInputValue) => {
     setInputValue(newInputValue);
-    if (newInputValue.length > 0) {
+    if (newInputValue !== initialValue && newInputValue.length > 0) {
       setOpen(true);
     } else {
       setOpen(false);

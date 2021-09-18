@@ -4,9 +4,8 @@ import sampleQR from "../../utils/sampleQR.png";
 import Slide from "@material-ui/core/Slide";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-import Button from "@material-ui/core/Button";
-import LoopIcon from "@material-ui/icons/Loop";
 import styled from "styled-components";
+import RestartButton from "./RestartButton";
 
 const Container = styled.div`
   position: absolute;
@@ -36,11 +35,11 @@ const TextContainer = styled.div`
   margin: 24px;
 `;
 
-function Address({ address, isActive, close }) {
+function Address({ address }) {
   const words = getWords(address);
 
   return (
-    <Slide in={isActive} direction="up">
+    <Slide in={address ? true : false} direction="right">
       <Container>
         <QRContainer>
           <img src={sampleQR} alt="QR" />{" "}
@@ -64,7 +63,7 @@ function Address({ address, isActive, close }) {
             ))}
           </Typography>
         </TextContainer>
-        <Restart close={close} />
+        <RestartButton />
       </Container>
     </Slide>
   );
@@ -80,20 +79,6 @@ function WordWrapper({ children }) {
     >
       {children}
     </Box>
-  );
-}
-
-function Restart({ close }) {
-  return (
-    <Button
-      style={{ margin: "24px", marginBottom: "48px" }}
-      variant="contained"
-      color="default"
-      startIcon={<LoopIcon />}
-      onClick={() => close()}
-    >
-      Restart
-    </Button>
   );
 }
 

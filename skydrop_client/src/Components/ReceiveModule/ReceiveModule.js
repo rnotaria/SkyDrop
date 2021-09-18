@@ -1,22 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import { useStore } from "react-redux";
 import AddressForm from "./AddressForm";
 import FileSystem from "./FileSystem";
 
 function ReceiveModule() {
-  const [showFileSystem, setShowFileSystem] = useState(false);
-
   const store = useStore();
   const files = store.getState().receiveFiles;
+  const words = store.getState().data.receiveWords;
 
   return (
     <React.Fragment>
-      <AddressForm openFileSystem={() => setShowFileSystem(true)} />
-      <FileSystem
-        files={files}
-        isActive={showFileSystem}
-        close={() => setShowFileSystem(false)}
-      />
+      <AddressForm words={words} />
+      <FileSystem files={files} />
     </React.Fragment>
   );
 }

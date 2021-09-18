@@ -25,7 +25,7 @@ func GetS3Service(bucketName *string) *S3Service {
 }
 
 func (s3Service *S3Service) PutObject(key *string, file io.Reader) (*s3.PutObjectOutput, error) {
-	fmt.Println("s3Service: Adding object to S3 bucket")
+	fmt.Println("s3Service: Adding", *key, "to S3 bucket")
 
 	input := &s3.PutObjectInput{
 		Bucket: s3Service.bucket,
@@ -37,7 +37,7 @@ func (s3Service *S3Service) PutObject(key *string, file io.Reader) (*s3.PutObjec
 }
 
 func (s3Service *S3Service) GetObject(key *string) (*s3.GetObjectOutput, error) {
-	fmt.Println("s3Service: Retreiving object from S3 bucket")
+	fmt.Println("s3Service: Retreiving", *key, "from S3 bucket")
 
 	input := &s3.GetObjectInput{
 		Bucket: s3Service.bucket,

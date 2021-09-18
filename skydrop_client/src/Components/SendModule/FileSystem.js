@@ -47,7 +47,7 @@ const FileListContainer = styled.div`
   user-select: none;
 `;
 
-function FileSystem({ files, openAddress, setAddress }) {
+function FileSystem({ files }) {
   const dispatch = useDispatch();
 
   //#region react-dropzone
@@ -96,11 +96,7 @@ function FileSystem({ files, openAddress, setAddress }) {
       </DragDropContainer>
       <ProgressBar {...sizeProgressProps} />
       <ProgressBar {...fileCountProgressProps} />
-      <SendButton
-        files={files}
-        openAddress={openAddress}
-        setAddress={setAddress}
-      />
+      <SendButton files={files} />
     </Container>
   );
 }

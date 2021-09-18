@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addZip, addFiles } from "../../reducers/receiveFilesReducer";
+import { resetReceiveWords } from "../../reducers/dataReducer";
 import { addressNotFound, generalError } from "../../reducers/alertReducer";
 import { getZipFromResponse, getFilesFromZip } from "../../utils/fileUtils";
 import receiveService from "../../services/receiveService";
@@ -17,9 +18,10 @@ const Container = styled.div`
   align-items: center;
 `;
 
-function FetchButton({ disabled, words, openFileSystem }) {
-  const [loading, setLoading] = useState(false);
+function FetchButton({ disabled, words }) {
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
+
   const address = getAddress(words);
 
   const fetch = () => {
@@ -27,16 +29,16 @@ function FetchButton({ disabled, words, openFileSystem }) {
     receiveService
       .fetchData(address)
       .then((res) => {
+        dispatch(resetReceiveWords());
         const zipFile = getZipFromResponse(res);
         dispatch(addZip(zipFile));
         getFilesFromZip(zipFile).then((files) => {
           dispatch(addFiles(files));
-          openFileSystem();
           setLoading(false);
         });
       })
       .catch((error) => {
-        if (error.response && error.response.status === 400) {
+        if (error.response && error.response.status === 404) {
           dispatch(addressNotFound());
         } else {
           dispatch(generalError());

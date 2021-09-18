@@ -28,15 +28,15 @@ const FileListContainer = styled.div`
   user-select: none;
 `;
 
-function FileSystem({ files, isActive, close }) {
+function FileSystem({ files }) {
   return (
-    <Slide in={isActive} direction="up">
+    <Slide in={files.files.length > 0} direction="up">
       <Container>
         <FileListContainer>
           <FileList files={files.files} />
         </FileListContainer>
         <DownloadAllButton zipFile={files.zipFile} />
-        <RestartButton close={close} />
+        <RestartButton />
       </Container>
     </Slide>
   );

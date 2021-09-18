@@ -8,6 +8,7 @@ import (
 	"github.com/rnotaria/SkyDrop/utils"
 	"mime/multipart"
 	"net/http"
+	"os"
 )
 
 type SendHandler struct {
@@ -21,72 +22,82 @@ func (sendHandler *SendHandler) Send(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Println("\nRequest made to sendHandler")
 
-	err := r.ParseMultipartForm(utils.MaxUploadSize)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+	var err error
+	var hasErr bool
+
+	err = r.ParseMultipartForm(utils.MaxUploadSize)
+	hasErr = utils.CheckError(&w, err, http.StatusInternalServerError)
+	if hasErr {
 		return
 	}
+
 	sendHandler.files = r.MultipartForm.File["files"]
 
-	fmt.Println("Validating files...")
-	if !utils.IsFileCountValid(sendHandler.files) {
-		http.Error(w, err.Error(), http.StatusBadRequest)
+	fmt.Println("Validating files")
+	err = utils.FileCountValid(sendHandler.files)
+	hasErr = utils.CheckError(&w, err, http.StatusBadRequest)
+	if hasErr {
 		return
 	}
-	if !utils.IsFileSizeValid(sendHandler.files) {
-		http.Error(w, err.Error(), http.StatusBadRequest)
+
+	err = utils.FileSizeValid(sendHandler.files)
+	hasErr = utils.CheckError(&w, err, http.StatusBadRequest)
+	if hasErr {
 		return
 	}
 
 	fmt.Println("Generating address")
 	address := tools.GenerateAddress(utils.NumberOfWords)
-	fmt.Println("Address:", *address)
+
+	fmt.Println("Zipping files")
+	err = utils.MakeZipFile(&sendHandler.files, *address)
+	hasErr = utils.CheckError(&w, err, http.StatusInternalServerError)
+	if hasErr {
+		return
+	}
+
+	zipFile, err := os.Open("data/" + *address)
+	hasErr = utils.CheckError(&w, err, http.StatusInternalServerError)
+	if hasErr {
+		return
+	}
 
 	// # # # # # # # # # Comment below to bypass AWS # # # # # # # # # # #
-	for i := range sendHandler.files {
-		filename := sendHandler.files[i].Filename
-		key := *address + "/" + filename
-
-		fmt.Println("Uploading", filename)
-
-		err := func() error {
-			file, err := sendHandler.files[i].Open()
-			if err != nil {
-				return err
-			}
-
-			defer file.Close()
-
-			_, err = sendHandler.S3Service.PutObject(&key, file)
-			if err != nil {
-				return err
-			}
-
-			return nil
-		}()
-
-		if err != nil {
-			fmt.Println(err)
-			http.Error(w, "Bad Request", http.StatusBadRequest)
-			return
-		}
+	_, err = sendHandler.S3Service.PutObject(address, zipFile)
+	hasErr = utils.CheckError(&w, err, http.StatusInternalServerError)
+	if hasErr {
+		return
 	}
 	// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+	err = zipFile.Close()
+	hasErr = utils.CheckError(&w, err, http.StatusInternalServerError)
+	if hasErr {
+		return
+	}
+
+	fmt.Println("Removing zip")
+	err = os.Remove("data/" + *address)
+	hasErr = utils.CheckError(&w, err, http.StatusInternalServerError)
+	if hasErr {
+		return
+	}
 
 	resp := ResponseData{
 		Success: true,
 		Address: *address,
 	}
 
-	respJson, _ := json.Marshal(resp)
-	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		_, _ = w.Write([]byte(err.Error()))
+	respJson, err := json.Marshal(resp)
+	hasErr = utils.CheckError(&w, err, http.StatusInternalServerError)
+	if hasErr {
+		return
 	}
 
 	w.Header().Add("content-type", "application/json")
 	_, _ = w.Write(respJson)
 
-	fmt.Println("All files successfully uploaded to", *address)
+	fmt.Println("All files successfully uploaded")
+
 	fmt.Println("Done")
 }

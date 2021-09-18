@@ -1,0 +1,61 @@
+const initialState = {
+  sendAddress: null,
+  receiveWords: [null, null, null, null],
+};
+
+const sendFilesReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case "SET_SEND_ADDRESS":
+      return {
+        ...state,
+        sendAddress: action.data,
+      };
+    case "RESET_SEND_ADDRESS":
+      return {
+        ...state,
+        sendAddress: null,
+      };
+    case "SET_RECEIVE_WORDS":
+      const newWords = [...state.receiveWords];
+      newWords[action.data.index] = action.data.word;
+      return {
+        ...state,
+        receiveWords: newWords,
+      };
+    case "RESET_RECEIVE_WORDS":
+      return {
+        ...state,
+        receiveWords: [null, null, null, null],
+      };
+    default:
+      return state;
+  }
+};
+
+export const setSendAddress = (address) => {
+  return {
+    type: "SET_SEND_ADDRESS",
+    data: address,
+  };
+};
+
+export const resetSendAddress = () => {
+  return {
+    type: "RESET_SEND_ADDRESS",
+  };
+};
+
+export const setReceiveWords = (word, index) => {
+  return {
+    type: "SET_RECEIVE_WORDS",
+    data: { word, index },
+  };
+};
+
+export const resetReceiveWords = () => {
+  return {
+    type: "RESET_RECEIVE_WORDS",
+  };
+};
+
+export default sendFilesReducer;
