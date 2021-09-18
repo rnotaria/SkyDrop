@@ -1,6 +1,6 @@
 module github.com/rnotaria/SkyDrop
 
-// +heroku goVersion go1.15
+// +heroku goVersion go1.17
 go 1.17
 
 require (
