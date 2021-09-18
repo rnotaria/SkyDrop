@@ -1,14 +1,11 @@
 package handlers
 
 import (
-	"archive/zip"
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"github.com/rnotaria/SkyDrop/app/awsServices"
 	"github.com/rnotaria/SkyDrop/app/tools"
 	"github.com/rnotaria/SkyDrop/utils"
-	"io/ioutil"
 	"mime/multipart"
 	"net/http"
 	"os"
@@ -53,7 +50,7 @@ func (sendHandler *SendHandler) Send(w http.ResponseWriter, r *http.Request) {
 	address := tools.GenerateAddress(utils.NumberOfWords)
 
 	fmt.Println("Zipping files")
-	err = makeZipFile(&sendHandler.files, *address)
+	err = utils.MakeZipFile(&sendHandler.files, *address)
 	hasErr = utils.CheckError(&w, err, http.StatusInternalServerError)
 	if hasErr {
 		return
@@ -103,40 +100,4 @@ func (sendHandler *SendHandler) Send(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("All files successfully uploaded")
 
 	fmt.Println("Done")
-}
-
-func makeZipFile(fileList *[]*multipart.FileHeader, zipName string) error {
-
-	buffer := new(bytes.Buffer)
-	zipWriter := zip.NewWriter(buffer)
-
-	for _, file := range *fileList {
-		zipFile, err := zipWriter.Create(file.Filename)
-		if err != nil {
-			return err
-		}
-
-		f, err := file.Open()
-		if err != nil {
-			return err
-		}
-
-		bodyBytes, err := ioutil.ReadAll(f)
-		_, err = zipFile.Write(bodyBytes)
-		if err != nil {
-			return err
-		}
-	}
-
-	err := zipWriter.Close()
-	if err != nil {
-		return err
-	}
-
-	err = ioutil.WriteFile("data/"+zipName, buffer.Bytes(), 0777)
-	if err != nil {
-		return err
-	}
-
-	return nil
 }

@@ -1,8 +1,11 @@
 package utils
 
 import (
+	"archive/zip"
+	"bytes"
 	"errors"
 	"fmt"
+	"io/ioutil"
 	"mime/multipart"
 	"net/http"
 )
@@ -36,4 +39,40 @@ func CheckError(w *http.ResponseWriter, err error, code int) bool {
 		return true
 	}
 	return false
+}
+
+func MakeZipFile(fileList *[]*multipart.FileHeader, zipName string) error {
+
+	buffer := new(bytes.Buffer)
+	zipWriter := zip.NewWriter(buffer)
+
+	for _, file := range *fileList {
+		zipFile, err := zipWriter.Create(file.Filename)
+		if err != nil {
+			return err
+		}
+
+		f, err := file.Open()
+		if err != nil {
+			return err
+		}
+
+		bodyBytes, err := ioutil.ReadAll(f)
+		_, err = zipFile.Write(bodyBytes)
+		if err != nil {
+			return err
+		}
+	}
+
+	err := zipWriter.Close()
+	if err != nil {
+		return err
+	}
+
+	err = ioutil.WriteFile("data/"+zipName, buffer.Bytes(), 0777)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
