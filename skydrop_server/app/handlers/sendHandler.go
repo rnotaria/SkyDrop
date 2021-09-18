@@ -14,7 +14,6 @@ import (
 type SendHandler struct {
 	S3Service *awsServices.S3Service
 	files     []*multipart.FileHeader
-	test      int
 }
 
 func (sendHandler *SendHandler) Send(w http.ResponseWriter, r *http.Request) {
@@ -22,9 +21,6 @@ func (sendHandler *SendHandler) Send(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 
 	fmt.Println("\nRequest made to sendHandler")
-
-	sendHandler.test++
-	fmt.Println("Send called", sendHandler.test)
 
 	var err error
 	var hasErr bool
