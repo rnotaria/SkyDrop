@@ -1,8 +1,10 @@
 package handlers
 
 import (
+	"errors"
 	"fmt"
 	"github.com/rnotaria/SkyDrop/app/awsServices"
+	"github.com/rnotaria/SkyDrop/utils"
 	"io"
 	"net/http"
 	"strconv"
@@ -18,6 +20,9 @@ func (receiveHandler *ReceiveHandler) Receive(w http.ResponseWriter, r *http.Req
 
 	fmt.Println("\nRequest made to receiveHandler")
 
+	var err error
+	var hasErr bool
+
 	if r.Method == "OPTIONS" {
 		//TODO?
 		return
@@ -25,15 +30,17 @@ func (receiveHandler *ReceiveHandler) Receive(w http.ResponseWriter, r *http.Req
 
 	address := r.Header.Get("address")
 	if address == "" {
-		http.Error(w, "no address", http.StatusNotFound)
-		return
+		err = errors.New("no address recevied")
+		hasErr = utils.CheckError(&w, err, http.StatusNotFound)
+		if hasErr {
+			return
+		}
 	}
 
 	// # # # # # # # # # Comment below to bypass AWS # # # # # # # # # # #
 	obj, err := receiveHandler.S3Service.GetObject(&address)
-	if err != nil {
-		fmt.Print(err.Error())
-		http.Error(w, err.Error(), http.StatusNotFound)
+	hasErr = utils.CheckError(&w, err, http.StatusNotFound)
+	if hasErr {
 		return
 	}
 	// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #

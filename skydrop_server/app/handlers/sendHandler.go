@@ -25,20 +25,27 @@ func (sendHandler *SendHandler) Send(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Println("\nRequest made to sendHandler")
 
-	err := r.ParseMultipartForm(utils.MaxUploadSize)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+	var err error
+	var hasErr bool
+
+	err = r.ParseMultipartForm(utils.MaxUploadSize)
+	hasErr = utils.CheckError(&w, err, http.StatusInternalServerError)
+	if hasErr {
 		return
 	}
+
 	sendHandler.files = r.MultipartForm.File["files"]
 
 	fmt.Println("Validating files")
-	if !utils.IsFileCountValid(sendHandler.files) {
-		http.Error(w, err.Error(), http.StatusBadRequest)
+	err = utils.FileCountValid(sendHandler.files)
+	hasErr = utils.CheckError(&w, err, http.StatusBadRequest)
+	if hasErr {
 		return
 	}
-	if !utils.IsFileSizeValid(sendHandler.files) {
-		http.Error(w, err.Error(), http.StatusBadRequest)
+
+	err = utils.FileSizeValid(sendHandler.files)
+	hasErr = utils.CheckError(&w, err, http.StatusBadRequest)
+	if hasErr {
 		return
 	}
 
@@ -47,31 +54,36 @@ func (sendHandler *SendHandler) Send(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Println("Zipping files")
 	err = makeZipFile(&sendHandler.files, *address)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+	hasErr = utils.CheckError(&w, err, http.StatusInternalServerError)
+	if hasErr {
 		return
 	}
 
 	zipFile, err := os.Open("data/" + *address)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+	hasErr = utils.CheckError(&w, err, http.StatusInternalServerError)
+	if hasErr {
 		return
 	}
 
 	// # # # # # # # # # Comment below to bypass AWS # # # # # # # # # # #
 	_, err = sendHandler.S3Service.PutObject(address, zipFile)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+	hasErr = utils.CheckError(&w, err, http.StatusInternalServerError)
+	if hasErr {
 		return
 	}
 	// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
-	zipFile.Close()
+	err = zipFile.Close()
+	hasErr = utils.CheckError(&w, err, http.StatusInternalServerError)
+	if hasErr {
+		return
+	}
 
 	fmt.Println("Removing zip")
 	err = os.Remove("data/" + *address)
-	if err != nil {
-		fmt.Print(err)
+	hasErr = utils.CheckError(&w, err, http.StatusInternalServerError)
+	if hasErr {
+		return
 	}
 
 	resp := ResponseData{
@@ -79,10 +91,10 @@ func (sendHandler *SendHandler) Send(w http.ResponseWriter, r *http.Request) {
 		Address: *address,
 	}
 
-	respJson, _ := json.Marshal(resp)
-	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		_, _ = w.Write([]byte(err.Error()))
+	respJson, err := json.Marshal(resp)
+	hasErr = utils.CheckError(&w, err, http.StatusInternalServerError)
+	if hasErr {
+		return
 	}
 
 	w.Header().Add("content-type", "application/json")
@@ -121,7 +133,10 @@ func makeZipFile(fileList *[]*multipart.FileHeader, zipName string) error {
 		return err
 	}
 
-	ioutil.WriteFile("data/"+zipName, buffer.Bytes(), 0777)
+	err = ioutil.WriteFile("data/"+zipName, buffer.Bytes(), 0777)
+	if err != nil {
+		return err
+	}
 
 	return nil
 }

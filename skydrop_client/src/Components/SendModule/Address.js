@@ -39,7 +39,7 @@ function Address({ address }) {
   const words = getWords(address);
 
   return (
-    <Slide in={address ? true : false} direction="up">
+    <Slide in={address ? true : false} direction="right">
       <Container>
         <QRContainer>
           <img src={sampleQR} alt="QR" />{" "}
