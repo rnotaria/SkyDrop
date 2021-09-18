@@ -15,8 +15,6 @@ const fetchData = async (address) => {
     });
     return res;
   } catch (error) {
-    console.log("ERROR:");
-    console.log(error);
     throw error;
   }
 };

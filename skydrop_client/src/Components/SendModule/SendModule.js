@@ -5,17 +5,19 @@ import Address from "./Address";
 import Slide from "@mui/material/Slide";
 import styled from "styled-components";
 
-const ModuleContainer = styled.div`
-  position: relative;
+const Container = styled.div`
+  position: absolute;
   height: 100%;
   width: 100%;
   display: flex;
-  flexdirection: column;
-  alignitems: center;
+  flex-direction: column;
+  align-items: center;
+  z-index: ${(props) =>
+    props.open ? 1 : 0}; // Need to render in front of receive module
   overflow: hidden;
 `;
 
-function SendModule() {
+function SendModule({ open }) {
   const store = useStore();
   const files = store.getState().sendFiles;
   const address = store.getState().data.sendAddress;
@@ -23,22 +25,26 @@ function SendModule() {
   const containerRef = useRef(null);
 
   return (
-    <ModuleContainer ref={containerRef}>
+    <Container open={open}>
       <Slide
-        in={address ? false : true}
+        in={!address && open ? true : false}
         direction="right"
         container={containerRef.current}
+        mountOnEnter
+        unmountOnExit
       >
         <FileSystem files={files} />
       </Slide>
       <Slide
-        in={address ? true : false}
+        in={address && open ? true : false}
         direction="right"
         container={containerRef.current}
+        mountOnEnter
+        unmountOnExit
       >
         <Address address={address} />
       </Slide>
-    </ModuleContainer>
+    </Container>
   );
 }
 

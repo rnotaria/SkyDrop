@@ -39,10 +39,10 @@ function Title() {
   );
 }
 
-function AddressForm({ words }) {
+const AddressForm = React.forwardRef(({ words }, ref) => {
   const dispatch = useDispatch();
   return (
-    <Container>
+    <Container ref={ref}>
       <Title />
       <InputContainer>
         <InputField
@@ -76,6 +76,6 @@ function AddressForm({ words }) {
       />
     </Container>
   );
-}
+});
 
 export default AddressForm;
