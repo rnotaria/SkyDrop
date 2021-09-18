@@ -8,10 +8,10 @@ import styled from "styled-components";
 const Container = styled.div`
   position: relative;
   min-height: 600px;
-  min-width: 400px;
-  width: 61.8vh;
-  height: 80vh;
-  max-width: 80vw;
+  min-width: 371px;
+  height: 60vh;
+  width: 37.1vh;
+
   display: flex;
   flex-direction: column;
 `;
