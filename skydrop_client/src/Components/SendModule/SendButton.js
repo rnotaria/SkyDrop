@@ -10,17 +10,8 @@ import {
 } from "../../reducers/alertReducer";
 import { removeAllFiles } from "../../reducers/sendFilesReducer";
 import { setSendAddress } from "../../reducers/dataReducer";
-import Button from "@material-ui/core/Button";
-import SendIcon from "@material-ui/icons/SendRounded";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import styled from "styled-components";
-
-const Container = styled.div`
-  height: 50px;
-  margin: 24px;
-  display: flex;
-  align-items: center;
-`;
+import LoadingButton from "@mui/lab/LoadingButton";
+import SendIcon from "@mui/icons-material/SendRounded";
 
 function SendButton({ files }) {
   const [loading, setLoading] = useState(false);
@@ -48,7 +39,7 @@ function SendButton({ files }) {
           dispatch(removeAllFiles());
         }, 500);
       })
-      .catch((e) => {
+      .catch((_e) => {
         dispatch(generalError());
         setLoading(false);
         return;
@@ -56,21 +47,17 @@ function SendButton({ files }) {
   };
 
   return (
-    <Container>
-      {loading ? (
-        <CircularProgress />
-      ) : (
-        <Button
-          disabled={files.length === 0}
-          variant="contained"
-          color="primary"
-          endIcon={<SendIcon />}
-          onClick={send}
-        >
-          Send
-        </Button>
-      )}
-    </Container>
+    <LoadingButton
+      style={{ margin: "24px" }}
+      disabled={files.length === 0}
+      variant="contained"
+      endIcon={<SendIcon />}
+      onClick={send}
+      loading={loading}
+      loadingPosition="end"
+    >
+      Send
+    </LoadingButton>
   );
 }
 

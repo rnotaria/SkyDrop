@@ -1,29 +1,25 @@
 import React from "react";
 import { convertToMB, sanitizeName } from "../../utils/helperFuncs";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
-import ListItemText from "@material-ui/core/ListItemText";
-import Divider from "@material-ui/core/Divider";
-import Avatar from "@material-ui/core/Avatar";
-import IconButton from "@material-ui/core/IconButton";
-import FolderIcon from "@material-ui/icons/Folder";
-import GetAppIcon from "@material-ui/icons/GetApp";
-import { makeStyles } from "@material-ui/core/styles";
 import { saveAs } from "file-saver";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import ListItemSecondaryAction from "@mui/material/ListItemSecondaryAction";
+import ListItemText from "@mui/material/ListItemText";
+import Divider from "@mui/material/Divider";
+import Avatar from "@mui/material/Avatar";
+import IconButton from "@mui/material/IconButton";
+import FolderIcon from "@mui/icons-material/Folder";
+import GetAppIcon from "@mui/icons-material/GetApp";
+import { styled as muiStyled } from "@mui/material/styles";
 
-const useStyles = makeStyles({
-  root: {
-    "&:hover": {
-      backgroundColor: "#F5F5F5",
-    },
+const StyledListItem = muiStyled(ListItem)({
+  "&:hover": {
+    backgroundColor: "#F5F5F5",
   },
 });
 
 function FileList({ files }) {
-  const classes = useStyles();
-
   const downloadFile = (name) => {
     const file = files.find((f) => f.name === name);
     saveAs(file);
@@ -33,7 +29,7 @@ function FileList({ files }) {
     <List dense={true}>
       {files.map((file) => (
         <React.Fragment key={file.name}>
-          <ListItem className={classes.root}>
+          <StyledListItem>
             <ListItemAvatar>
               <Avatar>
                 <FolderIcon />
@@ -48,7 +44,7 @@ function FileList({ files }) {
                 <GetAppIcon style={{ color: "#03C03C" }} />
               </IconButton>
             </ListItemSecondaryAction>
-          </ListItem>
+          </StyledListItem>
           <Divider variant="fullWidth" component="li" light={true} />
         </React.Fragment>
       ))}

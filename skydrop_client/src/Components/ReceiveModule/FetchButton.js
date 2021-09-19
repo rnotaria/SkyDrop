@@ -6,17 +6,8 @@ import { addressNotFound, generalError } from "../../reducers/alertReducer";
 import { getZipFromResponse, getFilesFromZip } from "../../utils/fileUtils";
 import receiveService from "../../services/receiveService";
 import { getAddress } from "../../utils/addressGenerator";
-import Button from "@material-ui/core/Button";
-import SearchIcon from "@material-ui/icons/Search";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import styled from "styled-components";
-
-const Container = styled.div`
-  height: 50px;
-  margin-bottom: 24px;
-  display: flex;
-  align-items: center;
-`;
+import LoadingButton from "@mui/lab/LoadingButton";
+import SearchIcon from "@mui/icons-material/Search";
 
 function FetchButton({ disabled, words }) {
   const dispatch = useDispatch();
@@ -49,21 +40,17 @@ function FetchButton({ disabled, words }) {
   };
 
   return (
-    <Container>
-      {loading ? (
-        <CircularProgress />
-      ) : (
-        <Button
-          variant="contained"
-          disabled={disabled}
-          color="primary"
-          endIcon={<SearchIcon />}
-          onClick={fetch}
-        >
-          Fetch
-        </Button>
-      )}
-    </Container>
+    <LoadingButton
+      style={{ marginBottom: "24px" }}
+      disabled={disabled}
+      variant="contained"
+      endIcon={<SearchIcon />}
+      onClick={fetch}
+      loading={loading}
+      loadingPosition="end"
+    >
+      Fetch
+    </LoadingButton>
   );
 }
 

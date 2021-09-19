@@ -4,8 +4,8 @@ import { setReceiveWords } from "../../reducers/dataReducer";
 import FetchButton from "./FetchButton";
 import InputField from "./InputField";
 import { wordMap } from "../../utils/wordMap";
-import Typography from "@material-ui/core/Typography";
-import Box from "@material-ui/core/Box";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 import styled from "styled-components";
 
 export const wordList = wordMap.keys();
@@ -39,10 +39,10 @@ function Title() {
   );
 }
 
-function AddressForm({ words }) {
+const AddressForm = React.forwardRef(({ words }, ref) => {
   const dispatch = useDispatch();
   return (
-    <Container>
+    <Container ref={ref}>
       <Title />
       <InputContainer>
         <InputField
@@ -76,6 +76,6 @@ function AddressForm({ words }) {
       />
     </Container>
   );
-}
+});
 
 export default AddressForm;

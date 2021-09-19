@@ -2,7 +2,6 @@ import React from "react";
 import FileList from "./FileList";
 import RestartButton from "./RestartButton";
 import DownloadAllButton from "./DownloadAllButton";
-import Slide from "@material-ui/core/Slide";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -12,8 +11,6 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  z-index: 0;
 `;
 
 const FileListContainer = styled.div`
@@ -28,18 +25,16 @@ const FileListContainer = styled.div`
   user-select: none;
 `;
 
-function FileSystem({ files }) {
+const FileSystem = React.forwardRef(({ files }, ref) => {
   return (
-    <Slide in={files.files.length > 0} direction="up">
-      <Container>
-        <FileListContainer>
-          <FileList files={files.files} />
-        </FileListContainer>
-        <DownloadAllButton zipFile={files.zipFile} />
-        <RestartButton />
-      </Container>
-    </Slide>
+    <Container ref={ref}>
+      <FileListContainer>
+        <FileList files={files.files} />
+      </FileListContainer>
+      <DownloadAllButton zipFile={files.zipFile} />
+      <RestartButton />
+    </Container>
   );
-}
+});
 
 export default FileSystem;
