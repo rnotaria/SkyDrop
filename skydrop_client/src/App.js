@@ -1,13 +1,18 @@
 import ModuleContainer from "./Components/ModuleContainer";
-import styles from "./styles/styles.module.css";
 import Alert from "./Components/Alert";
+import styled from "styled-components";
+
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+`;
 
 function App() {
   return (
-    <div className={styles.centeredDiv}>
+    <Container>
       <ModuleContainer />
       <Alert />
-    </div>
+    </Container>
   );
 }
 
