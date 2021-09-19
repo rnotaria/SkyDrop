@@ -30,8 +30,8 @@ const boxStyle = {
   overflow: "hidden",
 };
 
-function ModuleContainer() {
-  const [value, setValue] = useState(0);
+function ModuleContainer({ open }) {
+  const [value, setValue] = useState(open);
   const [openSend, setOpenSend] = useState(false);
   const [openReceive, setOpenReceive] = useState(false);
 

@@ -22,6 +22,11 @@ const sendFilesReducer = (state = initialState, action) => {
         ...state,
         receiveWords: newWords,
       };
+    case "SET_ALL_RECEIVE_WORDS":
+      return {
+        ...state,
+        receiveWords: action.data,
+      };
     case "RESET_RECEIVE_WORDS":
       return {
         ...state,
@@ -49,6 +54,13 @@ export const setReceiveWords = (word, index) => {
   return {
     type: "SET_RECEIVE_WORDS",
     data: { word, index },
+  };
+};
+
+export const setAllReceiveWords = (words) => {
+  return {
+    type: "SET_ALL_RECEIVE_WORDS",
+    data: words,
   };
 };
 

@@ -41,6 +41,7 @@ function Title() {
 
 const AddressForm = React.forwardRef(({ words }, ref) => {
   const dispatch = useDispatch();
+
   return (
     <Container ref={ref}>
       <Title />
