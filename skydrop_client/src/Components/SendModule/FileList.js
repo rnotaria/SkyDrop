@@ -12,6 +12,7 @@ import ListItemSecondaryAction from "@mui/material/ListItemSecondaryAction";
 import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
 import Avatar from "@mui/material/Avatar";
+import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 import FolderIcon from "@mui/icons-material/Folder";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -55,9 +56,11 @@ function FileList({ files, openFileDialog }) {
           ))}
         </TransitionGroup>
       </List>
-      <StyledFab onClick={openFileDialog}>
-        <AddIcon />
-      </StyledFab>
+      <Tooltip title={"Add file"} arrow>
+        <StyledFab onClick={openFileDialog}>
+          <AddIcon />
+        </StyledFab>
+      </Tooltip>
     </React.Fragment>
   );
 }
@@ -76,7 +79,9 @@ function File({ file, removeFileByName }) {
       />
       <ListItemSecondaryAction>
         <IconButton edge="end" onClick={() => removeFileByName(file.name)}>
-          <DeleteIcon color="error" />
+          <Tooltip title={"Remove"} arrow>
+            <DeleteIcon color="error" />
+          </Tooltip>
         </IconButton>
       </ListItemSecondaryAction>
     </StyledListItem>

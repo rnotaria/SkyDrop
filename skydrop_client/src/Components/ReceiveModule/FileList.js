@@ -8,6 +8,7 @@ import ListItemSecondaryAction from "@mui/material/ListItemSecondaryAction";
 import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
 import Avatar from "@mui/material/Avatar";
+import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 import FolderIcon from "@mui/icons-material/Folder";
 import GetAppIcon from "@mui/icons-material/GetApp";
@@ -42,7 +43,9 @@ function FileList({ files }) {
             />
             <ListItemSecondaryAction>
               <IconButton edge="end" onClick={() => downloadFile(file.name)}>
-                <GetAppIcon style={{ color: green[500] }} />
+                <Tooltip title={"Download"} arrow>
+                  <GetAppIcon style={{ color: green[500] }} />
+                </Tooltip>
               </IconButton>
             </ListItemSecondaryAction>
           </StyledListItem>
