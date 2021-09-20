@@ -1,7 +1,9 @@
 import React from "react";
 import { useDispatch } from "react-redux";
+import { TransitionGroup } from "react-transition-group";
 import { removeFile } from "../../reducers/sendFilesReducer";
 import { convertToMB, sanitizeName } from "../../utils/helperFuncs";
+import Collapse from "@mui/material/Collapse";
 import Fab from "@mui/material/Fab";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -30,7 +32,7 @@ const StyledFab = muiStyled(Fab)(() => ({
   color: "white",
   backgroundColor: green[500],
   "&:hover": {
-    backgroundColor: green[600],
+    backgroundColor: green[700],
   },
 }));
 
@@ -38,43 +40,46 @@ function FileList({ files, openFileDialog }) {
   const dispatch = useDispatch();
 
   const removeFileByName = (name) => {
-    setTimeout(() => {
-      dispatch(removeFile(name));
-    }, 350);
+    dispatch(removeFile(name));
   };
 
   return (
     <React.Fragment>
       <List dense={true}>
-        {files.map((file) => (
-          <React.Fragment key={file.name}>
-            <StyledListItem>
-              <ListItemAvatar>
-                <Avatar>
-                  <FolderIcon />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText
-                primary={sanitizeName(file.name)}
-                secondary={convertToMB(file.size).toFixed(2) + " MB"}
-              />
-              <ListItemSecondaryAction>
-                <IconButton
-                  edge="end"
-                  onClick={() => removeFileByName(file.name)}
-                >
-                  <DeleteIcon color="error" />
-                </IconButton>
-              </ListItemSecondaryAction>
-            </StyledListItem>
-            <Divider variant="fullWidth" component="li" light={true} />
-          </React.Fragment>
-        ))}
+        <TransitionGroup>
+          {files.map((file) => (
+            <Collapse key={file.name}>
+              <File file={file} removeFileByName={removeFileByName} />
+              <Divider variant="fullWidth" component="li" light={true} />
+            </Collapse>
+          ))}
+        </TransitionGroup>
       </List>
       <StyledFab onClick={openFileDialog}>
         <AddIcon />
       </StyledFab>
     </React.Fragment>
+  );
+}
+
+function File({ file, removeFileByName }) {
+  return (
+    <StyledListItem>
+      <ListItemAvatar>
+        <Avatar>
+          <FolderIcon />
+        </Avatar>
+      </ListItemAvatar>
+      <ListItemText
+        primary={sanitizeName(file.name)}
+        secondary={convertToMB(file.size).toFixed(2) + " MB"}
+      />
+      <ListItemSecondaryAction>
+        <IconButton edge="end" onClick={() => removeFileByName(file.name)}>
+          <DeleteIcon color="error" />
+        </IconButton>
+      </ListItemSecondaryAction>
+    </StyledListItem>
   );
 }
 

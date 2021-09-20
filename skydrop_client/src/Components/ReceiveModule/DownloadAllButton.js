@@ -9,7 +9,7 @@ const StyledButton = muiStyled(Button)(() => ({
   color: "white",
   backgroundColor: green[500],
   "&:hover": {
-    backgroundColor: green[600],
+    backgroundColor: green[700],
   },
 }));
 
