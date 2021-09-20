@@ -11,6 +11,7 @@ import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import FolderIcon from "@mui/icons-material/Folder";
 import GetAppIcon from "@mui/icons-material/GetApp";
+import { green } from "@mui/material/colors";
 import { styled as muiStyled } from "@mui/material/styles";
 
 const StyledListItem = muiStyled(ListItem)({
@@ -41,7 +42,7 @@ function FileList({ files }) {
             />
             <ListItemSecondaryAction>
               <IconButton edge="end" onClick={() => downloadFile(file.name)}>
-                <GetAppIcon style={{ color: "#03C03C" }} />
+                <GetAppIcon style={{ color: green[500] }} />
               </IconButton>
             </ListItemSecondaryAction>
           </StyledListItem>

@@ -46,6 +46,7 @@ const FileListContainer = styled.div`
   height: 100%;
   width: 100%;
   user-select: none;
+  overflow-y: auto;
 `;
 
 const FileSystem = React.forwardRef(({ files }, ref) => {

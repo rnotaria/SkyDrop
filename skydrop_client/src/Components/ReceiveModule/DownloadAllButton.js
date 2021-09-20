@@ -1,14 +1,15 @@
 import React from "react";
+import { saveAs } from "file-saver";
 import Button from "@mui/material/Button";
 import GetAppIcon from "@mui/icons-material/GetApp";
+import { green } from "@mui/material/colors";
 import { styled as muiStyled } from "@mui/material/styles";
-import { saveAs } from "file-saver";
 
-const StyledButton = muiStyled(Button)(({ theme }) => ({
-  color: theme.palette.getContrastText("#03C03C"),
-  backgroundColor: "#03C03C",
+const StyledButton = muiStyled(Button)(() => ({
+  color: "white",
+  backgroundColor: green[500],
   "&:hover": {
-    backgroundColor: "#00B02C",
+    backgroundColor: green[600],
   },
 }));
 
