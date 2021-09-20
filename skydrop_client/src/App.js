@@ -1,4 +1,4 @@
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import ModuleContainer from "./Components/ModuleContainer";
 import Alert from "./Components/Alert";
 import { red, green } from "@mui/material/colors";
@@ -29,11 +29,14 @@ function App() {
           <Route path="/receive/:id">
             <ModuleContainer open={1} />
           </Route>
-          <Route path="/receive/">
+          <Route path="/receive">
             <ModuleContainer open={1} />
           </Route>
-          <Route path="/">
+          <Route path="/send">
             <ModuleContainer open={0} />
+          </Route>
+          <Route path="/">
+            <Redirect to="/send" />
           </Route>
         </Switch>
         <Alert />

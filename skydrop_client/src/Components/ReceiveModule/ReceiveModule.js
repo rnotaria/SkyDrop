@@ -27,7 +27,7 @@ function ReceiveModule({ open }) {
 
   useEffect(() => {
     if (urlParams) {
-      history.push("/");
+      history.push("/receive");
       dispatch(setAllReceiveWords(getWords(urlParams)));
     }
   }, [urlParams, history, dispatch]);

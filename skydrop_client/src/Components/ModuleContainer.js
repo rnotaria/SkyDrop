@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import SendModule from "./SendModule/SendModule";
 import ReceiveModule from "./ReceiveModule/ReceiveModule";
 import ModuleSelector from "./ModuleSelector";
@@ -34,6 +35,7 @@ function ModuleContainer({ open }) {
   const [value, setValue] = useState(open);
   const [openSend, setOpenSend] = useState(false);
   const [openReceive, setOpenReceive] = useState(false);
+  const history = useHistory();
 
   useEffect(() => {
     if (value === 0) {
@@ -47,6 +49,7 @@ function ModuleContainer({ open }) {
 
   const handleChangeValue = (_e, newValue) => {
     setValue(newValue);
+    history.push(newValue === 0 ? "/send" : "/receive");
   };
 
   return (
