@@ -1,7 +1,6 @@
 import React, { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import FileList from "./FileList";
-import DropFilesHere from "./DropFilesHere";
 import ProgressBar from "./ProgressBar";
 import SendButton from "./SendButton";
 import constants from "../../utils/constants";
@@ -91,7 +90,6 @@ const FileSystem = React.forwardRef(({ files }, ref) => {
     <Container ref={ref}>
       <DragDropContainer isDragActive={isDragActive} {...getRootProps()}>
         <input {...getInputProps()} />
-        <DropFilesHere isDragActive={isDragActive} />
         <FileListContainer>
           <FileList files={files} openFileDialog={open} />
         </FileListContainer>
