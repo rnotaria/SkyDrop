@@ -1,6 +1,6 @@
 import React from "react";
+import QR from "./QR";
 import { getWords } from "../../utils/addressGenerator";
-import QRCode from "qrcode.react";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import styled from "styled-components";
@@ -15,20 +15,6 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: white;
-`;
-
-const QRContainer = styled.div`
-  height: 80%;
-  width: 80%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  svg {
-    width: 80%;
-    height: 80%;
-  }
 `;
 
 const TextContainer = styled.div`
@@ -37,13 +23,11 @@ const TextContainer = styled.div`
 
 const Address = React.forwardRef(({ address }, ref) => {
   const words = address ? getWords(address) : ["", "", "", ""];
-  const qrCode = window.location.origin + "/receive/" + address;
+  const receiveUrl = window.location.origin + "/receive/" + address;
 
   return (
     <Container ref={ref}>
-      <QRContainer>
-        <QRCode value={qrCode} renderAs="svg" />
-      </QRContainer>
+      <QR url={receiveUrl} />
       <hr style={{ width: "80%" }} />
       <TextContainer>
         <Typography component={"span"} variant="h5" color="textSecondary">
