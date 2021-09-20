@@ -7,6 +7,7 @@ import {
   sizeTooLarge,
   tooManyFiles,
   generalError,
+  filesSent,
 } from "../../reducers/alertReducer";
 import { removeAllFiles } from "../../reducers/sendFilesReducer";
 import { setSendAddress } from "../../reducers/dataReducer";
@@ -33,6 +34,7 @@ function SendButton({ files }) {
     sendService
       .send(files)
       .then((res) => {
+        dispatch(filesSent());
         dispatch(setSendAddress(res.data.Address));
         setLoading(false);
         setTimeout(() => {

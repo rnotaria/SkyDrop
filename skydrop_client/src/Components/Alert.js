@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { useStore, useDispatch } from "react-redux";
+import { reset } from "../reducers/alertReducer";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import Slide from "@mui/material/Slide";
-import { useStore, useDispatch } from "react-redux";
-import { reset } from "../reducers/alertReducer";
+import { green } from "@mui/material/colors";
 
 function Alert() {
   const [open, setOpen] = useState(false);
@@ -39,7 +40,12 @@ function Alert() {
       autoHideDuration={5000}
       TransitionComponent={Slide}
     >
-      <MuiAlert elevation={6} variant="filled" severity={data.severity}>
+      <MuiAlert
+        elevation={6}
+        variant="filled"
+        severity={data.severity}
+        sx={data.severity === "success" ? { background: green[500] } : null}
+      >
         <span style={{ userSelect: "none" }}>{data.message}</span>
       </MuiAlert>
     </Snackbar>

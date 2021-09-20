@@ -13,6 +13,10 @@ const alertReducer = (state = null, action) => {
       return { ...action.data };
     case "GENERAL_ERROR":
       return { ...action.data };
+    case "FILES_SENT":
+      return { ...action.data };
+    case "FILES_RETREIVED":
+      return { ...action.data };
     case "RESET":
       return null;
     default:
@@ -70,6 +74,26 @@ export const addressNotFound = () => {
     data: {
       message: "This address entered does not exist!",
       severity: "error",
+    },
+  };
+};
+
+export const filesSent = () => {
+  return {
+    type: "FILES_SENT",
+    data: {
+      message: "Files sent!",
+      severity: "success",
+    },
+  };
+};
+
+export const filesRetreived = () => {
+  return {
+    type: "FILES_RETREIVED",
+    data: {
+      message: "Files retreived!",
+      severity: "success",
     },
   };
 };
