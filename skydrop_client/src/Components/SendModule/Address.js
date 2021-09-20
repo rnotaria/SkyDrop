@@ -1,6 +1,6 @@
 import React from "react";
 import { getWords } from "../../utils/addressGenerator";
-import sampleQR from "../../utils/sampleQR.png";
+import QRCode from "qrcode.react";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import styled from "styled-components";
@@ -16,17 +16,18 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   background: white;
-  margin: -8px;
 `;
 
 const QRContainer = styled.div`
-  user-select: none;
+  height: 80%;
   width: 80%;
-  overflow: hidden;
-  img {
-    object-fit: contain;
-    width: 100%;
-    height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    width: 80%;
+    height: 80%;
   }
 `;
 
@@ -36,11 +37,12 @@ const TextContainer = styled.div`
 
 const Address = React.forwardRef(({ address }, ref) => {
   const words = address ? getWords(address) : ["", "", "", ""];
+  const qrCode = window.location.origin + "/receive/" + address;
 
   return (
     <Container ref={ref}>
       <QRContainer>
-        <img src={sampleQR} alt="QR" />
+        <QRCode value={qrCode} renderAs="svg" />
       </QRContainer>
       <hr style={{ width: "80%" }} />
       <TextContainer>
