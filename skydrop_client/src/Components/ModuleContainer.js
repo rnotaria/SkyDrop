@@ -7,6 +7,7 @@ import Box from "@mui/material/Box";
 import styled from "styled-components";
 
 const Container = styled.div`
+  margin: 48px;
   position: relative;
   min-height: 600px;
   min-width: 371px;
@@ -22,7 +23,7 @@ const boxStyle = {
   height: "calc(100% - 48px)", // account for TabPanel
   width: "100%",
   marginTop: "48px",
-  boxShadow: 2,
+  boxShadow: 3,
   bgcolor: "background.paper",
   display: "flex",
   flexDirection: "column",

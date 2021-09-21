@@ -20,7 +20,7 @@ const StyledTab = muiStyled(Tab)({
 function ModuleSelector({ value, handleChangeValue }) {
   return (
     <Container>
-      <AppBar position="static" color="default" elevation={1}>
+      <AppBar position="static" color="default" elevation={4}>
         <Tabs
           value={value}
           onChange={handleChangeValue}
