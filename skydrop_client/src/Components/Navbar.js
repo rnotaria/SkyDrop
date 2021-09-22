@@ -97,9 +97,9 @@ function GitHub() {
     <Tooltip title={"View source code"} arrow>
       <IconButton
         size="large"
-        // onClick={() => {
-        //   window.open("https://www.google.com");
-        // }}
+        onClick={() => {
+          window.open("https://github.com/rnotaria/SkyDrop");
+        }}
       >
         <GitHubIcon />
       </IconButton>
@@ -110,7 +110,12 @@ function GitHub() {
 function Report() {
   return (
     <Tooltip title={"Report a bug"} arrow>
-      <IconButton size="large">
+      <IconButton
+        size="large"
+        onClick={() => {
+          window.open("https://github.com/rnotaria/SkyDrop/issues");
+        }}
+      >
         <BugReportIcon />
       </IconButton>
     </Tooltip>
