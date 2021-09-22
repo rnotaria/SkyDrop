@@ -8,6 +8,7 @@ import { styled } from "@mui/material/styles";
 
 const Container = styled("div")(
   ({ theme }) => `
+  border: 1px solid ${theme.palette.border.primary};
   margin: 48px;
   position: relative;
   min-height: 600px;

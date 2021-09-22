@@ -11,9 +11,10 @@ const Container = styled("div")(`
 const StyledTab = styled(Tab)(
   ({ theme }) => `
   transition: 0.2s;
-  background-color: ${theme.palette.tab.primary};
+  border-bottom: 1px solid ${theme.palette.border.primary};
+  background: ${theme.palette.tab.primary};
   &:hover {
-    background-color: ${theme.palette.tab.secondary};
+    background: ${theme.palette.tab.secondary};
   }
 `
 );

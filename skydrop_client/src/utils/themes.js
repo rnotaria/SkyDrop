@@ -1,17 +1,20 @@
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { red, green } from "@mui/material/colors";
+import { createTheme } from "@mui/material/styles";
 
 export const darkTheme = createTheme({
   palette: {
     mode: "dark",
     background: {
-      first: "#091929",
-      second: "#001e3c",
-      third: "#14304b",
+      main: "#000000",
+      first: "#0a1929",
+      second: "#121212",
+      third: "#222222",
     },
     tab: {
       primary: "#121212",
       secondary: "#1e1e1e",
+    },
+    navbar: {
+      primary: "#091929",
     },
     border: {
       primary: "#1c4671",

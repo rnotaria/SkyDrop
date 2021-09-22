@@ -13,11 +13,20 @@ import HomeIcon from "@mui/icons-material/Home";
 import HelpIcon from "@mui/icons-material/Help";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import BugReportIcon from "@mui/icons-material/BugReport";
-import styled from "styled-components";
+import { styled } from "@mui/material/styles";
 
-const Spacer = styled.div`
+const Spacer = styled("div")`
   flex-grow: 1;
 `;
+
+const StyledAppBar = styled(AppBar)(
+  ({ theme }) => `
+  position: static;
+  user-select: none;
+  background: ${theme.palette.navbar.primary};
+  border-bottom: 1px solid ${theme.palette.border.primary};
+  `
+);
 
 function Navbar() {
   const dispatch = useDispatch();
@@ -31,10 +40,7 @@ function Navbar() {
   };
 
   return (
-    <AppBar
-      position="static"
-      style={{ userSelect: "none", background: "#64748B" }}
-    >
+    <StyledAppBar>
       <Toolbar variant="dense">
         <SkyDrop goHome={goHome} />
         <Spacer />
@@ -43,7 +49,7 @@ function Navbar() {
         <GitHub />
         <Report />
       </Toolbar>
-    </AppBar>
+    </StyledAppBar>
   );
 }
 
@@ -63,7 +69,7 @@ function SkyDrop({ goHome }) {
 function Home({ goHome }) {
   return (
     <Tooltip title={"Home"} arrow>
-      <IconButton size="large" color="inherit" onClick={goHome}>
+      <IconButton size="large" onClick={goHome}>
         <HomeIcon />
       </IconButton>
     </Tooltip>
@@ -73,7 +79,7 @@ function Home({ goHome }) {
 function Help() {
   return (
     <Tooltip title={"Help"} arrow>
-      <IconButton size="large" color="inherit">
+      <IconButton size="large">
         <HelpIcon />
       </IconButton>
     </Tooltip>
@@ -85,7 +91,6 @@ function GitHub() {
     <Tooltip title={"View source code"} arrow>
       <IconButton
         size="large"
-        color="inherit"
         // onClick={() => {
         //   window.open("https://www.google.com");
         // }}
@@ -99,7 +104,7 @@ function GitHub() {
 function Report() {
   return (
     <Tooltip title={"Report a bug"} arrow>
-      <IconButton size="large" color="inherit">
+      <IconButton size="large">
         <BugReportIcon />
       </IconButton>
     </Tooltip>

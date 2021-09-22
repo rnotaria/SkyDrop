@@ -2,8 +2,7 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import Navbar from "./Components/Navbar";
 import ModuleContainer from "./Components/ModuleContainer";
 import Alert from "./Components/Alert";
-import { red, green } from "@mui/material/colors";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/material/styles";
 import { darkTheme } from "./utils/themes";
 import styled from "styled-components";
 
@@ -13,34 +12,6 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
 `;
-
-const globalTheme = createTheme({
-  palette: {
-    success: {
-      main: green[500],
-    },
-    error: {
-      main: red[500],
-    },
-  },
-});
-
-const lightTheme = createTheme({
-  palette: {
-    success: {
-      main: green[500],
-    },
-    error: {
-      main: red[500],
-    },
-    restart: {
-      main: "#0a1929",
-      light: "#FFFFFF",
-      dark: "#465161",
-      contrastText: "rgba(0, 0, 0, 0.87)",
-    },
-  },
-});
 
 function App() {
   return (
