@@ -4,6 +4,7 @@ import ModuleContainer from "./Components/ModuleContainer";
 import Alert from "./Components/Alert";
 import { red, green } from "@mui/material/colors";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { darkTheme } from "./utils/themes";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -41,30 +42,15 @@ const lightTheme = createTheme({
   },
 });
 
-const darkTheme = createTheme({
-  palette: {
-    mode: "dark",
-    background: {
-      first: "#091929",
-      second: "#001e3c",
-      third: "#132f4c",
-    },
-    tab: {
-      primary: "#121212",
-      secondary: "#1e1e1e",
-    },
-  },
-});
-
 function App() {
   return (
-    <Container>
-      <ThemeProvider theme={darkTheme}>
+    <ThemeProvider theme={darkTheme}>
+      <Container>
         <Navbar />
         <ModuleByRoute />
         <Alert />
-      </ThemeProvider>
-    </Container>
+      </Container>
+    </ThemeProvider>
   );
 }
 

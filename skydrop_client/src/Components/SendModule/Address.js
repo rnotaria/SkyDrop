@@ -30,7 +30,7 @@ const Address = React.forwardRef(({ address }, ref) => {
       <QR url={receiveUrl} />
       <hr style={{ width: "80%" }} />
       <TextContainer>
-        <Typography component={"span"} variant="h5" color="textSecondary">
+        <Typography component={"span"} variant="h5" color="text.secondary">
           <Box
             letterSpacing={2}
             fontWeight="fontWeightBold"
@@ -39,7 +39,7 @@ const Address = React.forwardRef(({ address }, ref) => {
             ADDRESS
           </Box>
         </Typography>
-        <Typography component={"span"} variant="body2" color="textSecondary">
+        <Typography component={"span"} variant="body2" color="text.secondary">
           {words.map((w, i) => (
             <WordWrapper key={i}>
               {i + 1}. {w}

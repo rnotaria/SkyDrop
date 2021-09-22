@@ -18,23 +18,27 @@ import IconButton from "@mui/material/IconButton";
 import FolderIcon from "@mui/icons-material/Folder";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
+import { green } from "@mui/material/colors";
 import { styled } from "@mui/material/styles";
 
 const StyledListItem = styled(ListItem)(
   ({ theme }) => `
   &:hover {
-    background-color: ${theme.palette.background.third};
+    background: ${theme.palette.background.third};
   }
 `
 );
 
-const StyledFab = styled(Fab)(
+const AddFilesButton = styled(Fab)(
   ({ theme }) => `
   position: sticky;
   bottom: 16px;
   left: 16px;
   color: white;
-  background: ${theme.palette.success.dark};
+  background: ${theme.palette.mode === "light" ? green[500] : green[700]};
+  &:hover {
+    background: ${theme.palette.mode === "light" ? green[700] : green[500]};
+  }
 `
 );
 
@@ -58,9 +62,9 @@ function FileList({ files, openFileDialog }) {
         </TransitionGroup>
       </List>
       <Tooltip title={"Add file"} arrow>
-        <StyledFab onClick={openFileDialog}>
+        <AddFilesButton onClick={openFileDialog}>
           <AddIcon />
-        </StyledFab>
+        </AddFilesButton>
       </Tooltip>
     </React.Fragment>
   );

@@ -28,10 +28,10 @@ const Container = styled("div")(
 );
 
 const DragDropContainer = styled("div")(
-  ({ theme, isDragActive }) => `
+  ({ theme, drag }) => `
   background: ${theme.palette.background.second};
-  background: ${isDragActive ? theme.palette.background.third : null};
-  border: 1px solid ${theme.palette.primary.main};
+  background: ${drag ? theme.palette.background.third : null};
+  border: 1px solid ${theme.palette.border.primary};
   position: relative;
   width: 80%;
   margin-top: 24px;
@@ -93,7 +93,7 @@ const FileSystem = React.forwardRef(({ files }, ref) => {
 
   return (
     <Container ref={ref}>
-      <DragDropContainer isDragActive={isDragActive} {...getRootProps()}>
+      <DragDropContainer drag={isDragActive ? 1 : 0} {...getRootProps()}>
         <input {...getInputProps()} />
         <FileListContainer>
           <FileList files={files} openFileDialog={open} />
