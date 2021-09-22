@@ -1,7 +1,12 @@
+const localStorage =
+  window.localStorage.getItem("theme") !== null
+    ? window.localStorage.getItem("theme") === "true"
+    : false;
+
 const initialState = {
   sendAddress: null,
   receiveWords: [null, null, null, null],
-  theme: false,
+  theme: localStorage,
 };
 
 const sendFilesReducer = (state = initialState, action) => {
@@ -40,6 +45,7 @@ const sendFilesReducer = (state = initialState, action) => {
         receiveWords: initialState.receiveWords,
       };
     case "TOGGLE_THEME":
+      window.localStorage.setItem("theme", !state.theme);
       return {
         ...state,
         theme: !state.theme,
