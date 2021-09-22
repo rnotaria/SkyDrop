@@ -1,6 +1,6 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { resetAll } from "../reducers/dataReducer";
+import { useStore, useDispatch } from "react-redux";
+import { resetAll, toggleTheme } from "../reducers/dataReducer";
 import { resetSend } from "../reducers/sendFilesReducer";
 import { resetReceive } from "../reducers/receiveFilesReducer";
 import { useHistory } from "react-router-dom";
@@ -9,8 +9,9 @@ import IconButton from "@mui/material/IconButton";
 import Toolbar from "@mui/material/Toolbar";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
+import LightModeIcon from "@mui/icons-material/LightMode";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
 import HomeIcon from "@mui/icons-material/Home";
-import HelpIcon from "@mui/icons-material/Help";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import BugReportIcon from "@mui/icons-material/BugReport";
 import { styled } from "@mui/material/styles";
@@ -45,7 +46,7 @@ function Navbar() {
         <SkyDrop goHome={goHome} />
         <Spacer />
         <Home goHome={goHome} />
-        <Help />
+        <Theme />
         <GitHub />
         <Report />
       </Toolbar>
@@ -76,11 +77,15 @@ function Home({ goHome }) {
   );
 }
 
-function Help() {
+function Theme() {
+  const store = useStore();
+  const dispatch = useDispatch();
+  const mode = store.getState().data.theme;
+
   return (
     <Tooltip title={"Help"} arrow>
-      <IconButton size="large">
-        <HelpIcon />
+      <IconButton size="large" onClick={() => dispatch(toggleTheme())}>
+        {mode ? <LightModeIcon /> : <DarkModeIcon />}
       </IconButton>
     </Tooltip>
   );

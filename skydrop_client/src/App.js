@@ -1,9 +1,9 @@
+import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
+import Theme from "./Components/Theme";
 import Navbar from "./Components/Navbar";
 import ModuleContainer from "./Components/ModuleContainer";
 import Alert from "./Components/Alert";
-import { ThemeProvider } from "@mui/material/styles";
-import { darkTheme } from "./utils/themes";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -15,13 +15,13 @@ const Container = styled.div`
 
 function App() {
   return (
-    <ThemeProvider theme={darkTheme}>
+    <Theme>
       <Container>
         <Navbar />
         <ModuleByRoute />
         <Alert />
       </Container>
-    </ThemeProvider>
+    </Theme>
   );
 }
 

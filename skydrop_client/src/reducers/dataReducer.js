@@ -1,6 +1,7 @@
 const initialState = {
   sendAddress: null,
   receiveWords: [null, null, null, null],
+  theme: true,
 };
 
 const sendFilesReducer = (state = initialState, action) => {
@@ -33,7 +34,16 @@ const sendFilesReducer = (state = initialState, action) => {
         receiveWords: [null, null, null, null],
       };
     case "RESET_ALL":
-      return initialState;
+      return {
+        ...state,
+        sendAddress: initialState.sendAddress,
+        receiveWords: initialState.receiveWords,
+      };
+    case "TOGGLE_THEME":
+      return {
+        ...state,
+        theme: !state.theme,
+      };
     default:
       return state;
   }
@@ -75,6 +85,12 @@ export const resetReceiveWords = () => {
 export const resetAll = () => {
   return {
     type: "RESET_ALL",
+  };
+};
+
+export const toggleTheme = () => {
+  return {
+    type: "TOGGLE_THEME",
   };
 };
 
