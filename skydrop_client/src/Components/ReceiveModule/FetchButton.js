@@ -6,6 +6,7 @@ import {
   addressNotFound,
   generalError,
   filesRetreived,
+  receiveFormIncomplete,
 } from "../../reducers/alertReducer";
 import { getZipFromResponse, getFilesFromZip } from "../../utils/fileUtils";
 import receiveService from "../../services/receiveService";
@@ -13,13 +14,18 @@ import { getAddress } from "../../utils/addressGenerator";
 import LoadingButton from "@mui/lab/LoadingButton";
 import SearchIcon from "@mui/icons-material/Search";
 
-function FetchButton({ disabled, words }) {
+function FetchButton({ words }) {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
 
   const address = getAddress(words);
 
   const fetch = () => {
+    if (words.includes(null)) {
+      dispatch(receiveFormIncomplete());
+      return;
+    }
+
     setLoading(true);
     receiveService
       .fetchData(address)
@@ -47,7 +53,6 @@ function FetchButton({ disabled, words }) {
   return (
     <LoadingButton
       style={{ marginBottom: "24px" }}
-      disabled={disabled}
       variant="contained"
       endIcon={<SearchIcon />}
       onClick={fetch}

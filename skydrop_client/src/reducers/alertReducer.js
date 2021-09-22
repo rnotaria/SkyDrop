@@ -3,6 +3,8 @@ import { convertToMB } from "../utils/helperFuncs";
 
 const alertReducer = (state = null, action) => {
   switch (action.type) {
+    case "NO_FILES":
+      return { ...action.data };
     case "DUPLICATE_FILE_NAME":
       return { ...action.data };
     case "SIZE_TOO_LARGE":
@@ -10,6 +12,8 @@ const alertReducer = (state = null, action) => {
     case "TOO_MANY_FILES":
       return { ...action.data };
     case "ADDRESS_NOT_FOUND":
+      return { ...action.data };
+    case "RECEIVE_FORM_INCOMPLETE":
       return { ...action.data };
     case "GENERAL_ERROR":
       return { ...action.data };
@@ -22,6 +26,26 @@ const alertReducer = (state = null, action) => {
     default:
       return state;
   }
+};
+
+export const noFiles = () => {
+  return {
+    type: "NO_FILES",
+    data: {
+      message: "Please add a file!",
+      severity: "error",
+    },
+  };
+};
+
+export const receiveFormIncomplete = () => {
+  return {
+    type: "RECEIVE_FORM_INCOMPLETE",
+    data: {
+      message: "Address form is incomplete!",
+      severity: "error",
+    },
+  };
 };
 
 export const duplicateFileError = () => {

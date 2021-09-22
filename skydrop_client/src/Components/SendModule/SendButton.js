@@ -4,6 +4,7 @@ import sendService from "../../services/sendService";
 import constants from "../../utils/constants";
 import { getTotalSize } from "../../utils/helperFuncs";
 import {
+  noFiles,
   sizeTooLarge,
   tooManyFiles,
   generalError,
@@ -19,6 +20,11 @@ function SendButton({ files }) {
   const dispatch = useDispatch();
 
   const send = () => {
+    if (files.length === 0) {
+      dispatch(noFiles());
+      return;
+    }
+
     const size = getTotalSize(files);
     if (size > constants.MAX_UPLOAD_SIZE) {
       dispatch(sizeTooLarge());
@@ -51,7 +57,6 @@ function SendButton({ files }) {
   return (
     <LoadingButton
       style={{ margin: "24px" }}
-      disabled={files.length === 0}
       variant="contained"
       endIcon={<SendIcon />}
       onClick={send}

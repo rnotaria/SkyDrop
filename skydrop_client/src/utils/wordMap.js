@@ -2071,3 +2071,5 @@ export const wordMap = new bidirectionalMap({
   zone: "2046",
   zoo: "2047",
 });
+
+export const wordList = wordMap.keys();
