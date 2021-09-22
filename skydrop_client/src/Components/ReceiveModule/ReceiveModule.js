@@ -1,5 +1,9 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
+import { useParams, useHistory } from "react-router-dom";
 import { useStore } from "react-redux";
+import { useDispatch } from "react-redux";
+import { setAllReceiveWords } from "../../reducers/dataReducer";
+import { getWords } from "../../utils/addressGenerator";
 import AddressForm from "./AddressForm";
 import FileSystem from "./FileSystem";
 import Slide from "@mui/material/Slide";
@@ -16,10 +20,20 @@ const Container = styled.div`
 `;
 function ReceiveModule({ open }) {
   const store = useStore();
+  const dispatch = useDispatch();
+  const containerRef = useRef(null);
+  const history = useHistory();
+  const urlParams = useParams().id;
+
+  useEffect(() => {
+    if (urlParams) {
+      history.push("/receive");
+      dispatch(setAllReceiveWords(getWords(urlParams)));
+    }
+  }, [urlParams, history, dispatch]);
+
   const files = store.getState().receiveFiles;
   const words = store.getState().data.receiveWords;
-
-  const containerRef = useRef(null);
 
   return (
     <Container>

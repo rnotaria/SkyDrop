@@ -14,10 +14,10 @@ export default function ProgressBar({ title, label, value }) {
   return (
     <Box width="80%" marginBottom="4px" style={{ userSelect: "none" }}>
       <Box display="flex" justifyContent="space-between">
-        <Typography variant="body2" color="textSecondary">
+        <Typography variant="body2" color="text.secondary">
           {title}
         </Typography>
-        <Typography variant="body2" color="textSecondary">
+        <Typography variant="body2" color="text.secondary">
           {label}
         </Typography>
       </Box>

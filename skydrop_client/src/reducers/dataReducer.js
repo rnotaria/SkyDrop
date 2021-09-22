@@ -1,6 +1,12 @@
+const localStorage =
+  window.localStorage.getItem("theme") !== null
+    ? window.localStorage.getItem("theme") === "true"
+    : false;
+
 const initialState = {
   sendAddress: null,
   receiveWords: [null, null, null, null],
+  theme: localStorage,
 };
 
 const sendFilesReducer = (state = initialState, action) => {
@@ -22,10 +28,27 @@ const sendFilesReducer = (state = initialState, action) => {
         ...state,
         receiveWords: newWords,
       };
+    case "SET_ALL_RECEIVE_WORDS":
+      return {
+        ...state,
+        receiveWords: action.data,
+      };
     case "RESET_RECEIVE_WORDS":
       return {
         ...state,
         receiveWords: [null, null, null, null],
+      };
+    case "RESET_ALL":
+      return {
+        ...state,
+        sendAddress: initialState.sendAddress,
+        receiveWords: initialState.receiveWords,
+      };
+    case "TOGGLE_THEME":
+      window.localStorage.setItem("theme", !state.theme);
+      return {
+        ...state,
+        theme: !state.theme,
       };
     default:
       return state;
@@ -52,9 +75,28 @@ export const setReceiveWords = (word, index) => {
   };
 };
 
+export const setAllReceiveWords = (words) => {
+  return {
+    type: "SET_ALL_RECEIVE_WORDS",
+    data: words,
+  };
+};
+
 export const resetReceiveWords = () => {
   return {
     type: "RESET_RECEIVE_WORDS",
+  };
+};
+
+export const resetAll = () => {
+  return {
+    type: "RESET_ALL",
+  };
+};
+
+export const toggleTheme = () => {
+  return {
+    type: "TOGGLE_THEME",
   };
 };
 

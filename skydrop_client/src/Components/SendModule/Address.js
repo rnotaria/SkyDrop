@@ -1,6 +1,6 @@
 import React from "react";
+import QR from "./QR";
 import { getWords } from "../../utils/addressGenerator";
-import sampleQR from "../../utils/sampleQR.png";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import styled from "styled-components";
@@ -15,19 +15,6 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: white;
-  margin: -8px;
-`;
-
-const QRContainer = styled.div`
-  user-select: none;
-  width: 80%;
-  overflow: hidden;
-  img {
-    object-fit: contain;
-    width: 100%;
-    height: 100%;
-  }
 `;
 
 const TextContainer = styled.div`
@@ -36,15 +23,14 @@ const TextContainer = styled.div`
 
 const Address = React.forwardRef(({ address }, ref) => {
   const words = address ? getWords(address) : ["", "", "", ""];
+  const receiveUrl = window.location.origin + "/receive/" + address;
 
   return (
     <Container ref={ref}>
-      <QRContainer>
-        <img src={sampleQR} alt="QR" />
-      </QRContainer>
+      <QR url={receiveUrl} />
       <hr style={{ width: "80%" }} />
       <TextContainer>
-        <Typography component={"span"} variant="h5" color="textSecondary">
+        <Typography component={"span"} variant="h5" color="text.secondary">
           <Box
             letterSpacing={2}
             fontWeight="fontWeightBold"
@@ -53,7 +39,7 @@ const Address = React.forwardRef(({ address }, ref) => {
             ADDRESS
           </Box>
         </Typography>
-        <Typography component={"span"} variant="body2" color="textSecondary">
+        <Typography component={"span"} variant="body2" color="text.secondary">
           {words.map((w, i) => (
             <WordWrapper key={i}>
               {i + 1}. {w}

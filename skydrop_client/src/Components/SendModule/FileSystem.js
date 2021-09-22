@@ -1,7 +1,6 @@
 import React, { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import FileList from "./FileList";
-import DropFilesHere from "./DropFilesHere";
 import ProgressBar from "./ProgressBar";
 import SendButton from "./SendButton";
 import constants from "../../utils/constants";
@@ -13,9 +12,10 @@ import {
 import { duplicateFileError } from "../../reducers/alertReducer";
 import { addFiles } from "../../reducers/sendFilesReducer";
 import { useDropzone } from "react-dropzone";
-import styled from "styled-components";
+import { styled } from "@mui/material/styles";
 
-const Container = styled.div`
+const Container = styled("div")(
+  ({ theme }) => `
   position: relative;
   height: 100%;
   width: 100%;
@@ -24,29 +24,34 @@ const Container = styled.div`
   align-items: center;
 
   overflow-y: auto;
-`;
+`
+);
 
-const DragDropContainer = styled.div`
+const DragDropContainer = styled("div")(
+  ({ theme, drag }) => `
+  background: ${theme.palette.background.second};
+  background: ${drag ? theme.palette.background.third : null};
+  border: 1px solid ${theme.palette.border.primary};
   position: relative;
   width: 80%;
   margin-top: 24px;
   margin-bottom: 24px;
-  border: 1px solid #aaaaaa;
-  background-color: white;
   flex: 1 1 auto;
   user-select: none;
   overflow-y: auto;
-
   transition: 0.5s;
-  ${(props) => (props.isDragActive ? { filter: "brightness(70%)" } : null)};
-`;
+`
+);
 
-const FileListContainer = styled.div`
+const FileListContainer = styled("div")(
+  ({ theme }) => `
   position: relative;
   height: 100%;
   width: 100%;
   user-select: none;
-`;
+  overflow-y: auto;
+`
+);
 
 const FileSystem = React.forwardRef(({ files }, ref) => {
   const dispatch = useDispatch();
@@ -88,9 +93,8 @@ const FileSystem = React.forwardRef(({ files }, ref) => {
 
   return (
     <Container ref={ref}>
-      <DragDropContainer isDragActive={isDragActive} {...getRootProps()}>
+      <DragDropContainer drag={isDragActive ? 1 : 0} {...getRootProps()}>
         <input {...getInputProps()} />
-        <DropFilesHere isDragActive={isDragActive} />
         <FileListContainer>
           <FileList files={files} openFileDialog={open} />
         </FileListContainer>

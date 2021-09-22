@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import SendModule from "./SendModule/SendModule";
 import ReceiveModule from "./ReceiveModule/ReceiveModule";
 import ModuleSelector from "./ModuleSelector";
 import Box from "@mui/material/Box";
-import styled from "styled-components";
+import { styled } from "@mui/material/styles";
 
-const Container = styled.div`
+const Container = styled("div")(
+  ({ theme }) => `
+  border: 1px solid ${theme.palette.border.primary};
+  margin: 48px;
   position: relative;
   min-height: 600px;
   min-width: 371px;
@@ -14,15 +18,16 @@ const Container = styled.div`
 
   display: flex;
   flex-direction: column;
-`;
+`
+);
 
 const boxStyle = {
   position: "absolute",
   height: "calc(100% - 48px)", // account for TabPanel
   width: "100%",
   marginTop: "48px",
-  boxShadow: 2,
-  bgcolor: "background.paper",
+  boxShadow: 3,
+  bgcolor: "background.first",
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
@@ -30,10 +35,11 @@ const boxStyle = {
   overflow: "hidden",
 };
 
-function ModuleContainer() {
-  const [value, setValue] = useState(0);
+function ModuleContainer({ open }) {
+  const [value, setValue] = useState(open);
   const [openSend, setOpenSend] = useState(false);
   const [openReceive, setOpenReceive] = useState(false);
+  const history = useHistory();
 
   useEffect(() => {
     if (value === 0) {
@@ -47,6 +53,7 @@ function ModuleContainer() {
 
   const handleChangeValue = (_e, newValue) => {
     setValue(newValue);
+    history.push(newValue === 0 ? "/send" : "/receive");
   };
 
   return (

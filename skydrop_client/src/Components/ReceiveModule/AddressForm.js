@@ -3,12 +3,9 @@ import { useDispatch } from "react-redux";
 import { setReceiveWords } from "../../reducers/dataReducer";
 import FetchButton from "./FetchButton";
 import InputField from "./InputField";
-import { wordMap } from "../../utils/wordMap";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import styled from "styled-components";
-
-export const wordList = wordMap.keys();
 
 const Container = styled.div`
   position: absolute;
@@ -27,7 +24,7 @@ const InputContainer = styled.div`
 
 function Title() {
   return (
-    <Typography component={"span"} variant="h5" color="textSecondary">
+    <Typography component={"span"} variant="h5" color="text.secondary">
       <Box
         letterSpacing={2}
         fontWeight="fontWeightBold"
@@ -41,6 +38,7 @@ function Title() {
 
 const AddressForm = React.forwardRef(({ words }, ref) => {
   const dispatch = useDispatch();
+
   return (
     <Container ref={ref}>
       <Title />
@@ -70,10 +68,7 @@ const AddressForm = React.forwardRef(({ words }, ref) => {
           focus={words[0] && words[1] && words[2] && !words[3]}
         />
       </InputContainer>
-      <FetchButton
-        disabled={!(words[0] && words[1] && words[2] && words[3])}
-        words={words}
-      />
+      <FetchButton words={words} />
     </Container>
   );
 });

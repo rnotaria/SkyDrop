@@ -63,11 +63,11 @@ func (sendHandler *SendHandler) Send(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// # # # # # # # # # Comment below to bypass AWS # # # # # # # # # # #
-	//_, err = sendHandler.S3Service.PutObject(address, zipFile)
-	//hasErr = utils.CheckError(&w, err, http.StatusInternalServerError)
-	//if hasErr {
-	//	return
-	//}
+	_, err = sendHandler.S3Service.PutObject(address, zipFile)
+	hasErr = utils.CheckError(&w, err, http.StatusInternalServerError)
+	if hasErr {
+		return
+	}
 	// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 	err = zipFile.Close()

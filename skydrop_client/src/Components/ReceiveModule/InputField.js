@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react";
-import { wordList } from "./AddressForm";
+import { wordList } from "../../utils/wordMap";
 import TextField from "@mui/material/TextField";
 import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
 

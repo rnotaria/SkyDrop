@@ -8,16 +8,20 @@ import ListItemSecondaryAction from "@mui/material/ListItemSecondaryAction";
 import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
 import Avatar from "@mui/material/Avatar";
+import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 import FolderIcon from "@mui/icons-material/Folder";
 import GetAppIcon from "@mui/icons-material/GetApp";
-import { styled as muiStyled } from "@mui/material/styles";
+import { green } from "@mui/material/colors";
+import { styled } from "@mui/material/styles";
 
-const StyledListItem = muiStyled(ListItem)({
-  "&:hover": {
-    backgroundColor: "#F5F5F5",
-  },
-});
+const StyledListItem = styled(ListItem)(
+  ({ theme }) => `
+  &:hover {
+    background: ${theme.palette.background.third};
+  }
+`
+);
 
 function FileList({ files }) {
   const downloadFile = (name) => {
@@ -26,29 +30,39 @@ function FileList({ files }) {
   };
 
   return (
-    <List dense={true}>
+    <List dense={true} style={{ marginTop: "-8px" }}>
       {files.map((file) => (
         <React.Fragment key={file.name}>
-          <StyledListItem>
-            <ListItemAvatar>
-              <Avatar>
-                <FolderIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText
-              primary={sanitizeName(file.name)}
-              secondary={convertToMB(file.size).toFixed(2) + " MB"}
-            />
-            <ListItemSecondaryAction>
-              <IconButton edge="end" onClick={() => downloadFile(file.name)}>
-                <GetAppIcon style={{ color: "#03C03C" }} />
-              </IconButton>
-            </ListItemSecondaryAction>
-          </StyledListItem>
+          <File file={file} downloadFile={downloadFile} />
           <Divider variant="fullWidth" component="li" light={true} />
         </React.Fragment>
       ))}
     </List>
+  );
+}
+
+function File({ file, downloadFile }) {
+  return (
+    <StyledListItem>
+      <ListItemAvatar>
+        <Avatar>
+          <FolderIcon />
+        </Avatar>
+      </ListItemAvatar>
+      <ListItemText
+        primary={sanitizeName(file.name)}
+        primaryTypographyProps={{ color: "text.primary" }}
+        secondary={convertToMB(file.size).toFixed(2) + " MB"}
+        secondaryTypographyProps={{ color: "text.secondary" }}
+      />
+      <ListItemSecondaryAction>
+        <IconButton edge="end" onClick={() => downloadFile(file.name)}>
+          <Tooltip title={"Download"} arrow>
+            <GetAppIcon style={{ color: green[500] }} />
+          </Tooltip>
+        </IconButton>
+      </ListItemSecondaryAction>
+    </StyledListItem>
   );
 }
 

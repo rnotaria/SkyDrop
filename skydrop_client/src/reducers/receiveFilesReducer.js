@@ -36,7 +36,7 @@ export const addFiles = (newFiles) => {
   };
 };
 
-export const reset = () => {
+export const resetReceive = () => {
   return {
     type: "RESET_RECEIVE",
   };

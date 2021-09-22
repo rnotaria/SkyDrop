@@ -1,13 +1,46 @@
+import React from "react";
+import { Switch, Route, Redirect } from "react-router-dom";
+import Theme from "./Components/Theme";
+import Navbar from "./Components/Navbar";
 import ModuleContainer from "./Components/ModuleContainer";
-import styles from "./styles/styles.module.css";
 import Alert from "./Components/Alert";
+import styled from "styled-components";
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
 
 function App() {
   return (
-    <div className={styles.centeredDiv}>
-      <ModuleContainer />
-      <Alert />
-    </div>
+    <Theme>
+      <Container>
+        <Navbar />
+        <ModuleByRoute />
+        <Alert />
+      </Container>
+    </Theme>
+  );
+}
+
+function ModuleByRoute() {
+  return (
+    <Switch>
+      <Route path="/receive/:id">
+        <ModuleContainer open={1} />
+      </Route>
+      <Route path="/receive">
+        <ModuleContainer open={1} />
+      </Route>
+      <Route path="/send">
+        <ModuleContainer open={0} />
+      </Route>
+      <Route path="/">
+        <Redirect to="/send" />
+      </Route>
+    </Switch>
   );
 }
 

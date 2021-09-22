@@ -4,11 +4,13 @@ import sendService from "../../services/sendService";
 import constants from "../../utils/constants";
 import { getTotalSize } from "../../utils/helperFuncs";
 import {
+  noFiles,
   sizeTooLarge,
   tooManyFiles,
   generalError,
+  filesSent,
 } from "../../reducers/alertReducer";
-import { removeAllFiles } from "../../reducers/sendFilesReducer";
+import { resetSend } from "../../reducers/sendFilesReducer";
 import { setSendAddress } from "../../reducers/dataReducer";
 import LoadingButton from "@mui/lab/LoadingButton";
 import SendIcon from "@mui/icons-material/SendRounded";
@@ -18,6 +20,11 @@ function SendButton({ files }) {
   const dispatch = useDispatch();
 
   const send = () => {
+    if (files.length === 0) {
+      dispatch(noFiles());
+      return;
+    }
+
     const size = getTotalSize(files);
     if (size > constants.MAX_UPLOAD_SIZE) {
       dispatch(sizeTooLarge());
@@ -33,10 +40,11 @@ function SendButton({ files }) {
     sendService
       .send(files)
       .then((res) => {
+        dispatch(filesSent());
         dispatch(setSendAddress(res.data.Address));
         setLoading(false);
         setTimeout(() => {
-          dispatch(removeAllFiles());
+          dispatch(resetSend());
         }, 500);
       })
       .catch((_e) => {
@@ -49,7 +57,6 @@ function SendButton({ files }) {
   return (
     <LoadingButton
       style={{ margin: "24px" }}
-      disabled={files.length === 0}
       variant="contained"
       endIcon={<SendIcon />}
       onClick={send}
