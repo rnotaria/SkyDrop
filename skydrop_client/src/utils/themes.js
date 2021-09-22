@@ -21,7 +21,7 @@ export const lightMode = createTheme({
       secondary: "#eaeef3",
     },
     navbar: {
-      primary: "#f3f6f9",
+      primary: "#eaeef3",
     },
     border: {
       primary: "#d9dee3",
