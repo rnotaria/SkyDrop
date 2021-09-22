@@ -1,4 +1,8 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { resetAll } from "../reducers/dataReducer";
+import { resetSend } from "../reducers/sendFilesReducer";
+import { resetReceive } from "../reducers/receiveFilesReducer";
 import { useHistory } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import IconButton from "@mui/material/IconButton";
@@ -16,15 +20,25 @@ const Spacer = styled.div`
 `;
 
 function Navbar() {
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const goHome = () => {
+    history.push("/");
+    dispatch(resetAll());
+    dispatch(resetSend());
+    dispatch(resetReceive());
+  };
+
   return (
     <AppBar
       position="static"
       style={{ userSelect: "none", background: "#64748B" }}
     >
       <Toolbar variant="dense">
-        <SkyDrop />
+        <SkyDrop goHome={goHome} />
         <Spacer />
-        <Home />
+        <Home goHome={goHome} />
         <Help />
         <GitHub />
         <Report />
@@ -33,11 +47,7 @@ function Navbar() {
   );
 }
 
-function SkyDrop() {
-  const history = useHistory();
-  const goHome = () => {
-    history.push("/");
-  };
+function SkyDrop({ goHome }) {
   return (
     <Typography
       variant="h6"
@@ -50,11 +60,7 @@ function SkyDrop() {
   );
 }
 
-function Home() {
-  const history = useHistory();
-  const goHome = () => {
-    history.push("/");
-  };
+function Home({ goHome }) {
   return (
     <Tooltip title={"Home"} arrow>
       <IconButton size="large" color="inherit" onClick={goHome}>

@@ -10,7 +10,7 @@ import {
   generalError,
   filesSent,
 } from "../../reducers/alertReducer";
-import { removeAllFiles } from "../../reducers/sendFilesReducer";
+import { resetSend } from "../../reducers/sendFilesReducer";
 import { setSendAddress } from "../../reducers/dataReducer";
 import LoadingButton from "@mui/lab/LoadingButton";
 import SendIcon from "@mui/icons-material/SendRounded";
@@ -44,7 +44,7 @@ function SendButton({ files }) {
         dispatch(setSendAddress(res.data.Address));
         setLoading(false);
         setTimeout(() => {
-          dispatch(removeAllFiles());
+          dispatch(resetSend());
         }, 500);
       })
       .catch((_e) => {

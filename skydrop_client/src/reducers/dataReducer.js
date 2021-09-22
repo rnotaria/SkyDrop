@@ -32,6 +32,8 @@ const sendFilesReducer = (state = initialState, action) => {
         ...state,
         receiveWords: [null, null, null, null],
       };
+    case "RESET_ALL":
+      return initialState;
     default:
       return state;
   }
@@ -67,6 +69,12 @@ export const setAllReceiveWords = (words) => {
 export const resetReceiveWords = () => {
   return {
     type: "RESET_RECEIVE_WORDS",
+  };
+};
+
+export const resetAll = () => {
+  return {
+    type: "RESET_ALL",
   };
 };
 
