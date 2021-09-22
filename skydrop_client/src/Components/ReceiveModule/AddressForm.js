@@ -24,7 +24,7 @@ const InputContainer = styled.div`
 
 function Title() {
   return (
-    <Typography component={"span"} variant="h5" color="textSecondary">
+    <Typography component={"span"} variant="h5" color="text.secondary">
       <Box
         letterSpacing={2}
         fontWeight="fontWeightBold"

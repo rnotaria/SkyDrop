@@ -7,7 +7,7 @@ export const darkTheme = createTheme({
     background: {
       first: "#091929",
       second: "#001e3c",
-      third: "#132f4c",
+      third: "#14304b",
     },
     tab: {
       primary: "#121212",

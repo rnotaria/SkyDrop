@@ -3,19 +3,26 @@ import { useDispatch } from "react-redux";
 import { resetSendAddress } from "../../reducers/dataReducer";
 import Button from "@mui/material/Button";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
-import { styled as muiStyled } from "@mui/material/styles";
+import { blueGrey } from "@mui/material/colors";
+import { styled } from "@mui/material/styles";
 
 function RestartButton() {
   const dispatch = useDispatch();
 
-  const StyledButton = muiStyled(Button)(() => ({
-    color: "white",
-    backgroundColor: "#64748B",
-    "&:hover": {
-      backgroundColor: "#465161",
-    },
-  }));
-
+  const StyledButton = styled(Button)(
+    ({ theme }) => `
+    color: white;
+    background: ${
+      theme.palette.mode === "light" ? blueGrey[500] : blueGrey[700]
+    };
+    &:hover {
+      background: ${
+        theme.palette.mode === "light" ? blueGrey[700] : blueGrey[900]
+      };
+    }
+  
+    `
+  );
   return (
     <StyledButton
       style={{ margin: "24px", marginBottom: "48px" }}

@@ -7,7 +7,6 @@ import Collapse from "@mui/material/Collapse";
 import Fab from "@mui/material/Fab";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
-import Typography from "@mui/material/Typography";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListItemSecondaryAction from "@mui/material/ListItemSecondaryAction";
 import ListItemText from "@mui/material/ListItemText";
@@ -37,7 +36,7 @@ const AddFilesButton = styled(Fab)(
   color: white;
   background: ${theme.palette.mode === "light" ? green[500] : green[700]};
   &:hover {
-    background: ${theme.palette.mode === "light" ? green[700] : green[500]};
+    background: ${theme.palette.mode === "light" ? green[700] : green[900]};
   }
 `
 );
