@@ -1,7 +1,7 @@
 const initialState = {
   sendAddress: null,
   receiveWords: [null, null, null, null],
-  theme: true,
+  theme: false,
 };
 
 const sendFilesReducer = (state = initialState, action) => {

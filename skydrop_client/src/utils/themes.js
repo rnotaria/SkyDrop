@@ -1,23 +1,30 @@
 import { createTheme } from "@mui/material/styles";
+import { red, green } from "@mui/material/colors";
 
 export const lightMode = createTheme({
   palette: {
     mode: "light",
+    success: {
+      main: green[500],
+    },
+    error: {
+      main: red[500],
+    },
     background: {
-      main: "#000000",
-      first: "#0a1929",
-      second: "#121212",
-      third: "#222222",
+      main: "#FFFFFF",
+      first: "#ffffff",
+      second: "#f3f6f9",
+      third: "#eaeef3",
     },
     tab: {
-      primary: "#121212",
-      secondary: "#1e1e1e",
+      primary: "#f3f6f9",
+      secondary: "#eaeef3",
     },
     navbar: {
-      primary: "#091929",
+      primary: "#f3f6f9",
     },
     border: {
-      primary: "#1c4671",
+      primary: "#d9dee3",
     },
   },
 });
@@ -29,7 +36,7 @@ export const darkMode = createTheme({
       main: "#000000",
       first: "#0a1929",
       second: "#121212",
-      third: "#222222",
+      third: "#1e1e1e",
     },
     tab: {
       primary: "#121212",

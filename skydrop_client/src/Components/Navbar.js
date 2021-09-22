@@ -61,6 +61,7 @@ function SkyDrop({ goHome }) {
       component="div"
       style={{ cursor: "pointer" }}
       onClick={goHome}
+      color="text.primary"
     >
       SkyDrop
     </Typography>
@@ -83,7 +84,7 @@ function Theme() {
   const mode = store.getState().data.theme;
 
   return (
-    <Tooltip title={"Help"} arrow>
+    <Tooltip title={"Toggle theme"} arrow>
       <IconButton size="large" onClick={() => dispatch(toggleTheme())}>
         {mode ? <LightModeIcon /> : <DarkModeIcon />}
       </IconButton>
