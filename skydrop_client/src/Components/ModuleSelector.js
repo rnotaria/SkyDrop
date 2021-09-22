@@ -2,20 +2,21 @@ import React from "react";
 import AppBar from "@mui/material/AppBar";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import { styled as muiStyled } from "@mui/material/styles";
-import styled from "styled-components";
+import { styled } from "@mui/material/styles";
 
-const Container = styled.div`
+const Container = styled("div")(`
   width: "100%";
-`;
+`);
 
-const StyledTab = muiStyled(Tab)({
-  backgroundColor: "#F5F5F5",
-  transition: "0.2s",
-  "&:hover": {
-    backgroundColor: "#E5E5E5",
-  },
-});
+const StyledTab = styled(Tab)(
+  ({ theme }) => `
+  transition: 0.2s;
+  background-color: ${theme.palette.tab.primary};
+  &:hover {
+    background-color: ${theme.palette.tab.secondary};
+  }
+`
+);
 
 function ModuleSelector({ value, handleChangeValue }) {
   return (

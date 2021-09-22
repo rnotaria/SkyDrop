@@ -7,6 +7,7 @@ import Collapse from "@mui/material/Collapse";
 import Fab from "@mui/material/Fab";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
+import Typography from "@mui/material/Typography";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListItemSecondaryAction from "@mui/material/ListItemSecondaryAction";
 import ListItemText from "@mui/material/ListItemText";
@@ -17,25 +18,25 @@ import IconButton from "@mui/material/IconButton";
 import FolderIcon from "@mui/icons-material/Folder";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
-import { green } from "@mui/material/colors";
-import { styled as muiStyled } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 
-const StyledListItem = muiStyled(ListItem)({
-  "&:hover": {
-    backgroundColor: "#F5F5F5",
-  },
-});
+const StyledListItem = styled(ListItem)(
+  ({ theme }) => `
+  &:hover {
+    background-color: ${theme.palette.background.third};
+  }
+`
+);
 
-const StyledFab = muiStyled(Fab)(() => ({
-  position: "sticky",
-  bottom: 16,
-  left: 16,
-  color: "white",
-  backgroundColor: green[500],
-  "&:hover": {
-    backgroundColor: green[700],
-  },
-}));
+const StyledFab = styled(Fab)(
+  ({ theme }) => `
+  position: sticky;
+  bottom: 16px;
+  left: 16px;
+  color: white;
+  background: ${theme.palette.success.dark};
+`
+);
 
 function FileList({ files, openFileDialog }) {
   const dispatch = useDispatch();
@@ -46,7 +47,7 @@ function FileList({ files, openFileDialog }) {
 
   return (
     <React.Fragment>
-      <List dense={true}>
+      <List dense={true} style={{ marginTop: "-8px" }}>
         <TransitionGroup>
           {files.map((file) => (
             <Collapse key={file.name}>
@@ -75,7 +76,9 @@ function File({ file, removeFileByName }) {
       </ListItemAvatar>
       <ListItemText
         primary={sanitizeName(file.name)}
+        primaryTypographyProps={{ color: "text.primary" }}
         secondary={convertToMB(file.size).toFixed(2) + " MB"}
+        secondaryTypographyProps={{ color: "text.secondary" }}
       />
       <ListItemSecondaryAction>
         <IconButton edge="end" onClick={() => removeFileByName(file.name)}>

@@ -4,9 +4,10 @@ import SendModule from "./SendModule/SendModule";
 import ReceiveModule from "./ReceiveModule/ReceiveModule";
 import ModuleSelector from "./ModuleSelector";
 import Box from "@mui/material/Box";
-import styled from "styled-components";
+import { styled } from "@mui/material/styles";
 
-const Container = styled.div`
+const Container = styled("div")(
+  ({ theme }) => `
   margin: 48px;
   position: relative;
   min-height: 600px;
@@ -16,7 +17,8 @@ const Container = styled.div`
 
   display: flex;
   flex-direction: column;
-`;
+`
+);
 
 const boxStyle = {
   position: "absolute",
@@ -24,7 +26,7 @@ const boxStyle = {
   width: "100%",
   marginTop: "48px",
   boxShadow: 3,
-  bgcolor: "background.paper",
+  bgcolor: "background.first",
   display: "flex",
   flexDirection: "column",
   alignItems: "center",

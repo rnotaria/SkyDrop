@@ -24,10 +24,42 @@ const globalTheme = createTheme({
   },
 });
 
+const lightTheme = createTheme({
+  palette: {
+    success: {
+      main: green[500],
+    },
+    error: {
+      main: red[500],
+    },
+    restart: {
+      main: "#0a1929",
+      light: "#FFFFFF",
+      dark: "#465161",
+      contrastText: "rgba(0, 0, 0, 0.87)",
+    },
+  },
+});
+
+const darkTheme = createTheme({
+  palette: {
+    mode: "dark",
+    background: {
+      first: "#091929",
+      second: "#001e3c",
+      third: "#132f4c",
+    },
+    tab: {
+      primary: "#121212",
+      secondary: "#1e1e1e",
+    },
+  },
+});
+
 function App() {
   return (
     <Container>
-      <ThemeProvider theme={globalTheme}>
+      <ThemeProvider theme={darkTheme}>
         <Navbar />
         <ModuleByRoute />
         <Alert />
