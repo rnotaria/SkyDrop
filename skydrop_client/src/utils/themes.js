@@ -14,11 +14,11 @@ export const lightMode = createTheme({
       main: "#FFFFFF",
       first: "#ffffff",
       second: "#f3f6f9",
-      third: "#eaeef3",
+      third: "#d7dce1",
     },
     tab: {
       primary: "#f3f6f9",
-      secondary: "#eaeef3",
+      secondary: "#d7dce1",
     },
     navbar: {
       primary: "#eaeef3",
