@@ -26,10 +26,13 @@ func (app *App) Init(config *config.Config) {
 	app.ReceiveHandler.S3Service = app.s3Service
 	app.Router = mux.NewRouter()
 	app.setRouters()
-	fmt.Println("Server ready")
+	fmt.Println("Server ready at Port", app.Port)
 }
 
 func (app *App) setRouters() {
+	app.Router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintf(w, "SkyDrop")
+	})
 	app.Router.HandleFunc("/api/send", app.SendHandler.Send).Methods("POST", "OPTIONS")
 	app.Router.HandleFunc("/api/receive", app.ReceiveHandler.Receive).Methods("GET", "OPTIONS")
 }

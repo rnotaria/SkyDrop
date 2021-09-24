@@ -30,7 +30,7 @@ func (receiveHandler *ReceiveHandler) Receive(w http.ResponseWriter, r *http.Req
 
 	address := r.Header.Get("address")
 	if address == "" {
-		err = errors.New("no address recevied")
+		err = errors.New("no address received")
 		hasErr = utils.CheckError(&w, err, http.StatusNotFound)
 		if hasErr {
 			return
