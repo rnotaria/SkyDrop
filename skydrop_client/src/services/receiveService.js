@@ -1,7 +1,6 @@
 import axios from "axios";
 
-const baseUrl = "http://localhost:8080/api/receive";
-// const baseUrl = "https://hidden-headland-29145.herokuapp.com/api/receive";
+const baseUrl = "/api/receive";
 
 const fetchData = async (address) => {
   try {
