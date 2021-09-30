@@ -40,6 +40,6 @@ func (app *App) setRouters() {
 }
 
 func (app *App) Run() {
-	fmt.Println("Server running on Port", app.Port)
+	fmt.Println("Server running on Port:", app.Port)
 	log.Fatal(http.ListenAndServe(":"+app.Port, app.Router))
 }
