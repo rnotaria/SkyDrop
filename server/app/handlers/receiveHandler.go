@@ -18,7 +18,7 @@ func (receiveHandler *ReceiveHandler) Receive(w http.ResponseWriter, r *http.Req
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type, address")
 
-	fmt.Println("\nRequest made to receiveHandler")
+	fmt.Println("\nRequest made to ReceiveHandler")
 
 	var err error
 	var hasErr bool

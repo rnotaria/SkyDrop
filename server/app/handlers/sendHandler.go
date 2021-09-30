@@ -20,7 +20,7 @@ func (sendHandler *SendHandler) Send(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 
-	fmt.Println("\nRequest made to sendHandler")
+	fmt.Println("\nRequest made to SendHandler")
 
 	var err error
 	var hasErr bool
