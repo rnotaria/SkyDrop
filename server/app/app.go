@@ -34,8 +34,8 @@ func (app *App) setRouters() {
 	app.Router.HandleFunc("/api/test", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "SkyDrop Test")
 	})
-	app.Router.HandleFunc("/api/send", app.SendHandler.Send).Methods("POST", "OPTIONS")
-	app.Router.HandleFunc("/api/receive", app.ReceiveHandler.Receive).Methods("GET", "OPTIONS")
+	app.Router.HandleFunc("/api/send", app.SendHandler.Send)
+	app.Router.HandleFunc("/api/receive", app.ReceiveHandler.Receive)
 	app.Router.PathPrefix("/").Handler(&app.FileServerHandler)
 }
 
