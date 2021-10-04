@@ -1,6 +1,10 @@
 import axios from "axios";
+import config from "../utils/config";
 
-const baseUrl = process.env.baseURL || "http://localhost:8080";
+const baseUrl =
+  process.env.NODE_ENV === "development"
+    ? config.development.baseUrl
+    : config.production.baseUrl;
 
 const send = async (files) => {
   let formData = new FormData();
@@ -12,7 +16,8 @@ const send = async (files) => {
   try {
     const res = await axios({
       method: "POST",
-      url: baseUrl + "/api/send",
+      baseURL: baseUrl,
+      url: "/api/send",
       data: formData,
       headers: {
         "Content-Type": "multipart/form-data",

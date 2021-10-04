@@ -1,12 +1,17 @@
 import axios from "axios";
+import config from "../utils/config";
 
-const baseUrl = process.env.baseURL || "http://localhost:8080";
+const baseUrl =
+  process.env.NODE_ENV === "development"
+    ? config.development.baseUrl
+    : config.production.baseUrl;
 
 const fetchData = async (address) => {
   try {
     const res = await axios({
       method: "GET",
-      url: baseUrl + "/api/receive",
+      baseURL: baseUrl,
+      url: "/api/receive",
       responseType: "blob",
       headers: {
         address: address,
