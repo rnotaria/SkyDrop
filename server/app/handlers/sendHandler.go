@@ -19,8 +19,8 @@ type SendHandler struct {
 func (sendHandler *SendHandler) Send(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("\nRequest made to SendHandler")
 
-	//w.Header().Set("Access-Control-Allow-Origin", "*")
-	//w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 
 	var err error
 	var hasErr bool
