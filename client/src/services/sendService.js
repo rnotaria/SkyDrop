@@ -3,6 +3,8 @@ import axios from "axios";
 const baseUrl = "/api/send";
 
 const send = async (files) => {
+  console.log(window.location.hostname + baseUrl);
+
   let formData = new FormData();
 
   files.forEach((file) => {
