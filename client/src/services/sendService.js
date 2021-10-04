@@ -12,7 +12,7 @@ const send = async (files) => {
   try {
     const res = await axios({
       method: "POST",
-      url: baseUrl,
+      url: window.location.hostname + baseUrl,
       data: formData,
       headers: {
         "Content-Type": "multipart/form-data",
