@@ -1,10 +1,8 @@
 import axios from "axios";
 
-const baseUrl = "/api/send";
+const baseUrl = process.env.baseURL || "http://localhost:8080";
 
 const send = async (files) => {
-  console.log(window.location.hostname + baseUrl);
-
   let formData = new FormData();
 
   files.forEach((file) => {
@@ -14,7 +12,7 @@ const send = async (files) => {
   try {
     const res = await axios({
       method: "POST",
-      url: window.location.hostname + baseUrl,
+      url: baseUrl + "/api/send",
       data: formData,
       headers: {
         "Content-Type": "multipart/form-data",
