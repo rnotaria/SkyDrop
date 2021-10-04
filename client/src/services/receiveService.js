@@ -1,13 +1,17 @@
 import axios from "axios";
+import config from "../utils/config";
 
-const baseUrl = "http://localhost:8080/api/receive";
-// const baseUrl = "https://hidden-headland-29145.herokuapp.com/api/receive";
+const baseUrl =
+  process.env.NODE_ENV === "development"
+    ? config.development.baseUrl
+    : config.production.baseUrl;
 
 const fetchData = async (address) => {
   try {
     const res = await axios({
       method: "GET",
-      url: baseUrl,
+      baseURL: baseUrl,
+      url: "/api/receive",
       responseType: "blob",
       headers: {
         address: address,

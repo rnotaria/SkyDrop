@@ -15,10 +15,10 @@ type ReceiveHandler struct {
 }
 
 func (receiveHandler *ReceiveHandler) Receive(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("\nRequest made to ReceiveHandler")
+
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type, address")
-
-	fmt.Println("\nRequest made to receiveHandler")
 
 	var err error
 	var hasErr bool
@@ -30,7 +30,7 @@ func (receiveHandler *ReceiveHandler) Receive(w http.ResponseWriter, r *http.Req
 
 	address := r.Header.Get("address")
 	if address == "" {
-		err = errors.New("no address recevied")
+		err = errors.New("no address received")
 		hasErr = utils.CheckError(&w, err, http.StatusNotFound)
 		if hasErr {
 			return
