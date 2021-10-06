@@ -11,7 +11,7 @@ const Container = styled.div`
   position: absolute;
   height: 100%;
   width: 100%;
-  margin-top: 60px;
+  margin-top: 24px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -19,8 +19,7 @@ const Container = styled.div`
 
 const InputContainer = styled.div`
   margin-top: 16px;
-  margin-bottom: 60px;
-
+  margin-bottom: 24px;
   width: 80%;
   display: flex;
   flex-direction: column;
