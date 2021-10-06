@@ -18,7 +18,7 @@ const Container = styled.div`
 `;
 
 const TextContainer = styled.div`
-  margin: 24px;
+  margin: 16px;
 `;
 
 const Address = React.forwardRef(({ address }, ref) => {
