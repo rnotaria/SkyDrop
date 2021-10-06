@@ -16,7 +16,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow: hidden;
+  overflow: hidden; // For sliding animation when switching modules
 `;
 function ReceiveModule({ open }) {
   const store = useStore();
