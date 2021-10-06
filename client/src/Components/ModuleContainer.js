@@ -46,7 +46,6 @@ const boxStyle = {
   flexDirection: "column",
   alignItems: "center",
   zIndex: 0,
-  overflow: "hidden",
 };
 
 function ModuleContainer({ open }) {

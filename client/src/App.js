@@ -7,8 +7,8 @@ import Alert from "./Components/Alert";
 import styled from "styled-components";
 
 const Container = styled.div`
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -17,7 +17,7 @@ const Container = styled.div`
 function App() {
   return (
     <Theme>
-      <Container className="safari_only">
+      <Container>
         <Navbar />
         <ModuleByRoute />
         <Alert />

@@ -14,7 +14,7 @@ const Container = styled.div`
   align-items: center;
   z-index: ${(props) =>
     props.open ? 1 : 0}; // Need to render in front of receive module
-  overflow: hidden;
+  overflow: hidden; // For sliding animation when switching modules
 `;
 
 function SendModule({ open }) {
