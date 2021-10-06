@@ -37,7 +37,7 @@ function InputField({ label, value, handleChange, focus }) {
       open={open} // opens only when input>0 for better performance
       onClose={() => setOpen(false)}
       // # # # # # # # # # # # # # # # # # # # # # # # #
-      style={{ width: 250, marginBottom: "12px" }}
+      style={{ width: "100%", maxWidth: "250px", marginBottom: "12px" }}
       value={value}
       onChange={handleChange}
       inputValue={inputValue}
