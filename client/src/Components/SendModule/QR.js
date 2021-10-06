@@ -6,11 +6,14 @@ import { styled, useTheme } from "@mui/material/styles";
 const QRContainer = styled("div")(
   ({ theme }) => `
   margin: 24px;
-  width: 60%;
+  width: 50%;
+  max-width: 200px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 4px solid ${theme.palette.border.primary};
+  border: 2px solid ${theme.palette.border.primary};
+  border-radius: 4px;
+  padding: 8px;
 
   svg {
     cursor: pointer;

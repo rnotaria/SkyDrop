@@ -17,7 +17,7 @@ const Container = styled.div`
 function App() {
   return (
     <Theme>
-      <Container>
+      <Container className="safari_only">
         <Navbar />
         <ModuleByRoute />
         <Alert />
