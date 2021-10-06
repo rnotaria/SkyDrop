@@ -20,6 +20,11 @@ const Container = styled.div`
 const InputContainer = styled.div`
   margin-top: 16px;
   margin-bottom: 60px;
+
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 function Title() {

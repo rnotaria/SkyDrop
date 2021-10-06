@@ -25,7 +25,7 @@ function RestartButton() {
   );
   return (
     <StyledButton
-      style={{ margin: "24px", marginBottom: "48px" }}
+      style={{ margin: "8px", marginBottom: "48px" }}
       variant="contained"
       endIcon={<RestartAltIcon />}
       onClick={() => dispatch(resetSendAddress())}
