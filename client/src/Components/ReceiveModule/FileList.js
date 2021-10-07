@@ -12,7 +12,8 @@ import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 import FolderIcon from "@mui/icons-material/Folder";
 import GetAppIcon from "@mui/icons-material/GetApp";
-import { green } from "@mui/material/colors";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import { green, lightBlue } from "@mui/material/colors";
 import { styled } from "@mui/material/styles";
 
 const StyledListItem = styled(ListItem)(
@@ -41,7 +42,8 @@ function FileList({ files }) {
   );
 }
 
-function File({ file, downloadFile }) {
+function File({ file, downloadFile, isImage = false }) {
+  console.log(file);
   return (
     <StyledListItem>
       <ListItemAvatar>
@@ -56,6 +58,13 @@ function File({ file, downloadFile }) {
         secondaryTypographyProps={{ color: "text.secondary" }}
       />
       <ListItemSecondaryAction>
+        {isImage ? (
+          <IconButton edge="end" style={{ marginRight: "0px" }}>
+            <Tooltip title={"View Image"} arrow>
+              <VisibilityIcon style={{ color: lightBlue[500] }} />
+            </Tooltip>
+          </IconButton>
+        ) : null}
         <IconButton edge="end" onClick={() => downloadFile(file.name)}>
           <Tooltip title={"Download"} arrow>
             <GetAppIcon style={{ color: green[500] }} />
