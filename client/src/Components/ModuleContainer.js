@@ -35,18 +35,20 @@ const MobileContainer = styled("div")(
 `
 );
 
-const boxStyle = {
-  position: "absolute",
-  height: "calc(100% - 48px)", // account for TabPanel
-  width: "100%",
-  marginTop: "48px",
-  boxShadow: 3,
-  bgcolor: "background.first",
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  zIndex: 0,
-};
+const StyledBox = styled(Box)(
+  ({ theme }) => `
+  position: absolute;
+  height: calc(100% - 48px); // account for TabPanel
+  width: 100%;
+  margin-top: 48px;
+  background: ${theme.palette.background.first};
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 0;
+  box-shadow: ${theme.shadows[4]}
+  `
+);
 
 function ModuleContainer({ open }) {
   const [value, setValue] = useState(open);
@@ -73,18 +75,18 @@ function ModuleContainer({ open }) {
   return isMobile ? (
     <MobileContainer>
       <ModuleSelector value={value} handleChangeValue={handleChangeValue} />
-      <Box {...boxStyle}>
+      <StyledBox>
         <SendModule open={openSend} />
         <ReceiveModule open={openReceive} />
-      </Box>
+      </StyledBox>
     </MobileContainer>
   ) : (
     <Container>
       <ModuleSelector value={value} handleChangeValue={handleChangeValue} />
-      <Box {...boxStyle}>
+      <StyledBox>
         <SendModule open={openSend} />
         <ReceiveModule open={openReceive} />
-      </Box>
+      </StyledBox>
     </Container>
   );
 }
