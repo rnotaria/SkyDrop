@@ -43,7 +43,6 @@ function FileList({ files }) {
 }
 
 function File({ file, downloadFile, isImage = false }) {
-  console.log(file);
   return (
     <StyledListItem>
       <ListItemAvatar>
