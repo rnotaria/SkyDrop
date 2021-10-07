@@ -55,7 +55,7 @@ function ModuleContainer({ open }) {
   const [openSend, setOpenSend] = useState(false);
   const [openReceive, setOpenReceive] = useState(false);
   const history = useHistory();
-  const isMobile = useMediaQuery("(max-width: 450px), (max-height: 750px)");
+  const isMobile = useMediaQuery("(max-width: 450px), (max-height: 700px)");
 
   useEffect(() => {
     if (value === 0) {
