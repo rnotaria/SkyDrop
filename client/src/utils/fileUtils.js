@@ -38,6 +38,7 @@ export const getFilesFromZip = async (zipFile) => {
 
 export const isImage = (file) => {
   const validExtensions = ["png", "jpg", "jpeg", "gif"];
-  const extension = file.name.split(".")[1];
+  var split = file.name.split(".");
+  var extension = split[split.length - 1];
   return validExtensions.includes(extension);
 };
