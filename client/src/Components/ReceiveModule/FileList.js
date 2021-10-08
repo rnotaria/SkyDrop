@@ -1,4 +1,5 @@
 import React from "react";
+import { isImage } from "../../utils/fileUtils";
 import { convertToMB, sanitizeName } from "../../utils/helperFuncs";
 import { saveAs } from "file-saver";
 import List from "@mui/material/List";
@@ -24,17 +25,12 @@ const StyledListItem = styled(ListItem)(
 `
 );
 
-function FileList({ files }) {
-  const downloadFile = (name) => {
-    const file = files.find((f) => f.name === name);
-    saveAs(file);
-  };
-
+function FileList({ files, setImage }) {
   return (
     <List dense={true} style={{ marginTop: "-8px" }}>
       {files.map((file) => (
         <React.Fragment key={file.name}>
-          <File file={file} downloadFile={downloadFile} />
+          <File file={file} setImage={setImage} />
           <Divider variant="fullWidth" component="li" light={true} />
         </React.Fragment>
       ))}
@@ -42,7 +38,7 @@ function FileList({ files }) {
   );
 }
 
-function File({ file, downloadFile, isImage = false }) {
+function File({ file, setImage }) {
   return (
     <StyledListItem>
       <ListItemAvatar>
@@ -57,14 +53,18 @@ function File({ file, downloadFile, isImage = false }) {
         secondaryTypographyProps={{ color: "text.secondary" }}
       />
       <ListItemSecondaryAction>
-        {isImage ? (
-          <IconButton edge="end" style={{ marginRight: "0px" }}>
+        {isImage(file) ? (
+          <IconButton
+            edge="end"
+            style={{ marginRight: "0px" }}
+            onClick={() => setImage(file)}
+          >
             <Tooltip title={"View Image"} arrow>
               <VisibilityIcon style={{ color: lightBlue[500] }} />
             </Tooltip>
           </IconButton>
         ) : null}
-        <IconButton edge="end" onClick={() => downloadFile(file.name)}>
+        <IconButton edge="end" onClick={() => saveAs(file)}>
           <Tooltip title={"Download"} arrow>
             <GetAppIcon style={{ color: green[500] }} />
           </Tooltip>
