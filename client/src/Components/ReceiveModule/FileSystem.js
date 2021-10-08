@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import FileList from "./FileList";
+import ImagePreview from "./ImagePreview";
 import RestartButton from "./RestartButton";
 import DownloadAllButton from "./DownloadAllButton";
 import { styled } from "@mui/material/styles";
@@ -29,10 +30,13 @@ const FileListContainer = styled("div")(
 );
 
 const FileSystem = React.forwardRef(({ files }, ref) => {
+  const [image, setImage] = useState(null);
+
   return (
     <Container ref={ref}>
       <FileListContainer>
-        <FileList files={files.files} />
+        <FileList files={files.files} setImage={setImage} />
+        <ImagePreview image={image} resetImage={() => setImage(null)} />
       </FileListContainer>
       <DownloadAllButton zipFile={files.zipFile} />
       <RestartButton />
