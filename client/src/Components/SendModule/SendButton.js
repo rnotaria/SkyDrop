@@ -49,7 +49,7 @@ function SendButton({ files }) {
         }, 500);
       })
       .catch((error) => {
-        if (error.response.status === 429) {
+        if (error.response && error.response.status === 429) {
           dispatch(rateLimit);
         } else {
           dispatch(generalError());

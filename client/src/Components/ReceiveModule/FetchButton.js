@@ -43,7 +43,7 @@ function FetchButton({ words }) {
       .catch((error) => {
         if (error.response && error.response.status === 404) {
           dispatch(addressNotFound());
-        } else if (error.response.status === 429) {
+        } else if (error.response && error.response.status === 429) {
           dispatch(rateLimit);
         } else {
           dispatch(generalError());
