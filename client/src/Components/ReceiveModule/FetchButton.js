@@ -7,6 +7,7 @@ import {
   generalError,
   filesRetreived,
   receiveFormIncomplete,
+  rateLimit,
 } from "../../reducers/alertReducer";
 import { getZipFromResponse, getFilesFromZip } from "../../utils/fileUtils";
 import receiveService from "../../services/receiveService";
@@ -42,6 +43,8 @@ function FetchButton({ words }) {
       .catch((error) => {
         if (error.response && error.response.status === 404) {
           dispatch(addressNotFound());
+        } else if (error.response.status === 429) {
+          dispatch(rateLimit);
         } else {
           dispatch(generalError());
         }
