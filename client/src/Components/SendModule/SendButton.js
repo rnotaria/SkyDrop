@@ -9,6 +9,7 @@ import {
   tooManyFiles,
   generalError,
   filesSent,
+  rateLimit,
 } from "../../reducers/alertReducer";
 import { resetSend } from "../../reducers/sendFilesReducer";
 import { setSendAddress } from "../../reducers/dataReducer";
@@ -47,8 +48,12 @@ function SendButton({ files }) {
           dispatch(resetSend());
         }, 500);
       })
-      .catch((_e) => {
-        dispatch(generalError());
+      .catch((error) => {
+        if (error.response.status === 429) {
+          dispatch(rateLimit);
+        } else {
+          dispatch(generalError());
+        }
         setLoading(false);
         return;
       });

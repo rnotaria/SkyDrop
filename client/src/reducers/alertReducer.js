@@ -21,6 +21,8 @@ const alertReducer = (state = null, action) => {
       return { ...action.data };
     case "FILES_RETREIVED":
       return { ...action.data };
+    case "RATE_LIMIT":
+      return { ...action.data };
     case "RESET":
       return null;
     default:
@@ -118,6 +120,16 @@ export const filesRetreived = () => {
     data: {
       message: "Files retreived!",
       severity: "success",
+    },
+  };
+};
+
+export const rateLimit = () => {
+  return {
+    type: "RATE_LIMIT",
+    data: {
+      message: "Rate limit exceeded!",
+      severity: "error",
     },
   };
 };
