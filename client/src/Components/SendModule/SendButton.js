@@ -50,7 +50,7 @@ function SendButton({ files }) {
       })
       .catch((error) => {
         if (error.response && error.response.status === 429) {
-          dispatch(rateLimit);
+          dispatch(rateLimit());
         } else {
           dispatch(generalError());
         }
