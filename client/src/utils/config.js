@@ -3,7 +3,7 @@ const config = {
     baseUrl: "http://localhost:8080",
   },
   production: {
-    baseUrl: "https://www.skydrop.ai",
+    baseUrl: "https://www.skydrop.dev",
   },
 };
 

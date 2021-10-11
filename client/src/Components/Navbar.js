@@ -63,7 +63,7 @@ function SkyDrop({ goHome }) {
       onClick={goHome}
       color="text.primary"
     >
-      SkyDrop.ai
+      SkyDrop
     </Typography>
   );
 }
