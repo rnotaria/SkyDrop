@@ -27,6 +27,6 @@ On a non-mobile device, you can manually fill out the address form in the **Rece
 
 If the address exists, it will fetch and display the files. Here you can download each file individually by clicking the *Download* icon next to each file. You can also click the *Download All* button to download a ZIP.
 
-<img src="/README/viewimage.PNG" alt="viewimage" width="200"/>
+<img src="/README/viewimage.PNG" alt="viewimage" width="400"/>
 
 If the file is an image, you can click the *View Image* icon to preview the image.
