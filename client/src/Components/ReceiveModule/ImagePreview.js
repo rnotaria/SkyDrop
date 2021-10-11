@@ -12,6 +12,7 @@ const ImageContainer = styled.div`
   transform: translate(-50%, -50%);
   max-width: 50vw;
   max-height: 50vh;
+  user-select: none;
 
   img {
     max-width: 50vw;
