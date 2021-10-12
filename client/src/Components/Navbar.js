@@ -15,6 +15,7 @@ import HelpIcon from "@mui/icons-material/Help";
 import HomeIcon from "@mui/icons-material/Home";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import BugReportIcon from "@mui/icons-material/BugReport";
+import logo from "../utils/logo.png";
 import { styled } from "@mui/material/styles";
 
 const Spacer = styled("div")`
@@ -56,7 +57,14 @@ function Navbar() {
 
 function SkyDrop({ goHome }) {
   return (
-    <NavLink to="/" style={{ textDecoration: "none" }}>
+    <NavLink to="/" style={{ textDecoration: "none", display: "flex" }}>
+      <img
+        src={logo}
+        alt="logo"
+        width="20"
+        height="25"
+        style={{ paddingTop: "4px", paddingRight: "4px" }}
+      />
       <Typography
         variant="h6"
         component="div"
