@@ -4,9 +4,6 @@ Inspired by Apple's AirDrop, I wanted a simple method to transfer files cross-pl
 - [SkyDrop](#skydrop)
   * [Demo](#demo)
   * [How It Works](#how-it-works)
-    + [Address Generation](#address-generation)
-    + [AWS](#aws)
-    + [Cloudflare](#cloudflare)
   * [Upcoming Features](#upcoming-features)
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
