@@ -49,7 +49,7 @@ function Navbar() {
         <Theme />
         <Help />
         <GitHub />
-        <Report />
+        {/* <Report /> */}
       </Toolbar>
     </StyledAppBar>
   );
@@ -106,7 +106,11 @@ function Theme() {
 
 function Help() {
   return (
-    <a href="https://github.com/rnotaria/SkyDrop#demo" target="_blank">
+    <a
+      href="https://github.com/rnotaria/SkyDrop#demo"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
       <Tooltip title={"Help"} arrow>
         <IconButton size="large">
           <HelpIcon />
@@ -118,7 +122,11 @@ function Help() {
 
 function GitHub() {
   return (
-    <a href="https://github.com/rnotaria/SkyDrop" target="_blank">
+    <a
+      href="https://github.com/rnotaria/SkyDrop"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
       <Tooltip title={"View source code"} arrow>
         <IconButton size="large">
           <GitHubIcon />
@@ -128,16 +136,20 @@ function GitHub() {
   );
 }
 
-function Report() {
-  return (
-    <a href="https://github.com/rnotaria/SkyDrop/issues" target="_blank">
-      <Tooltip title={"Report a bug"} arrow>
-        <IconButton size="large">
-          <BugReportIcon />
-        </IconButton>
-      </Tooltip>
-    </a>
-  );
-}
+// function Report() {
+//   return (
+//     <a
+//       href="https://github.com/rnotaria/SkyDrop/issues"
+//       target="_blank"
+//       rel="noopener noreferrer"
+//     >
+//       <Tooltip title={"Report a bug"} arrow>
+//         <IconButton size="large">
+//           <BugReportIcon />
+//         </IconButton>
+//       </Tooltip>
+//     </a>
+//   );
+// }
 
 export default Navbar;
