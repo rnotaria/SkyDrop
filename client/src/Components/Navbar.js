@@ -3,7 +3,7 @@ import { useStore, useDispatch } from "react-redux";
 import { resetAll, toggleTheme } from "../reducers/dataReducer";
 import { resetSend } from "../reducers/sendFilesReducer";
 import { resetReceive } from "../reducers/receiveFilesReducer";
-import { useHistory } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import IconButton from "@mui/material/IconButton";
 import Toolbar from "@mui/material/Toolbar";
@@ -11,6 +11,7 @@ import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
+import HelpIcon from "@mui/icons-material/Help";
 import HomeIcon from "@mui/icons-material/Home";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import BugReportIcon from "@mui/icons-material/BugReport";
@@ -31,10 +32,8 @@ const StyledAppBar = styled(AppBar)(
 
 function Navbar() {
   const dispatch = useDispatch();
-  const history = useHistory();
 
   const goHome = () => {
-    history.push("/");
     dispatch(resetAll());
     dispatch(resetSend());
     dispatch(resetReceive());
@@ -47,6 +46,7 @@ function Navbar() {
         <Spacer />
         <Home goHome={goHome} />
         <Theme />
+        <Help />
         <GitHub />
         <Report />
       </Toolbar>
@@ -56,25 +56,29 @@ function Navbar() {
 
 function SkyDrop({ goHome }) {
   return (
-    <Typography
-      variant="h6"
-      component="div"
-      style={{ cursor: "pointer" }}
-      onClick={goHome}
-      color="text.primary"
-    >
-      SkyDrop
-    </Typography>
+    <NavLink to="/" style={{ textDecoration: "none" }}>
+      <Typography
+        variant="h6"
+        component="div"
+        style={{ cursor: "pointer" }}
+        color="text.primary"
+        onClick={goHome}
+      >
+        SkyDrop
+      </Typography>
+    </NavLink>
   );
 }
 
 function Home({ goHome }) {
   return (
-    <Tooltip title={"Home"} arrow>
-      <IconButton size="large" onClick={goHome}>
-        <HomeIcon />
-      </IconButton>
-    </Tooltip>
+    <NavLink to="/" style={{ textDecoration: "none" }}>
+      <Tooltip title={"Home"} arrow>
+        <IconButton size="large" onClick={goHome}>
+          <HomeIcon />
+        </IconButton>
+      </Tooltip>
+    </NavLink>
   );
 }
 
@@ -87,6 +91,21 @@ function Theme() {
     <Tooltip title={"Toggle theme"} arrow>
       <IconButton size="large" onClick={() => dispatch(toggleTheme())}>
         {mode ? <LightModeIcon /> : <DarkModeIcon />}
+      </IconButton>
+    </Tooltip>
+  );
+}
+
+function Help() {
+  return (
+    <Tooltip title={"Help"} arrow>
+      <IconButton
+        size="large"
+        onClick={() => {
+          window.open("https://github.com/rnotaria/SkyDrop#demo");
+        }}
+      >
+        <HelpIcon />
       </IconButton>
     </Tooltip>
   );
