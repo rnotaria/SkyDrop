@@ -3,7 +3,7 @@ import { useStore, useDispatch } from "react-redux";
 import { resetAll, toggleTheme } from "../reducers/dataReducer";
 import { resetSend } from "../reducers/sendFilesReducer";
 import { resetReceive } from "../reducers/receiveFilesReducer";
-import { useHistory } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import IconButton from "@mui/material/IconButton";
 import Toolbar from "@mui/material/Toolbar";
@@ -11,9 +11,11 @@ import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
+import HelpIcon from "@mui/icons-material/Help";
 import HomeIcon from "@mui/icons-material/Home";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import BugReportIcon from "@mui/icons-material/BugReport";
+import logo from "../utils/logo.png";
 import { styled } from "@mui/material/styles";
 
 const Spacer = styled("div")`
@@ -31,10 +33,8 @@ const StyledAppBar = styled(AppBar)(
 
 function Navbar() {
   const dispatch = useDispatch();
-  const history = useHistory();
 
   const goHome = () => {
-    history.push("/");
     dispatch(resetAll());
     dispatch(resetSend());
     dispatch(resetReceive());
@@ -47,6 +47,7 @@ function Navbar() {
         <Spacer />
         <Home goHome={goHome} />
         <Theme />
+        <Help />
         <GitHub />
         <Report />
       </Toolbar>
@@ -56,25 +57,36 @@ function Navbar() {
 
 function SkyDrop({ goHome }) {
   return (
-    <Typography
-      variant="h6"
-      component="div"
-      style={{ cursor: "pointer" }}
-      onClick={goHome}
-      color="text.primary"
-    >
-      SkyDrop
-    </Typography>
+    <NavLink to="/" style={{ textDecoration: "none", display: "flex" }}>
+      <img
+        src={logo}
+        alt="logo"
+        width="20"
+        height="25"
+        style={{ paddingTop: "4px", paddingRight: "4px" }}
+      />
+      <Typography
+        variant="h6"
+        component="div"
+        style={{ cursor: "pointer" }}
+        color="text.primary"
+        onClick={goHome}
+      >
+        SkyDrop
+      </Typography>
+    </NavLink>
   );
 }
 
 function Home({ goHome }) {
   return (
-    <Tooltip title={"Home"} arrow>
-      <IconButton size="large" onClick={goHome}>
-        <HomeIcon />
-      </IconButton>
-    </Tooltip>
+    <NavLink to="/" style={{ textDecoration: "none" }}>
+      <Tooltip title={"Home"} arrow>
+        <IconButton size="large" onClick={goHome}>
+          <HomeIcon />
+        </IconButton>
+      </Tooltip>
+    </NavLink>
   );
 }
 
@@ -92,33 +104,39 @@ function Theme() {
   );
 }
 
+function Help() {
+  return (
+    <a href="https://github.com/rnotaria/SkyDrop#demo" target="_blank">
+      <Tooltip title={"Help"} arrow>
+        <IconButton size="large">
+          <HelpIcon />
+        </IconButton>
+      </Tooltip>
+    </a>
+  );
+}
+
 function GitHub() {
   return (
-    <Tooltip title={"View source code"} arrow>
-      <IconButton
-        size="large"
-        onClick={() => {
-          window.open("https://github.com/rnotaria/SkyDrop");
-        }}
-      >
-        <GitHubIcon />
-      </IconButton>
-    </Tooltip>
+    <a href="https://github.com/rnotaria/SkyDrop" target="_blank">
+      <Tooltip title={"View source code"} arrow>
+        <IconButton size="large">
+          <GitHubIcon />
+        </IconButton>
+      </Tooltip>
+    </a>
   );
 }
 
 function Report() {
   return (
-    <Tooltip title={"Report a bug"} arrow>
-      <IconButton
-        size="large"
-        onClick={() => {
-          window.open("https://github.com/rnotaria/SkyDrop/issues");
-        }}
-      >
-        <BugReportIcon />
-      </IconButton>
-    </Tooltip>
+    <a href="https://github.com/rnotaria/SkyDrop/issues" target="_blank">
+      <Tooltip title={"Report a bug"} arrow>
+        <IconButton size="large">
+          <BugReportIcon />
+        </IconButton>
+      </Tooltip>
+    </a>
   );
 }
 
