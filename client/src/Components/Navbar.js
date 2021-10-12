@@ -106,46 +106,37 @@ function Theme() {
 
 function Help() {
   return (
-    <Tooltip title={"Help"} arrow>
-      <IconButton
-        size="large"
-        onClick={() => {
-          window.open("https://github.com/rnotaria/SkyDrop#demo");
-        }}
-      >
-        <HelpIcon />
-      </IconButton>
-    </Tooltip>
+    <a href="https://github.com/rnotaria/SkyDrop#demo" target="_blank">
+      <Tooltip title={"Help"} arrow>
+        <IconButton size="large">
+          <HelpIcon />
+        </IconButton>
+      </Tooltip>
+    </a>
   );
 }
 
 function GitHub() {
   return (
-    <Tooltip title={"View source code"} arrow>
-      <IconButton
-        size="large"
-        onClick={() => {
-          window.open("https://github.com/rnotaria/SkyDrop");
-        }}
-      >
-        <GitHubIcon />
-      </IconButton>
-    </Tooltip>
+    <a href="https://github.com/rnotaria/SkyDrop" target="_blank">
+      <Tooltip title={"View source code"} arrow>
+        <IconButton size="large">
+          <GitHubIcon />
+        </IconButton>
+      </Tooltip>
+    </a>
   );
 }
 
 function Report() {
   return (
-    <Tooltip title={"Report a bug"} arrow>
-      <IconButton
-        size="large"
-        onClick={() => {
-          window.open("https://github.com/rnotaria/SkyDrop/issues");
-        }}
-      >
-        <BugReportIcon />
-      </IconButton>
-    </Tooltip>
+    <a href="https://github.com/rnotaria/SkyDrop/issues" target="_blank">
+      <Tooltip title={"Report a bug"} arrow>
+        <IconButton size="large">
+          <BugReportIcon />
+        </IconButton>
+      </Tooltip>
+    </a>
   );
 }
 
