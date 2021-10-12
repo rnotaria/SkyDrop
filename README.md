@@ -1,5 +1,5 @@
 # SkyDrop
-Inspired by Apple's AirDrop, I wanted a simple method to transfer files cross-platform without the hassle of logging into emails or file hosting services. 
+Inspired by Apple's AirDrop, I wanted a simple way to transfer files cross-platform without the hassle of logging into emails or file hosting services. 
 
 ***Table of Contents***
   * [Demo](#demo)
