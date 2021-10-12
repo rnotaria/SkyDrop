@@ -6,9 +6,6 @@ Inspired by Apple's AirDrop, I wanted a simple method to transfer files cross-pl
   * [How It Works](#how-it-works)
   * [Upcoming Features](#upcoming-features)
 
-<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
-
-
 ## Demo
 
 [Link to app](https://www.skydrop.dev)
