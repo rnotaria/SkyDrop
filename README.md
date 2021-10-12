@@ -42,3 +42,17 @@ If the address exists, it will fetch and display the files. Here you can downloa
 </p>
 
 If the file is an image, you can click the *View Image* icon to preview the image.
+
+## How It Works
+
+### Address Generation
+One of the requirements for this project was to make file transfers quick and simple. I found the best way to do this is to scrap the login system that file hosting services typically use. SkyDrop avoids user authentication by using Go's [crypto/rand](https://pkg.go.dev/crypto/rand) package to randomly select four words from the [BIP39](https://github.com/bitcoin/bips/blob/master/bip-0039/english.txt) word list. Together, these words form an "address". Remembering four words is simple while also providing over 17 trillion unique address combinations making the chances of collision slim to none.
+
+### AWS
+An AWS S3 bucket is used to store files sent through SkyDrop. All files sent are first archived into a ZIP file server side before being sent to S3. This reduces cost by reducing the number of `GET` and `POST` requests made to AWS. The bucket is configured with a Lifecycle Rule that deletes objects after 24 hours to further reduce cost and to emphasize that this app is for file **transfering** not file **hosting**.
+
+### Cloudflare
+One potential issue that needed to be addressed was if the application were to be DDOS attacked. This could allow attackers to spam the server by either sending large amounts of data to AWS racking up charges or by making several attempts to guess an address and exposing user data (**You should not send personal files regardless**). To combat this, I routed my app to Cloudflare to act as a sort of proxy server. Cloudflare rate limits users who make too many requests in a short time while also protecting the app against bots.
+
+
+## Upcoming Features
